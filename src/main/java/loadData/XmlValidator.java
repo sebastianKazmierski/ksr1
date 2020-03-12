@@ -1,9 +1,5 @@
 package loadData;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.FileReader;
-import java.io.Reader;
 import java.nio.CharBuffer;
 
 public class XmlValidator implements FileValidator {

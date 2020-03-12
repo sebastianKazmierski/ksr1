@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Article {
     private String content;
-    private String place;
+    private List<String> place;
     private List<String> contentTokens;
+
+
 }

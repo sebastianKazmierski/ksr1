@@ -10,6 +10,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.nio.CharBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class XmlParser {
     public void parse(CharBuffer charBuffer) {
@@ -31,14 +33,18 @@ public class XmlParser {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
-                    String content, place;
+                    String content;
+                    List<String> places = new ArrayList<>();;
                     try {
                         content = eElement.getElementsByTagName("BODY").item(0).getTextContent();
-                        place = eElement.getElementsByTagName("PLACES").item(0).getTextContent();
+                        for (int i = 0; i < eElement.getElementsByTagName("PLACES").item(0).getChildNodes().getLength(); i++) {
+                            places.add(eElement.getElementsByTagName("PLACES").item(0).getChildNodes().item(i).getTextContent());
+
+                        }
                     } catch (NullPointerException e) {
                         continue;
                     }
-                    System.out.println(place);
+                    System.out.println(places);
                     System.out.println(content);
                 }
             }
