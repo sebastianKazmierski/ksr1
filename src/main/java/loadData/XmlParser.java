@@ -44,6 +44,7 @@ public class XmlParser {
                     } catch (NullPointerException e) {
                         continue;
                     }
+
                     System.out.println(places);
                     System.out.println(content);
                 }
