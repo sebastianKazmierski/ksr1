@@ -4,10 +4,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
 import org.apache.commons.io.IOUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
+import org.w3c.dom.*;
 
 import java.io.*;
 import java.nio.CharBuffer;
@@ -32,7 +29,9 @@ public class ReadXMLFile {
                 if (current == 0x9 || current == 0xA || current == 0xD || current >= 0x20 && current <= 0xD7FF || current >= 0xE000 && current <= 0xFFFD)
                     charBuffer.append(current);
             }
-            InputStream inputStream = IOUtils.toInputStream(charBuffer.toString(),"UTF-16");
+            charBuffer.limit(charBuffer.position() - 1);
+            charBuffer.position(0);
+            InputStream inputStream = IOUtils.toInputStream(charBuffer,"UTF-16");
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -56,7 +55,12 @@ public class ReadXMLFile {
 
                     Element eElement = (Element) nNode;
 
-                    System.out.println("First Name : " + eElement.getElementsByTagName("TITLE").item(0).getTextContent());
+                    System.out.println(temp);
+                    try {
+                        System.out.println("First Name : " + eElement.getElementsByTagName("BODY").item(0).getTextContent());
+                    } catch (NullPointerException e) {
+                        continue;
+                    }
                 }
             }
         } catch (Exception e) {
