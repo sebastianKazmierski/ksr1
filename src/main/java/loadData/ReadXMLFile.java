@@ -18,20 +18,13 @@ public class ReadXMLFile {
 
         try {
 
-            File fXmlFile = new File("src/main/resources/textXML/reut2-000.xml");
-            Reader fileReader = new FileReader(fXmlFile);
-            char[] chars = IOUtils.toCharArray(fileReader);
+            Reader fileReader = new FileReader("src/main/resources/textXML/reut2-000.xml");
 
-            CharBuffer charBuffer = CharBuffer.allocate(chars.length);
-            char current;
-            for (char aChar : chars) {
-                current = aChar;
-                if (current == 0x9 || current == 0xA || current == 0xD || current >= 0x20 && current <= 0xD7FF || current >= 0xE000 && current <= 0xFFFD)
-                    charBuffer.append(current);
-            }
-            charBuffer.limit(charBuffer.position() - 1);
-            charBuffer.position(0);
-            InputStream inputStream = IOUtils.toInputStream(charBuffer,"UTF-16");
+            char[] chars = IOUtils.toCharArray(fileReader);
+            FileValidator fileValidator = new XmlValidator();
+            CharBuffer charBuffer = fileValidator.validate(chars);
+
+            InputStream inputStream = IOUtils.toInputStream(charBuffer,"UTF-8");
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

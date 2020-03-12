@@ -1,0 +1,26 @@
+package loadData;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.FileReader;
+import java.io.Reader;
+import java.nio.CharBuffer;
+
+public class XmlValidator implements FileValidator {
+    @Override
+    public CharBuffer validate(char[] chars) {
+        CharBuffer charBuffer = CharBuffer.allocate(chars.length);
+
+        char current;
+        for (char aChar : chars) {
+            current = aChar;
+            if (current == 0x9 || current == 0xA || current == 0xD || current >= 0x20 && current <= 0xD7FF || current >= 0xE000 && current <= 0xFFFD)
+                charBuffer.append(current);
+        }
+
+        charBuffer.limit(charBuffer.position() - 1);
+        charBuffer.position(0);
+
+        return charBuffer;
+    }
+}
