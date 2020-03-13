@@ -1,7 +1,7 @@
 Cechy:
 1. Liczba wszystkich s³ów kluczowych w 10% pierwszych procentach tekstu
 2. Liczba wszystkich s³ów kluczowych w ca³ym tekœcie
-3. Liczba nazw w³asnych w stosunku do iloœci s³ów w tekœcie (po stop liœcie)
+3. Liczba wszystkich nazw w³asnych w stosunku do iloœci s³ów w tekœcie (po stop liœcie)
 4. Œrednia d³ugoœæ unikalnych nazw w³asnych 
 5. D³ugoœæ tekstu (iloœæ wszystkich s³ów po stop liœcie)
 6. Iloœæ s³ów które wystêpuj¹ wiêcej ni¿ raz w stosunku do d³ugoœci tekstu (po stop liœcie i po stemizacji)

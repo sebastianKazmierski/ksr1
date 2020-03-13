@@ -15,6 +15,7 @@ public class Article {
     private String content;
     private List<String> place;
     private List<String> contentTokens;
+    private List<String> contentTokensAfterStopList;
 
     public Article(String content, List<String> place) {
         this.content = content;
