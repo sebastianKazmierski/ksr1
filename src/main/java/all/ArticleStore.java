@@ -22,7 +22,7 @@ public class ArticleStore {
         this.articleSets = new ArrayList<>();
         this.iterator = 0;
 
-        try (InputStream fin = Files.newInputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS
+        try (InputStream fin = Files.newInputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS + "\\"
                 + Constants.NAME_OF_FILE_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS))) {
             int i = fin.read();
             while (i != -1) {
@@ -44,6 +44,15 @@ public class ArticleStore {
         }
         iterator++;
         return article;
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleStore{" +
+                ", Number of articles=" + iterator +
+                ", Size of trainSet=" + trainSet.size() +
+                ", Size of testSet=" + testSet.size() +
+                '}';
     }
 
     public void addTrainArticle(Article article) {

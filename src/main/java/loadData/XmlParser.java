@@ -1,5 +1,6 @@
 package loadData;
 
+import all.Article;
 import all.ArticleStore;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
@@ -46,9 +47,7 @@ public class XmlParser {
                     } catch (NullPointerException e) {
                         continue;
                     }
-
-                    System.out.println(places);
-                    System.out.println(content);
+                    articleStore.add(new Article(content, places));
                 }
             }
         } catch (Exception e) {

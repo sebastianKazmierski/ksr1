@@ -18,7 +18,7 @@ public class DataLoader {
         ArticleStore articleStore = new ArticleStore();
 
             for (Path path : paths) {
-                CharBuffer charBuffer = null;
+                CharBuffer charBuffer;
                 try {
                     charBuffer = fileValidator.validate(fileOpener.getCharsFromFile(path));
                     xmlParser.parse(charBuffer,articleStore);
