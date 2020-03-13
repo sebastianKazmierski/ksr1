@@ -1,4 +1,6 @@
 package loadData;
+import all.ArticleStore;
+
 import java.io.*;
 import java.nio.CharBuffer;
 import java.nio.file.Path;
@@ -13,12 +15,13 @@ public class DataLoader {
             XmlParser xmlParser = new XmlParser();
 
             List<Path> paths = fileOpener.loadArticlesFromDirectory();
+        ArticleStore articleStore = new ArticleStore();
 
             for (Path path : paths) {
                 CharBuffer charBuffer = null;
                 try {
                     charBuffer = fileValidator.validate(fileOpener.getCharsFromFile(path));
-                    xmlParser.parse(charBuffer);
+                    xmlParser.parse(charBuffer,articleStore);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

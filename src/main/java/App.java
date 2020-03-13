@@ -1,5 +1,8 @@
+import all.GenerateSplitOfData;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Start");
+        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
+        generateSplitOfData.generate(12,30);
     }
 }

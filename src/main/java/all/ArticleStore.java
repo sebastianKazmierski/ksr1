@@ -24,13 +24,11 @@ public class ArticleStore {
 
         try (InputStream fin = Files.newInputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS
                 + Constants.NAME_OF_FILE_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS))) {
-            int i;
-            do {
+            int i = fin.read();
+            while (i != -1) {
+                articleSets.add(ArticleSets.values()[i]);
                 i = fin.read();
-                if (i != -1) {
-                    articleSets.add(ArticleSets.values()[i]);
-                }
-            } while (i != -1);
+            }
         } catch (InvalidPathException e) {
             System.err.println("Path error: " + e);
         } catch (IOException e) {
@@ -44,6 +42,7 @@ public class ArticleStore {
         } else {
             testSet.add(article);
         }
+        iterator++;
         return article;
     }
 

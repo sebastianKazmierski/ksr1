@@ -1,40 +1,49 @@
 package all;
 
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Random;
+
 
 public class GenerateSplitOfData {
-    public String generate(int numberOfData, int procentOfTrainSet) {
-        // Otwiera plik i uzyskuje powiązany z nim strumień
-        DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd_HH:mm");
-        Date date = new Date();
-        try (OutputStream fout =
-                     new BufferedOutputStream(
-                             Files.newOutputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS + "split" + dateFormat.format(date)
-                                     )))) {
-            for (int i = 0; i < 26; i++)
-                fout.write((byte) ('A' + i));
-        } catch (InvalidPathException e) {
-            System.out.println("Błąd ścieżki: " + e);
-        } catch (IOException e) {
-            System.out.println("Błąd wejścia-wyjścia: " + e);
-        }
+    private final String EXTENSION = ".sd";
+
+    public static void main(String[] args) {
+        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
+        generateSplitOfData.generate(12,30);
     }
 
-    public String getNameNewFile() {
-        System.
+    public String generate(int numberOfData, int percentOfTrainSet) {
+        if (percentOfTrainSet < 0 || percentOfTrainSet > 100) {
+            throw new IllegalArgumentException("Argument percentOfTrainSet must be in the range of 0 to 100");
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd_HH-mm");
+        Date date = new Date();
+
+        String fileName = "split_" + percentOfTrainSet + "_" + dateFormat.format(date) + ".sd";
+
+        try (OutputStream newFile = new BufferedOutputStream(Files.newOutputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS +"\\" + fileName)))) {
+            Random generator = new Random();
+            for (int i = 0; i < numberOfData; i++) {
+                if (generator.nextDouble() <= (double) (percentOfTrainSet / 100)) {
+                    newFile.write((ArticleSets.TRAIN.getIntValue()));
+                } else {
+                    newFile.write((ArticleSets.TEST.getIntValue()));
+                }
+            }
+        } catch (InvalidPathException e) {
+            System.err.println("Path error: " + e);
+        } catch (IOException e) {
+            System.err.println("In-out error: " + e);
+        }
+        return fileName;
     }
 }
