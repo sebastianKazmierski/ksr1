@@ -2,7 +2,7 @@ package loadData;
 
 import java.nio.CharBuffer;
 
-public class XmlValidator implements FileValidator {
+public class XmlTransformer implements FileTransformer {
     @Override
     public CharBuffer validate(char[] chars) {
         CharBuffer charBuffer = CharBuffer.allocate(chars.length);

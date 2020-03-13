@@ -49,7 +49,7 @@ public class ArticleStore {
     @Override
     public String toString() {
         return "ArticleStore{" +
-                ", Number of articles=" + iterator +
+                "Number of articles=" + iterator +
                 ", Size of trainSet=" + trainSet.size() +
                 ", Size of testSet=" + testSet.size() +
                 '}';

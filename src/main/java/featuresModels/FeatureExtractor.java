@@ -1,4 +1,4 @@
-package all;
+package featuresModels;
 
 @FunctionalInterface
 public interface FeatureExtractor {

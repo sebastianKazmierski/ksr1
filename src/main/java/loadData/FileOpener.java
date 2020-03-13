@@ -3,6 +3,7 @@ package loadData;
 import all.Constants;
 import org.apache.commons.io.IOUtils;
 
+import javax.xml.crypto.dsig.spec.XPathFilterParameterSpec;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -15,7 +16,7 @@ import java.util.stream.Stream;
 
 public class FileOpener {
 
-    public List<Path> loadArticlesFromDirectory() {
+    public List<Path> loadArticlesFromDirectory(DataValidator dataValidator) throws InvalidFilesException {
         List<Path> files = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(Paths.get(Constants.DIRECTORY_WITH_ARTICLES_XML))) {
             paths
@@ -24,7 +25,8 @@ public class FileOpener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return files;
+
+        return dataValidator.validate(files);
     }
 
     public char[] getCharsFromFile(Path path) throws IOException {

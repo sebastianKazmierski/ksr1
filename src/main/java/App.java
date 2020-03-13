@@ -1,9 +1,6 @@
 import all.ArticleStore;
 import all.GenerateSplitOfData;
-import loadData.FileOpener;
-import loadData.FileValidator;
-import loadData.XmlParser;
-import loadData.XmlValidator;
+import loadData.*;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -11,15 +8,17 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class App {
-    public static void main(String[] args) {
-/*        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
-        generateSplitOfData.generate(1000,30);*/
+    public static void main(String[] args) throws InvalidFilesException {
+        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
+        generateSplitOfData.generate(21000,30);
 
         FileOpener fileOpener = new FileOpener();
-        FileValidator fileValidator = new XmlValidator();
+        FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
 
-        List<Path> paths = fileOpener.loadArticlesFromDirectory();
+        DataValidator dataValidator = new AllDataValidator();
+
+        List<Path> paths = fileOpener.loadArticlesFromDirectory(dataValidator);
         ArticleStore articleStore = new ArticleStore();
 
         for (Path path : paths) {
