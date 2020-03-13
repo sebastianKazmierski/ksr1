@@ -1,3 +1,5 @@
+package all;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +30,7 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "all.Article{" +
                 "content='" + content + '\'' +
                 "\nplace=" + place +
                 '}';

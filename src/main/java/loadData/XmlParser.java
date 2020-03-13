@@ -1,5 +1,6 @@
 package loadData;
 
+import all.ArticleStore;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XmlParser {
-    public void parse(CharBuffer charBuffer) {
+    public void parse(CharBuffer charBuffer, ArticleStore articleStore, ) {
         try {
             InputStream inputStream = IOUtils.toInputStream(charBuffer, "UTF-8");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

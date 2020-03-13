@@ -1,3 +1,5 @@
+package all;
+
 import java.util.List;
 
 public class ArticleBuilder {
