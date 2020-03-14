@@ -1,6 +1,6 @@
 package featuresModels;
 
-import all.Article;
+import data.Article;
 
 import java.util.ArrayList;
 import java.util.List;

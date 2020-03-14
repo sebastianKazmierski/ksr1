@@ -1,6 +1,6 @@
 package featuresModels;
 
-import all.Article;
+import data.Article;
 
 @FunctionalInterface
 public interface FeatureExtractor {

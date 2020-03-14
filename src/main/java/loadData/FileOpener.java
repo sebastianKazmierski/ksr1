@@ -1,9 +1,8 @@
 package loadData;
 
-import all.Constants;
+import constants.Constants;
 import org.apache.commons.io.IOUtils;
 
-import javax.xml.crypto.dsig.spec.XPathFilterParameterSpec;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;

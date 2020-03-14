@@ -1,4 +1,4 @@
-package all;
+package data;
 
 public enum ArticleSets {
     TRAIN(0),

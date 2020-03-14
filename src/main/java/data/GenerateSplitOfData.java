@@ -1,4 +1,6 @@
-package all;
+package data;
+
+import constants.Constants;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;

@@ -1,5 +1,5 @@
-import all.ArticleStore;
-import all.GenerateSplitOfData;
+import data.ArticleStore;
+import data.GenerateSplitOfData;
 import loadData.*;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class App {
             CharBuffer charBuffer;
             try {
                 charBuffer = fileValidator.validate(fileOpener.getCharsFromFile(path));
-                xmlParser.parse(charBuffer,articleStore);
+                xmlParser.readArticles(charBuffer,articleStore);
             } catch (IOException e) {
                 e.printStackTrace();
             }

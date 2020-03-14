@@ -1,4 +1,4 @@
-package all;
+package constants;
 
 public class Constants {
     public static final String DIRECTORY_WITH_ARTICLES_XML = "src/main/resources/textsXML";

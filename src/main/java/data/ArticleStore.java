@@ -1,5 +1,6 @@
-package all;
+package data;
 
+import constants.Constants;
 import lombok.Getter;
 
 import java.io.*;
