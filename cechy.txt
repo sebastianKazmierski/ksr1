@@ -1,0 +1,18 @@
+Cechy:
+1. Liczba wszystkich s³ów kluczowych w 10% pierwszych procentach tekstu
+2. Liczba wszystkich s³ów kluczowych w ca³ym tekœcie
+3. Liczba wszystkich nazw w³asnych w stosunku do iloœci s³ów w tekœcie (po stop liœcie)
+4. Œrednia d³ugoœæ unikalnych nazw w³asnych 
+5. D³ugoœæ tekstu (iloœæ wszystkich s³ów po stop liœcie)
+6. Iloœæ s³ów które wystêpuj¹ wiêcej ni¿ raz w stosunku do d³ugoœci tekstu (po stop liœcie i po stemizacji)
+7. Œrednia d³ugoœæ zdañ (iloœæ s³ów) (po stop liœcie i  po stemizacji)
+8. Œrednia iloœæ przecinków w zdaniu
+9. Iloœæ unikalnych s³ów w stosunku do d³ugoœci tekstu (po stop liœcie)
+10. Iloœæ akapitów w stosunku do d³ugoœci tekstu (po stop liœcie)
+11. Œrednia d³ugoœæ akapitu (iloœæ s³ów) (przed stop list¹)
+12. Iloœæ wszystkich s³ów usuniêtych przez stop listê w stosunku do d³ugoœci tekstu
+
+* nazwa w³asna – s³owo pisane wielk¹ liter¹ które nie jest na pocz¹tku zdania lub jest na 
+* d³ugoœæ tekstu – iloœæ wszystkich s³ów w tekœcie
+
+
