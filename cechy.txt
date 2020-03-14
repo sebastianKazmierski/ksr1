@@ -1,18 +1,16 @@
 Cechy:
-1. Liczba wszystkich s³ów kluczowych w 10% pierwszych procentach tekstu
-2. Liczba wszystkich s³ów kluczowych w ca³ym tekœcie
-3. Liczba wszystkich nazw w³asnych w stosunku do iloœci s³ów w tekœcie (po stop liœcie)
-4. Œrednia d³ugoœæ unikalnych nazw w³asnych 
-5. D³ugoœæ tekstu (iloœæ wszystkich s³ów po stop liœcie)
-6. Iloœæ s³ów które wystêpuj¹ wiêcej ni¿ raz w stosunku do d³ugoœci tekstu (po stop liœcie i po stemizacji)
-7. Œrednia d³ugoœæ zdañ (iloœæ s³ów) (po stop liœcie i  po stemizacji)
-8. Œrednia iloœæ przecinków w zdaniu
-9. Iloœæ unikalnych s³ów w stosunku do d³ugoœci tekstu (po stop liœcie)
-10. Iloœæ akapitów w stosunku do d³ugoœci tekstu (po stop liœcie)
-11. Œrednia d³ugoœæ akapitu (iloœæ s³ów) (przed stop list¹)
-12. Iloœæ wszystkich s³ów usuniêtych przez stop listê w stosunku do d³ugoœci tekstu
+1. Liczba wszystkich sÅ‚Ã³w kluczowych w 10% pierwszych procentach tekstu
+2. Liczba wszystkich sÅ‚Ã³w kluczowych w caÅ‚ym tekÅ›cie
+3. Liczba wszystkich nazw wÅ‚asnych w stosunku do iloÅ›ci sÅ‚Ã³w w tekÅ›cie (po stop liÅ›cie)
+4. Åšrednia dÅ‚ugoÅ›Ä‡ unikalnych nazw wÅ‚asnych 
+5. DÅ‚ugoÅ›Ä‡ tekstu (iloÅ›Ä‡ wszystkich sÅ‚Ã³w po stop liÅ›cie)
+6. IloÅ›Ä‡ sÅ‚Ã³w ktÃ³re wystÄ™pujÄ… wiÄ™cej niÅ¼ raz w stosunku do dÅ‚ugoÅ›ci tekstu (po stop liÅ›cie i po stemizacji)
+7. Åšrednia dÅ‚ugoÅ›Ä‡ zdaÅ„ (iloÅ›Ä‡ sÅ‚Ã³w) (po stop liÅ›cie i  po stemizacji)
+8. Åšrednia iloÅ›Ä‡ przecinkÃ³w w zdaniu
+9. IloÅ›Ä‡ unikalnych sÅ‚Ã³w w stosunku do dÅ‚ugoÅ›ci tekstu (po stop liÅ›cie)
+10. IloÅ›Ä‡ akapitÃ³w w stosunku do dÅ‚ugoÅ›ci tekstu (po stop liÅ›cie)
+11. Åšrednia dÅ‚ugoÅ›Ä‡ akapitu (iloÅ›Ä‡ sÅ‚Ã³w) (przed stop listÄ…)
+12. IloÅ›Ä‡ wszystkich sÅ‚Ã³w usuniÄ™tych przez stop listÄ™ w stosunku do dÅ‚ugoÅ›ci tekstu
 
-* nazwa w³asna – s³owo pisane wielk¹ liter¹ które nie jest na pocz¹tku zdania lub jest na 
-* d³ugoœæ tekstu – iloœæ wszystkich s³ów w tekœcie
-
-
+* nazwa wÅ‚asna â€“ sÅ‚owo pisane wielkÄ… literÄ… ktÃ³re nie jest na poczÄ…tku zdania lub jest na 
+* dÅ‚ugoÅ›Ä‡ tekstu â€“ iloÅ›Ä‡ wszystkich sÅ‚Ã³w w tekÅ›cie
