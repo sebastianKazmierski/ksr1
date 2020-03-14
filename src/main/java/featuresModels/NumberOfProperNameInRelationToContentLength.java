@@ -11,13 +11,12 @@ public class NumberOfProperNameInRelationToContentLength implements FeatureExtra
         List<String> tokens = article.getContentTokens();
         List<String> properName = new ArrayList<>();
         int counter = 0;
-        Functions functions = new Functions();
         for (int i = 1; i < tokens.size(); i++) {
             String word = tokens.get(i);
             if (Character.isUpperCase(word.charAt(0))) {
                 if (!tokens.get(i-1).endsWith(".")) {
                     counter++;
-                    properName.add(functions.deletePunctuationMarksFromEnd(word));
+                    properName.add(Functions.deletePunctuationMarksFromEnd(word).get(0));
                 }
             }
         }

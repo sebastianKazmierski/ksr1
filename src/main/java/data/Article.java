@@ -1,5 +1,7 @@
 package data;
 
+import convertDataModule.StopList;
+import featuresModels.Functions;
 import lombok.Getter;
 
 import java.util.*;
@@ -16,13 +18,32 @@ public class Article {
         this.content = content;
         this.place = place;
         this.tokenizeContent();
+        this.setContentTokensAfterStopList();
     }
 
-    public void tokenizeContent() {
+    private void tokenizeContent() {
         contentTokens = Collections.list(new StringTokenizer(content, " \\\n")).stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toList());
     }
+
+    private void setContentTokensAfterStopList() {
+        contentTokensAfterStopList = new ArrayList<>();
+
+        for (String word : contentTokens) {
+            List<String> wordAndPunctuationMarks = Functions.deletePunctuationMarksFromEnd(word);
+            List<String> stopList = StopList.getStopList();
+
+            if (!stopList.contains(wordAndPunctuationMarks.get(0))) {
+                contentTokensAfterStopList.add(wordAndPunctuationMarks.get(0));
+                if (!wordAndPunctuationMarks.get(1).isEmpty()) {
+                    contentTokensAfterStopList.add(wordAndPunctuationMarks.get(1));
+                }
+            }
+        }
+    }
+
+
 
     @Override
     public String toString() {

@@ -14,6 +14,6 @@ class AverageLengthOfProperNameTest {
         String contetn = "  Alice has a cat whose name is Bob. Alice like Bob.\nBob like Alice. They are on the Eiffel Tower. ";
         Article article = new Article(contetn, List.of("USA"));
         FeatureExtractor featureExtractor = new AverageLengthOfProperName();
-        assertEquals(featureExtractor.extract(article), (double)("Bob".length() + "Alice".length() + "Eiffel".length() + "Tower".length())/4, "0.0001");
+        assertEquals((double)("Bob".length() + "Alice".length() + "Eiffel".length() + "Tower".length())/4,featureExtractor.extract(article) , "0.0001");
     }
 }

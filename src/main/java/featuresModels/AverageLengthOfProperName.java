@@ -12,13 +12,12 @@ public class AverageLengthOfProperName implements FeatureExtractor {
     public double extract(Article article) {
         List<String> tokens = article.getContentTokens();
         Map<String, Integer> lengthOfProperNames = new HashMap<>();
-        Functions functions = new Functions();
 
         for (int i = 1; i < tokens.size(); i++) {
             String word = tokens.get(i);
             if (Character.isUpperCase(word.charAt(0))) {
                 if (!tokens.get(i-1).endsWith(".")) {
-                    String wordWIthOutPunctuationMarks = functions.deletePunctuationMarksFromEnd(word);
+                    String wordWIthOutPunctuationMarks = Functions.deletePunctuationMarksFromEnd(word).get(0);
                     lengthOfProperNames.put(wordWIthOutPunctuationMarks, wordWIthOutPunctuationMarks.length());
                 }
             }
