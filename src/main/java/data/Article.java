@@ -2,9 +2,7 @@ package data;
 
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -21,7 +19,7 @@ public class Article {
     }
 
     public void tokenizeContent() {
-        contentTokens = Collections.list(new StringTokenizer(content, " ")).stream()
+        contentTokens = Collections.list(new StringTokenizer(content, " \\\n")).stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toList());
     }
