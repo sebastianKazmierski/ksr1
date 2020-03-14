@@ -5,18 +5,19 @@ import data.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberOfProperName implements FeatureExtractor {
+public class NumberOfProperNameInRelationToContentLength implements FeatureExtractor {
     @Override
     public double extract(Article article) {
         List<String> tokens = article.getContentTokens();
         List<String> properName = new ArrayList<>();
         int counter = 0;
+        Functions functions = new Functions();
         for (int i = 1; i < tokens.size(); i++) {
             String word = tokens.get(i);
             if (Character.isUpperCase(word.charAt(0))) {
                 if (!tokens.get(i-1).endsWith(".")) {
                     counter++;
-                    properName.add(word);
+                    properName.add(functions.deletePunctuationMarksFromEnd(word));
                 }
             }
         }
@@ -27,6 +28,10 @@ public class NumberOfProperName implements FeatureExtractor {
                     counter++;
                 }
             }
+        }
+
+        if (properName.contains(tokens.get(0))) {
+            counter++;
         }
 
         return ((double)counter)/tokens.size();

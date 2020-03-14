@@ -37,7 +37,7 @@ public class XmlParser {
                     Element eElement = (Element) nNode;
                     String content;
                     List<String> places = new ArrayList<>();
-                    ;
+
                     try {
                         content = eElement.getElementsByTagName("BODY").item(0).getTextContent();
                         for (int i = 0; i < eElement.getElementsByTagName("PLACES").item(0).getChildNodes().getLength(); i++) {
