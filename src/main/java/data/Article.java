@@ -34,7 +34,7 @@ public class Article {
             List<String> wordAndPunctuationMarks = Functions.deletePunctuationMarksFromEnd(word);
             List<String> stopList = StopList.getStopList();
 
-            if (!stopList.contains(wordAndPunctuationMarks.get(0))) {
+            if (!stopList.contains(wordAndPunctuationMarks.get(0).toLowerCase())) {
                 contentTokensAfterStopList.add(wordAndPunctuationMarks.get(0));
                 if (!wordAndPunctuationMarks.get(1).isEmpty()) {
                     contentTokensAfterStopList.add(wordAndPunctuationMarks.get(1));
