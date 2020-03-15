@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NumberOfParagraphsTest {
+class NumberOfParagraphsInRelationToLengthOfTextTest {
 
     @Test
     void extract() {
@@ -50,7 +50,7 @@ class NumberOfParagraphsTest {
                 "    A conference spokesman declined to say why the move was\n" +
                 "taken at a time of heightened tension in the Gulf.";
         Article article = new Article(content, List.of("USA"));
-        FeatureExtractor featureExtractor = new NumberOfParagraphs();
+        FeatureExtractor featureExtractor = new NumberOfParagraphsInRelationToLengthOfText();
         FeatureExtractor lengthOfText = new LengthOfText();
         assertEquals(11/lengthOfText.extract(article),featureExtractor.extract(article));
     }
