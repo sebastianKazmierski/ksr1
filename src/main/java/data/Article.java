@@ -1,5 +1,6 @@
 package data;
 
+import convertDataModule.Stemmer;
 import convertDataModule.StopList;
 import featuresModels.Functions;
 import lombok.Getter;
@@ -14,21 +15,27 @@ public class Article {
     private List<String> place;
     private List<String> contentTokens;
     private List<String> contentTokensAfterStopList;
+    private List<String> contentTokensAfterStemming;
 
     public Article(String content, List<String> place) {
         this.content = this.prepareContent(content);
         this.place = place;
         this.tokenizeContent();
         this.setContentTokensAfterStopList();
+        this.stem();
+    }
+
+    private void stem() {
+        this.contentTokensAfterStemming = Stemmer.stem(contentTokensAfterStopList);
     }
 
     private String prepareContent(String content) {
-        String newContetn = content.trim();
+        String newContent = content.trim();
         String suffixToRemove = "REUTER";
-        if (newContetn.endsWith(suffixToRemove)) {
-            newContetn = newContetn.substring(0, newContetn.length() - suffixToRemove.length());
+        if (newContent.endsWith(suffixToRemove)) {
+            newContent = newContent.substring(0, newContent.length() - suffixToRemove.length());
         }
-        return StringEscapeUtils.unescapeXml(newContetn.trim());
+        return StringEscapeUtils.unescapeXml(newContent.trim());
     }
 
     private void tokenizeContent() {
@@ -54,7 +61,6 @@ public class Article {
             }
         }
     }
-
 
 
     @Override
