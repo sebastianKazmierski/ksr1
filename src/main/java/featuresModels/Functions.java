@@ -1,16 +1,17 @@
 package featuresModels;
 
+import constants.Constants;
+
 import java.util.List;
 
 public class Functions {
 
     public static List<String> deletePunctuationMarksFromEnd(String word) {
-        String[] endWordPunctuation = new String[]{"!", "?", ",", ".", ":", ";"};
         StringBuilder punctuationMarksBuffer = new StringBuilder();
         boolean isPunctuationMark;
         do {
             isPunctuationMark = true;
-            for (String punctuationMark : endWordPunctuation) {
+            for (String punctuationMark : Constants.END_WORD_PUNCTUATION) {
                 if (word.endsWith(punctuationMark)) {
                     isPunctuationMark = false;
                     punctuationMarksBuffer.append(word.charAt(word.length() - 1));

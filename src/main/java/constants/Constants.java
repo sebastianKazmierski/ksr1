@@ -1,5 +1,7 @@
 package constants;
 
+import java.util.List;
+
 public class Constants {
     public static final String DIRECTORY_WITH_ARTICLES_XML = "src/main/resources/textsXML";
 
@@ -8,6 +10,8 @@ public class Constants {
 
     public static final String PATH_TO_DIRECTORY_WITH_STOP_LIST = "src/main/resources/stopLists";
     public static final String NAME_OF_FILE_WITH_STOP_LIST = "stopList2.txt";
+
+    public static final List<String> END_WORD_PUNCTUATION = List.of("!", "?", ",", ".", ":", ";");
 
 
 }
