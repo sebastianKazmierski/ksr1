@@ -3,6 +3,7 @@ package data;
 import convertDataModule.StopList;
 import featuresModels.Functions;
 import lombok.Getter;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,10 +16,19 @@ public class Article {
     private List<String> contentTokensAfterStopList;
 
     public Article(String content, List<String> place) {
-        this.content = content;
+        this.content = this.prepareContent(content);
         this.place = place;
         this.tokenizeContent();
         this.setContentTokensAfterStopList();
+    }
+
+    private String prepareContent(String content) {
+        String newContetn = content.trim();
+        String suffixToRemove = "REUTER";
+        if (newContetn.endsWith(suffixToRemove)) {
+            newContetn = newContetn.substring(0, newContetn.length() - suffixToRemove.length());
+        }
+        return StringEscapeUtils.unescapeXml(newContetn.trim());
     }
 
     private void tokenizeContent() {
