@@ -9,8 +9,8 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
-        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
-        generateSplitOfData.generate(21000,30);
+/*        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
+        generateSplitOfData.generate(21000,30);*/
 
         FileOpener fileOpener = new FileOpener();
         FileTransformer fileValidator = new XmlTransformer();
@@ -32,5 +32,6 @@ public class App {
         }
 
         System.out.println(articleStore);
+        System.out.println(articleStore.getTestSet());
     }
 }

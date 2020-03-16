@@ -10,7 +10,7 @@ Cechy:
 9. Ilość unikalnych słów w stosunku do długości tekstu (po stop liście)
 10. Ilość akapitów w stosunku do długości tekstu (po stop liście)
 11. Średnia długość akapitu (ilość słów) (przed stop listą)
-12. Ilość wszystkich słów usuniętych przez stop listę w stosunku do długości tekstu
+12. Ilość wszystkich słów usuniętych przez stop listę w stosunku do długości tekstu po stop liście
 
 * nazwa własna – słowo pisane wielką literą które nie jest na początku zdania lub jest na 
 * długość tekstu – ilość wszystkich słów w tekście

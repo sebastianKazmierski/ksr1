@@ -2,6 +2,7 @@ package loadData;
 
 import data.Article;
 import data.ArticleStore;
+import grouping.Place;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,21 +38,23 @@ public class XmlParser {
                     Element eElement = (Element) nNode;
                     String content;
                     List<String> places = new ArrayList<>();
-                    ;
+
                     try {
                         content = eElement.getElementsByTagName("BODY").item(0).getTextContent();
                         for (int i = 0; i < eElement.getElementsByTagName("PLACES").item(0).getChildNodes().getLength(); i++) {
                             places.add(eElement.getElementsByTagName("PLACES").item(0).getChildNodes().item(i).getTextContent());
-
                         }
                     } catch (NullPointerException e) {
                         continue;
                     }
-                    articleStore.add(new Article(content, places));
+                    PlacesFilter basePlaceFilter = new BasePlaceFilter();
+                    if (basePlaceFilter.isCorrect(places)) {
+                        articleStore.add(new Article(content, Place.valueOfLabel(places.get(0))));
+                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.print(e);
         }
     }
 }
