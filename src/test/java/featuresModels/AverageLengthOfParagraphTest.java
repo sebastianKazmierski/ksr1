@@ -1,6 +1,7 @@
 package featuresModels;
 
 import data.Article;
+import grouping.Place;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +17,7 @@ class AverageLengthOfParagraphTest {
                 "date, down from \n" +
                 "    Chase, a property \n" +
                 "    It said agreements\n";
-        Article article = new Article(content, List.of("USA"));
+        Article article = new Article(content, Place.UK);
         FeatureExtractor featureExtractor = new AverageLengthOfParagraph();
         assertEquals(18.0 / 4, featureExtractor.extract(article));
     }

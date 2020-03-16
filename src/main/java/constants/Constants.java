@@ -13,5 +13,7 @@ public class Constants {
 
     public static final List<String> END_WORD_PUNCTUATION = List.of("!", "?", ",", ".", ":", ";");
 
+    public static final List<String> ALLOWED_PLACES = List.of("west-germany", "usa", "france", "uk", "canada", "japan");
+
 
 }

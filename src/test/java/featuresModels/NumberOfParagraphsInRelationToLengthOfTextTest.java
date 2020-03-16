@@ -1,6 +1,7 @@
 package featuresModels;
 
 import data.Article;
+import grouping.Place;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -49,7 +50,7 @@ class NumberOfParagraphsInRelationToLengthOfTextTest {
                 "to non-Iraqi Arab ports would be reduced to 3.0 pct from 4.5.\n" +
                 "    A conference spokesman declined to say why the move was\n" +
                 "taken at a time of heightened tension in the Gulf.";
-        Article article = new Article(content, List.of("USA"));
+        Article article = new Article(content, Place.UK);
         FeatureExtractor featureExtractor = new NumberOfParagraphsInRelationToLengthOfText();
         FeatureExtractor lengthOfText = new LengthOfText();
         assertEquals(11/lengthOfText.extract(article),featureExtractor.extract(article));
