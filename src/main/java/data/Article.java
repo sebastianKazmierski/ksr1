@@ -1,5 +1,6 @@
 package data;
 
+import constants.Constants;
 import convertDataModule.Stemmer;
 import convertDataModule.StopList;
 import featuresModels.Functions;
@@ -16,6 +17,7 @@ public class Article {
     private List<String> contentTokens;
     private List<String> contentTokensAfterStopList;
     private List<String> contentTokensAfterStemming;
+    private Integer numberOfWordsAfterStemming;
 
     public Article(String content, List<String> place) {
         this.content = this.prepareContent(content);
@@ -23,6 +25,7 @@ public class Article {
         this.tokenizeContent();
         this.setContentTokensAfterStopList();
         this.stem();
+        this.setNumberOfWordsAfterStemming();
     }
 
     private void stem() {
@@ -36,6 +39,10 @@ public class Article {
             newContent = newContent.substring(0, newContent.length() - suffixToRemove.length());
         }
         return StringEscapeUtils.unescapeXml(newContent.trim());
+    }
+
+    private void setNumberOfWordsAfterStemming() {
+        numberOfWordsAfterStemming = Math.toIntExact(contentTokensAfterStemming.stream().filter(e -> Constants.END_WORD_PUNCTUATION.contains(e.substring(e.length() - 1))).count());
     }
 
     private void tokenizeContent() {
@@ -61,7 +68,6 @@ public class Article {
             }
         }
     }
-
 
     @Override
     public String toString() {
