@@ -22,9 +22,11 @@ public class KeyWordHolder {
         Place place = article.getPlace();
         for (String word : article.getContentTokensAfterStemming()) {
             if (keywords.containsKey(word)) {
-                keywords.get(word).add(place);
+                keywords.get(word).train(place);
             } else {
-                keywords.put(word, new KeyWord(word));
+                KeyWord keyWord = new KeyWord(word);
+                keyWord.train(place);
+                keywords.put(word, keyWord);
             }
         }
     }
