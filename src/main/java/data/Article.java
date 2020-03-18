@@ -42,7 +42,7 @@ public class Article {
 
     private String prepareContent(String content) {
         String newContent = content.trim();
-        String suffixToRemove = "REUTER";
+        String suffixToRemove = "Reuter";
         if (newContent.endsWith(suffixToRemove)) {
             newContent = newContent.substring(0, newContent.length() - suffixToRemove.length());
         }
