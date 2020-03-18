@@ -13,7 +13,7 @@ public class NumberOfKeyWords {
         }
         for (String word : contentTokensAfterStemming) {
             KeyWord keyWord = keyWordHolder.getKeyWord(word);
-            if (keyWord.isKeyWord()) {
+            if (keyWord!=null && keyWord.isKeyWord()) {
                 placeToOccurrenceMap.put(keyWord.getKeyWordFor(), placeToOccurrenceMap.get(keyWord.getKeyWordFor()) + 1);
             }
         }
@@ -24,7 +24,7 @@ public class NumberOfKeyWords {
         int counter = 0;
         for (String word : contentTokensAfterStemming) {
             KeyWord keyWord = keyWordHolder.getKeyWord(word);
-            if (keyWord.isKeyWord()) {
+            if (keyWord!=null && keyWord.isKeyWord()) {
                 counter++;
             }
         }

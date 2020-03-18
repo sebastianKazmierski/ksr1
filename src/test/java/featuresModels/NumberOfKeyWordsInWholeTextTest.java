@@ -1,5 +1,10 @@
-package featuresModels.keyWords;
+package featuresModels;
 
+import data.Article;
+import featuresModels.FeatureExtractor;
+import featuresModels.NumberOfKeyWordsInWholeText;
+import featuresModels.keyWords.KeyWord;
+import featuresModels.keyWords.KeyWordHolder;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-class NumberOfKeyWordsTest {
-
+class NumberOfKeyWordsInWholeTextTest {
     @Mock
     KeyWordHolder keyWordHolder;
 
@@ -29,29 +33,23 @@ class NumberOfKeyWordsTest {
     }
 
     @Test
-    void count() {
-        List<String> contentTokensAfterStemming = List.of("work", "work", "empty", "nothing", "something", ".", "...", "computer", "computer", "sister", "paper", "mouse", "bottle");
+    void extract() {
+        String content = "work work blank nothing something error sister pc sister sister ";
+        String contentDuplicatedTenTimes = duplicateTenTimes(content);
 
-        HashMap<Place, Integer> placeToOccurrenceMap = new HashMap<>();
-        for (Place place : Place.values()) {
-            placeToOccurrenceMap.put(place, 0);
-        }
+        Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        placeToOccurrenceMap.put(Place.UK, 3);
-        placeToOccurrenceMap.put(Place.USA, 2);
-        placeToOccurrenceMap.put(Place.FRANCE, 2);
-        placeToOccurrenceMap.put(Place.JAPAN, 1);
-        placeToOccurrenceMap.put(Place.CANADA, 0);
-        placeToOccurrenceMap.put(Place.WEST_GERMANY, 0);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(keyWordHolder);
 
-        assertEquals(placeToOccurrenceMap, NumberOfKeyWords.count(contentTokensAfterStemming, keyWordHolder));
+        assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }
 
-    @Test
-    void countAllKeyWords() {
-        List<String> contentTokensAfterStemming = List.of("work", "work", "empty", "nothing", "something", ".", "...", "computer", "computer", "sister", "paper", "mouse", "bottle");
-
-        assertEquals(8, NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, keyWordHolder));
+    private String duplicateTenTimes(String content) {
+        String contentDuplicatedTenTimes = content;
+        for (int i = 0; i < 9; i++) {
+            contentDuplicatedTenTimes = contentDuplicatedTenTimes.concat(content);
+        }
+        return contentDuplicatedTenTimes;
     }
 
     public KeyWord getKeyWord(String word) {
@@ -67,7 +65,7 @@ class NumberOfKeyWordsTest {
             keyWords.put(keyWord.getWord(), keyWord);
         }
 
-        KeyWord noKeyWord = new KeyWord("empty");
+        KeyWord noKeyWord = new KeyWord("blank");
         noKeyWord.trainDone();
         keyWords.put(noKeyWord.getWord(), noKeyWord);
         return keyWords.get(word);

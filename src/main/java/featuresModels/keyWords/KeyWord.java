@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeyWord {
+    private static final double PERCENT_OF_ALL_OCCURRENCES_WHEN_WORD_IS_KEY_WORD = 0.51;
     @Getter
     private String word;
     @Getter
@@ -29,21 +30,16 @@ public class KeyWord {
 
     public void trainDone() {
         isReady = true;
-        long allOccurrences = placeToOccurrenceMap.values().stream().mapToInt(e -> e).count();
+        long allOccurrences = placeToOccurrenceMap.values().stream().mapToInt(Integer::intValue).sum();
         for (Map.Entry<String, Integer> entry : placeToOccurrenceMap.entrySet()) {
-            if (entry.getValue() > 0.5 * allOccurrences) {
+            if (entry.getValue() > 0 && entry.getValue() > PERCENT_OF_ALL_OCCURRENCES_WHEN_WORD_IS_KEY_WORD * allOccurrences) {
                 keyWordFor = Place.valueOfLabel(entry.getKey());
                 this.isKeyWord = true;
             }
         }
-        this.isKeyWord = false;
     }
 
-    public boolean isKeyWord() {
-        return isKeyWord;
-    }
-
-    public void add(Place place) {
+    public void train(Place place) {
         placeToOccurrenceMap.put(place.label, placeToOccurrenceMap.get(place.label) + 1);
     }
 }
