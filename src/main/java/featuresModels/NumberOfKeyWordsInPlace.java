@@ -1,10 +1,10 @@
-package featuresModels.keyWords;
+package featuresModels;
 
 import data.Article;
-import featuresModels.FeatureExtractor;
+import featuresModels.keyWords.KeyWordHolder;
+import featuresModels.keyWords.NumberOfKeyWords;
 import grouping.Place;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.HashMap;
 import java.util.List;
 

@@ -1,7 +1,10 @@
-package featuresModels.keyWords;
+package featuresModels;
 
 import data.Article;
 import featuresModels.FeatureExtractor;
+import featuresModels.NumberOfKeyWordsInTenFirstPercentOfText;
+import featuresModels.keyWords.KeyWord;
+import featuresModels.keyWords.KeyWordHolder;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-class NumberOfKeyWordsInWholeTextTest {
+class NumberOfKeyWordsInTenFirstPercentOfTextTest {
     @Mock
     KeyWordHolder keyWordHolder;
 
@@ -36,9 +39,9 @@ class NumberOfKeyWordsInWholeTextTest {
 
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInTenFirstPercentOfText(keyWordHolder);
 
-        assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
+        assertEquals(5, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }
 
     private String duplicateTenTimes(String content) {

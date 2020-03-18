@@ -1,7 +1,10 @@
-package featuresModels.keyWords;
+package featuresModels;
 
 import data.Article;
 import featuresModels.FeatureExtractor;
+import featuresModels.NumberOfKeyWordsInPlace;
+import featuresModels.keyWords.KeyWord;
+import featuresModels.keyWords.KeyWordHolder;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-class NumberOfKeyWordsInTenFirstPercentOfTextTest {
+class NumberOfKeyWordsInPlaceTest {
     @Mock
     KeyWordHolder keyWordHolder;
 
@@ -31,14 +34,22 @@ class NumberOfKeyWordsInTenFirstPercentOfTextTest {
 
     @Test
     void extract() {
-        String content = "work work blank nothing something error sister pc sister sister ";
+        String content = "work work blank nothing something error sister pc sister sister paper ";
         String contentDuplicatedTenTimes = duplicateTenTimes(content);
 
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInTenFirstPercentOfText(keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInPlace(Place.FRANCE,keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInPlace(Place.UK,keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInPlace(Place.USA,keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInPlace(Place.JAPAN,keyWordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInPlace(Place.CANADA,keyWordHolder);
 
-        assertEquals(5, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
+        assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
+        assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");
+        assertEquals(1, numberOfKeyWordsInTenFirstPercentOfTextUsa.extract(article),"0.001");
+        assertEquals(0, numberOfKeyWordsInTenFirstPercentOfTextJa.extract(article),"0.001");
+        assertEquals(0, numberOfKeyWordsInTenFirstPercentOfTextCa.extract(article),"0.001");
     }
 
     private String duplicateTenTimes(String content) {

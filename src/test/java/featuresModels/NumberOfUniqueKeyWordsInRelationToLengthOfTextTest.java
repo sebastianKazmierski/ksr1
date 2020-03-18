@@ -1,7 +1,8 @@
-package featuresModels.keyWords;
+package featuresModels;
 
 import data.Article;
-import featuresModels.FeatureExtractor;
+import featuresModels.keyWords.KeyWord;
+import featuresModels.keyWords.KeyWordHolder;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-class NumberOfKeyWordsInPlaceTest {
+class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
     @Mock
     KeyWordHolder keyWordHolder;
 
@@ -31,22 +32,21 @@ class NumberOfKeyWordsInPlaceTest {
 
     @Test
     void extract() {
-        String content = "work work blank nothing something error sister pc sister sister paper ";
+        String content = "work work blank nothing something paper sister pc sister sister ";
         String contentDuplicatedTenTimes = duplicateTenTimes(content);
 
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInPlace(Place.FRANCE,keyWordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInPlace(Place.UK,keyWordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInPlace(Place.USA,keyWordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInPlace(Place.JAPAN,keyWordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInPlace(Place.CANADA,keyWordHolder);
+        LengthOfText lengthOfText = new LengthOfText();
+        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(keyWordHolder,lengthOfText);
 
-        assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
-        assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");
-        assertEquals(1, numberOfKeyWordsInTenFirstPercentOfTextUsa.extract(article),"0.001");
-        assertEquals(0, numberOfKeyWordsInTenFirstPercentOfTextJa.extract(article),"0.001");
-        assertEquals(0, numberOfKeyWordsInTenFirstPercentOfTextCa.extract(article),"0.001");
+        assertEquals(3/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article),"0.001");
+
+
+        String content2 = "Here is 0 key words... !!! ";
+
+        Article article2 = new Article(content2, Place.UK);
+        assertEquals(0/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article2),"0.001");
     }
 
     private String duplicateTenTimes(String content) {
