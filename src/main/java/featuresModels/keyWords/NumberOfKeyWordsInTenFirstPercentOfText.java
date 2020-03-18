@@ -16,7 +16,6 @@ public class NumberOfKeyWordsInTenFirstPercentOfText implements FeatureExtractor
     public double extract(Article article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
         List<String> contentTokensAfterStemmingTenPercent = contentTokensAfterStemming.subList(0, (int) (contentTokensAfterStemming.size() / 10.0));
-        NumberOfKeyWords.count(contentTokensAfterStemmingTenPercent, keyWordHolder);
-        return 0.0;
+        return NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemmingTenPercent, keyWordHolder);
     }
 }

@@ -1,6 +1,5 @@
 package featuresModels.keyWords;
 
-import data.Article;
 import grouping.Place;
 
 import java.util.HashMap;
@@ -19,5 +18,16 @@ public class NumberOfKeyWords {
             }
         }
         return placeToOccurrenceMap;
+    }
+
+    public static int countAllKeyWords(List<String> contentTokensAfterStemming, KeyWordHolder keyWordHolder) {
+        int counter = 0;
+        for (String word : contentTokensAfterStemming) {
+            KeyWord keyWord = keyWordHolder.getKeyWord(word);
+            if (keyWord.isKeyWord()) {
+                counter++;
+            }
+        }
+        return counter;
     }
 }

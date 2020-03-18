@@ -15,7 +15,6 @@ public class NumberOfKeyWordsInWholeText implements FeatureExtractor {
     @Override
     public double extract(Article article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
-        NumberOfKeyWords.count(contentTokensAfterStemming, keyWordHolder);
-        return 0.0;
+        return  NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, keyWordHolder);
     }
 }
