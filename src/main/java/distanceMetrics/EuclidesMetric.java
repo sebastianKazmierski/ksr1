@@ -11,4 +11,9 @@ public class EuclidesMetric implements DistanceMeasurement {
         }
         return result;
     }
+
+        @Override
+            public String description() {
+                return "Metryka Euklidesa";
+            }
 }

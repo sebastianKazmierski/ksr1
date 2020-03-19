@@ -15,4 +15,9 @@ public class AverageMinimumMetric implements DistanceMeasurement {
 
         return min / (sum * 0.5);
     }
+
+        @Override
+            public String description() {
+                return "Średnia arytmetyczna minimum";
+            }
 }

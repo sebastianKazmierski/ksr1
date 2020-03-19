@@ -20,4 +20,9 @@ public class MinMaxMetric implements DistanceMeasurement {
 
         return min / max;
     }
+
+        @Override
+            public String description() {
+                return "Minimum-maximum";
+            }
 }

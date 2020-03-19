@@ -11,4 +11,9 @@ public class StreetMetric implements DistanceMeasurement {
         }
         return result;
     }
+
+        @Override
+            public String description() {
+                return "Metryka Uliczna";
+            }
 }

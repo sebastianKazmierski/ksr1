@@ -1,7 +1,10 @@
 import data.ArticleStore;
-import featuresModels.FeatureExtractor;
+import distanceMetrics.*;
+import featuresModels.*;
 import featuresModels.keyWords.WordHolder;
-import loadData.*;
+import grouping.Place;
+import loadData.FileOpener;
+import loadData.XmlParser;
 import loadData.articleCratorsFromXml.ArticleReader;
 import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
 import loadData.dataValidators.AllDataValidator;
@@ -20,9 +23,8 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
-/*        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
-        generateSplitOfData.generate(21000,30);*/
 
+        ConsoleInterface consoleInterface = new ConsoleInterface();
         FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
 
@@ -30,7 +32,8 @@ public class App {
 
         List<Path> paths = getPaths(dataValidator);
 
-        String fileWithSplitName = "";
+        String fileWithSplitName = consoleInterface.getFileWithDataSplit();
+
         ArticleStore articleStore = new ArticleStore(fileWithSplitName);
         TagFilter tagFilter = new BasePlaceFilter();
         ArticleReader articleReader = new ArticleReaderWithPlaces();
@@ -41,10 +44,12 @@ public class App {
         createSetOfKeyWord(articleStore, wordHolder);
 
 
-        System.out.println(articleStore);
-        System.out.println(articleStore.getTestSet());
+       /* System.out.println(articleStore);
+        System.out.println(articleStore.getTestSet());*/
+        System.out.println(fileWithSplitName);
 
-        List<FeatureExtractor> featureExtractorList = new ArrayList<>();
+        List<FeatureExtractor> featureExtractorList = consoleInterface.getFeatureExtractors(getListOfAvailableFeatureExtractors(wordHolder));
+        featureExtractorList.forEach(w -> System.out.println(w.description()));
     }
 
     private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {
@@ -66,5 +71,39 @@ public class App {
     private static List<Path> getPaths(DataValidator dataValidator) throws InvalidFilesException {
         FileOpener fileOpener = new FileOpener();
         return fileOpener.loadArticlesFromDirectory(dataValidator);
+    }
+
+    public static List<FeatureExtractor> getListOfAvailableFeatureExtractors(WordHolder wordHolder) {
+        List<FeatureExtractor> featureExtractorList = new ArrayList<>();
+
+        featureExtractorList.add(new AverageLengthOfParagraph(new NumberOfParagraphsInRelationToLengthOfText(new LengthOfText())));
+        featureExtractorList.add(new AverageLengthOfProperName());
+        featureExtractorList.add(new AverageLengthOfSentences());
+        featureExtractorList.add(new LengthOfText());
+        featureExtractorList.add(new NumberOfKeyWordsInTenFirstPercentOfText(wordHolder));
+        featureExtractorList.add(new NumberOfKeyWordsInWholeText(wordHolder));
+        featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText(new LengthOfText()));
+        featureExtractorList.add(new NumberOfProperNameInRelationToLengthOfText());
+        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText(wordHolder, new LengthOfText()));
+        featureExtractorList.add(new NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList());
+        featureExtractorList.add(new NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText());
+
+        for (Place place : Place.values()) {
+            featureExtractorList.add(new NumberOfKeyWordsInPlace(place, wordHolder));
+        }
+
+        return featureExtractorList;
+    }
+
+    public static List<DistanceMeasurement> getListOfAvailableDistanceMeasurement() {
+        List<DistanceMeasurement> distanceMeasurements = new ArrayList<>();
+
+        distanceMeasurements.add(new AverageMinimumMetric());
+        distanceMeasurements.add(new CzebyszewMetric());
+        distanceMeasurements.add(new EuclidesMetric());
+        distanceMeasurements.add(new MinMaxMetric());
+        distanceMeasurements.add(new StreetMetric());
+
+        return distanceMeasurements;
     }
 }
