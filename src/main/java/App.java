@@ -3,6 +3,11 @@ import featuresModels.FeatureExtractor;
 import loadData.*;
 import loadData.articleCratorsFromXml.ArticleReader;
 import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
+import loadData.dataValidators.AllDataValidator;
+import loadData.dataValidators.DataValidator;
+import loadData.dataValidators.InvalidFilesException;
+import loadData.filesTransformer.FileTransformer;
+import loadData.filesTransformer.XmlTransformer;
 import loadData.tagsFilter.BasePlaceFilter;
 import loadData.tagsFilter.TagFilter;
 

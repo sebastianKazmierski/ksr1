@@ -3,9 +3,14 @@ package featuresModels;
 import data.Article;
 
 public class NumberOfParagraphsInRelationToLengthOfText implements FeatureExtractor {
+    LengthOfText lengthOfText;
+
+    public NumberOfParagraphsInRelationToLengthOfText(LengthOfText lengthOfText) {
+        this.lengthOfText = lengthOfText;
+    }
+
     @Override
     public double extract(Article article) {
-        LengthOfText lengthOfText = new LengthOfText();
         return getNumberOfParagraphs(article)/lengthOfText.extract(article);
     }
 

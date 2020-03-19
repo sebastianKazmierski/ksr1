@@ -1,8 +1,8 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.keyWords.KeyWord;
-import featuresModels.keyWords.KeyWordHolder;
+import featuresModels.keyWords.Word;
+import featuresModels.keyWords.WordHolder;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,11 +22,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ExtendWith(MockitoExtension.class)
 class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
     @Mock
-    KeyWordHolder keyWordHolder;
+    WordHolder wordHolder;
 
     @BeforeEach
     public void init() {
-        Mockito.when(keyWordHolder.getKeyWord(anyString())).thenAnswer(
+        Mockito.when(wordHolder.getKeyWord(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> getKeyWord((String) invocation.getArguments()[0]));
     }
 
@@ -38,7 +38,7 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
         LengthOfText lengthOfText = new LengthOfText();
-        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(keyWordHolder,lengthOfText);
+        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(wordHolder,lengthOfText);
 
         assertEquals(3/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article),"0.001");
 
@@ -57,22 +57,22 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
         return contentDuplicatedTenTimes;
     }
 
-    public KeyWord getKeyWord(String word) {
-        Map<String, KeyWord> keyWords = new HashMap<>();
+    public Word getKeyWord(String word) {
+        Map<String, Word> keyWords = new HashMap<>();
 
         List<String> words = List.of("work", "computer", "sister", "paper", "mouse", "bottle");
         List<Place> places = List.of(Place.FRANCE, Place.UK, Place.UK, Place.USA, Place.JAPAN, Place.USA);
 
         for (int i = 0; i < words.size(); i++) {
-            KeyWord keyWord = new KeyWord(words.get(i));
+            Word keyWord = new Word(words.get(i));
             keyWord.train(places.get(i));
             keyWord.trainDone();
             keyWords.put(keyWord.getWord(), keyWord);
         }
 
-        KeyWord noKeyWord = new KeyWord("blank");
-        noKeyWord.trainDone();
-        keyWords.put(noKeyWord.getWord(), noKeyWord);
+        Word noWord = new Word("blank");
+        noWord.trainDone();
+        keyWords.put(noWord.getWord(), noWord);
         return keyWords.get(word);
     }
 }

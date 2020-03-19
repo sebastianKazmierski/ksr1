@@ -1,4 +1,4 @@
-package loadData;
+package loadData.dataValidators;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class KeyWordHolder {
-    private Map<String, KeyWord> keywords;
+public class WordHolder {
+    private Map<String, Word> keywords;
     @Getter
     private boolean isReady;
 
-    public KeyWordHolder() {
+    public WordHolder() {
         keywords = new HashMap<>();
         isReady = false;
     }
@@ -24,14 +24,14 @@ public class KeyWordHolder {
             if (keywords.containsKey(word)) {
                 keywords.get(word).train(place);
             } else {
-                KeyWord keyWord = new KeyWord(word);
+                Word keyWord = new Word(word);
                 keyWord.train(place);
                 keywords.put(word, keyWord);
             }
         }
     }
 
-    public KeyWord getKeyWord(String word) {
+    public Word getKeyWord(String word) {
         return keywords.get(word);
     }
 
@@ -41,6 +41,6 @@ public class KeyWordHolder {
 
     public void trainDone() {
         isReady = true;
-        keywords.values().forEach(KeyWord::trainDone);
+        keywords.values().forEach(Word::trainDone);
     }
 }

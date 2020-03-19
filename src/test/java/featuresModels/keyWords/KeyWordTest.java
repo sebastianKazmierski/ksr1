@@ -9,39 +9,39 @@ class KeyWordTest {
 
     @Test
     void trainDone() {
-        KeyWord keyWord1 = new KeyWord("empty");
-        keyWord1.trainDone();
-        assertFalse(keyWord1.isKeyWord());
-        assertNull(keyWord1.getKeyWordFor());
+        Word word1 = new Word("empty");
+        word1.trainDone();
+        assertFalse(word1.isKeyWord());
+        assertNull(word1.getKeyWordFor());
 
-        KeyWord keyWord2 = new KeyWord("empty");
-        keyWord2.train(Place.UK);
-        keyWord2.train(Place.UK);
-        keyWord2.train(Place.CANADA);
-        keyWord2.train(Place.USA);
-        keyWord2.train(Place.JAPAN);
-        keyWord2.trainDone();
-        assertFalse(keyWord2.isKeyWord());
-        assertNull(keyWord2.getKeyWordFor());
+        Word word2 = new Word("empty");
+        word2.train(Place.UK);
+        word2.train(Place.UK);
+        word2.train(Place.CANADA);
+        word2.train(Place.USA);
+        word2.train(Place.JAPAN);
+        word2.trainDone();
+        assertFalse(word2.isKeyWord());
+        assertNull(word2.getKeyWordFor());
 
-        KeyWord keyWord3 = new KeyWord("empty");
-        keyWord3.train(Place.UK);
-        keyWord3.train(Place.UK);
-        keyWord3.train(Place.UK);
-        keyWord3.train(Place.USA);
-        keyWord3.train(Place.JAPAN);
-        keyWord3.trainDone();
-        assertTrue(keyWord3.isKeyWord());
-        assertEquals(Place.UK,keyWord3.getKeyWordFor());
+        Word word3 = new Word("empty");
+        word3.train(Place.UK);
+        word3.train(Place.UK);
+        word3.train(Place.UK);
+        word3.train(Place.USA);
+        word3.train(Place.JAPAN);
+        word3.trainDone();
+        assertTrue(word3.isKeyWord());
+        assertEquals(Place.UK, word3.getKeyWordFor());
 
-        KeyWord keyWord4 = new KeyWord("empty");
-        keyWord4.train(Place.UK);
-        keyWord4.train(Place.UK);
-        keyWord4.train(Place.USA);
-        keyWord4.train(Place.JAPAN);
-        keyWord4.trainDone();
-        assertFalse(keyWord4.isKeyWord());
-        assertNull(keyWord4.getKeyWordFor());
+        Word word4 = new Word("empty");
+        word4.train(Place.UK);
+        word4.train(Place.UK);
+        word4.train(Place.USA);
+        word4.train(Place.JAPAN);
+        word4.trainDone();
+        assertFalse(word4.isKeyWord());
+        assertNull(word4.getKeyWordFor());
 
 
 

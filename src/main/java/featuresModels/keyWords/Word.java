@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyWord {
+public class Word {
     private static final double PERCENT_OF_ALL_OCCURRENCES_WHEN_WORD_IS_KEY_WORD = 0.51;
     @Getter
     private String word;
@@ -18,7 +18,7 @@ public class KeyWord {
     private boolean isKeyWord;
     private HashMap<String, Integer> placeToOccurrenceMap;
 
-    public KeyWord(String word) {
+    public Word(String word) {
         this.word = word;
         placeToOccurrenceMap = new HashMap<>();
         for (Place place : Place.values()) {

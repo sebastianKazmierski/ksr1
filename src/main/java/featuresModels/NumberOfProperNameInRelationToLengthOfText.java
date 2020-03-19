@@ -5,7 +5,7 @@ import data.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberOfProperNameInRelationToContentLength implements FeatureExtractor {
+public class NumberOfProperNameInRelationToLengthOfText implements FeatureExtractor {
     @Override
     public double extract(Article article) {
         List<String> tokens = article.getContentTokens();

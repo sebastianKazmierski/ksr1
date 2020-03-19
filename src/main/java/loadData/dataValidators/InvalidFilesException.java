@@ -1,4 +1,4 @@
-package loadData;
+package loadData.dataValidators;
 
 import lombok.Setter;
 

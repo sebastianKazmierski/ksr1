@@ -1,6 +1,5 @@
-package loadData;
+package loadData.filesTransformer;
 
-import java.io.Reader;
 import java.nio.CharBuffer;
 
 @FunctionalInterface
