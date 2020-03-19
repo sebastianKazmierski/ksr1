@@ -24,4 +24,9 @@ public class NumberOfKeyWordsInPlace implements FeatureExtractor {
         HashMap<Place, Integer> placeOccurrenceMap = NumberOfKeyWords.count(contentTokensAfterStemmingTenPercent, keyWordHolder);
         return placeOccurrenceMap.get(place);
     }
+
+        @Override
+            public String description() {
+                return "Ilość słów kluczowych dla " + place.label;
+            }
 }

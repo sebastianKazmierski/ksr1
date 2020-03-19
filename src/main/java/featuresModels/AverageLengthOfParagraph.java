@@ -9,4 +9,9 @@ public class AverageLengthOfParagraph implements FeatureExtractor {
         NumberOfParagraphsInRelationToLengthOfText numberOfParagraphs = new NumberOfParagraphsInRelationToLengthOfText();
         return (double)numberOfWords / numberOfParagraphs.getNumberOfParagraphs(article);
     }
+
+    @Override
+    public String description() {
+        return "Średnia długość akapitu";
+    }
 }

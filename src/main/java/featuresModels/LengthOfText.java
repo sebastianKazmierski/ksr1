@@ -14,4 +14,9 @@ public class LengthOfText implements FeatureExtractor {
         }
         return counter;
     }
+
+        @Override
+            public String description() {
+                return "Długość tekstu";
+            }
 }

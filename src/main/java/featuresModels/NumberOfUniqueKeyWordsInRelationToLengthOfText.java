@@ -28,4 +28,9 @@ public class NumberOfUniqueKeyWordsInRelationToLengthOfText implements FeatureEx
 
         return numberOfUniqueKeyWords / lengthOfText;
     }
+
+        @Override
+            public String description() {
+                return "Liczba unikalnych słów kluczowych w stosunku do długości tekstu";
+            }
 }

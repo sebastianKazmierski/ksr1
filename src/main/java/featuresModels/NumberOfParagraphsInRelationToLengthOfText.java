@@ -18,4 +18,9 @@ public class NumberOfParagraphsInRelationToLengthOfText implements FeatureExtrac
         }
         return counter;
     }
+
+        @Override
+            public String description() {
+                return "Liczba akapitów w stosunku do długości tekstu";
+            }
 }

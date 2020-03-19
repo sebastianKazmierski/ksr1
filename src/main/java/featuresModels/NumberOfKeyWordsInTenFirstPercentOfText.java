@@ -1,7 +1,6 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.FeatureExtractor;
 import featuresModels.keyWords.KeyWordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
 
@@ -20,4 +19,9 @@ public class NumberOfKeyWordsInTenFirstPercentOfText implements FeatureExtractor
         List<String> contentTokensAfterStemmingTenPercent = contentTokensAfterStemming.subList(0, (int) ( contentTokensAfterStemming.size() / 10.0));
         return NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemmingTenPercent, keyWordHolder);
     }
+
+        @Override
+            public String description() {
+                return "Liczba wszystkich słów kluczowych w 10% pierwszych procentach tekstu";
+            }
 }

@@ -36,4 +36,8 @@ public class NumberOfProperNameInRelationToContentLength implements FeatureExtra
         return ((double)counter)/tokens.size();
     }
 
+        @Override
+            public String description() {
+                return "Liczba nazw własnych w stosunku do długości tekstu";
+            }
 }

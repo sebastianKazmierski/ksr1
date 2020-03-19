@@ -1,4 +1,5 @@
 import data.ArticleStore;
+import featuresModels.FeatureExtractor;
 import loadData.*;
 import loadData.articleCratorsFromXml.ArticleReader;
 import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
@@ -8,6 +9,7 @@ import loadData.tagsFilter.TagFilter;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App {
@@ -38,5 +40,8 @@ public class App {
 
         System.out.println(articleStore);
         System.out.println(articleStore.getTestSet());
+
+        List<FeatureExtractor> featureExtractorList = new ArrayList<>();
+
     }
 }

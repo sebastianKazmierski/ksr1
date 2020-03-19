@@ -18,4 +18,9 @@ public class NumberOfKeyWordsInWholeText implements FeatureExtractor {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
         return  NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, keyWordHolder);
     }
+
+        @Override
+            public String description() {
+                return "Liczba wszystkich słów kluczowych w całym tekście";
+            }
 }
