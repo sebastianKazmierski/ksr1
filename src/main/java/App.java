@@ -1,6 +1,9 @@
 import data.ArticleStore;
-import data.GenerateSplitOfData;
 import loadData.*;
+import loadData.articleCratorsFromXml.ArticleReader;
+import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
+import loadData.tagsFilter.BasePlaceFilter;
+import loadData.tagsFilter.TagFilter;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -20,12 +23,14 @@ public class App {
 
         List<Path> paths = fileOpener.loadArticlesFromDirectory(dataValidator);
         ArticleStore articleStore = new ArticleStore();
+        TagFilter tagFilter = new BasePlaceFilter();
+        ArticleReader articleReader = new ArticleReaderWithPlaces();
 
         for (Path path : paths) {
             CharBuffer charBuffer;
             try {
                 charBuffer = fileValidator.validate(fileOpener.getCharsFromFile(path));
-                xmlParser.readArticles(charBuffer,articleStore);
+                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
             } catch (IOException e) {
                 e.printStackTrace();
             }
