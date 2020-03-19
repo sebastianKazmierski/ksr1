@@ -1,10 +1,13 @@
 package featuresModels;
 
 import data.Article;
+import interfaceModule.ElementSelectedByUser;
 
 
-public interface FeatureExtractor {
+public interface FeatureExtractor extends ElementSelectedByUser {
     double extract(Article article);
 
-    String description();
+    default String wordToInsertIntoQuestionAboutThisObject () {
+        return "cechę";
+    }
 }

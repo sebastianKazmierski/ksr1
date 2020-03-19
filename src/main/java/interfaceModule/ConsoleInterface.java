@@ -1,64 +1,35 @@
+package interfaceModule;
+
 import constants.Constants;
+import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ConsoleInterface {
-    Scanner in = new Scanner(System.in);
+    Scanner in;
+    ChoseElementInterface<FeatureExtractor> choseFeatureExtractors;
+    ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
+
+    public ConsoleInterface() {
+        this.in = new Scanner(System.in);
+        this.choseFeatureExtractors = new ChoseElementInterface<>(in);
+        this.choseDistanceMeasurement = new ChoseElementInterface<>(in);
+    }
 
     public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> featureExtractors)  {
-        String[] userChoice = getUserChoiceFeatureExtractors(featureExtractors);
-        List<Integer> selectedNumbers;
-        while (true) {
-            try {
-                selectedNumbers = parseFeatureExtractorsSelectedByUser(userChoice, featureExtractors.size() - 1);
-                break;
-            } catch (NumberFormatException e) {
-                userChoice = getCorrectUserChoiceFeatureExtractors(featureExtractors);
-            }
-        }
-
-        List<FeatureExtractor> selectedFeatureExtractors = new ArrayList<>();
-        for (Integer selectedNumber : selectedNumbers) {
-            selectedFeatureExtractors.add(featureExtractors.get(selectedNumber-1));
-        }
-        return selectedFeatureExtractors;
+        return choseFeatureExtractors.getFeatureExtractors(featureExtractors);
     }
 
-    public List<Integer> parseFeatureExtractorsSelectedByUser(String[] userChoice, int maxNumber) throws NumberFormatException {
-        List<Integer> selectedNumbers = new ArrayList<>();
-        for (String numberInString : userChoice) {
-            int number = Integer.parseInt(numberInString);
-            if (number > maxNumber || number <= 0) {
-                throw new NumberFormatException();
-            }
-            selectedNumbers.add(number);
-        }
-        return selectedNumbers;
-    }
-
-    private String[] getCorrectUserChoiceFeatureExtractors(List<FeatureExtractor> featureExtractors) {
-        System.out.println();
-        System.out.println(":( Podana wartośc jest nie prawidłowa. Spróbuj jeszcze raz");
-        System.out.println();
-        return getUserChoiceFeatureExtractors(featureExtractors);
-    }
-
-    public String[] getUserChoiceFeatureExtractors(List<FeatureExtractor> featureExtractors) {
-        for (int i = 0; i < featureExtractors.size(); i++) {
-            System.out.println((i + 1) + ". " + featureExtractors.get(i).description());
-        }
-        System.out.println("Wybierz cechy na podstawie któych chcesz dokonać grupowania: (podaj numery wybranych cech oddzielone spacją)");
-        System.out.print("> ");
-        return in.nextLine().trim().split(" ");
+    public List<DistanceMeasurement> getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements)  {
+        return choseDistanceMeasurement.getFeatureExtractors(distanceMeasurements);
     }
 
     public String getFileWithDataSplit() {

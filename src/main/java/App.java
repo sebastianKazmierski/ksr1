@@ -14,6 +14,7 @@ import loadData.filesTransformer.FileTransformer;
 import loadData.filesTransformer.XmlTransformer;
 import loadData.tagsFilter.BasePlaceFilter;
 import loadData.tagsFilter.TagFilter;
+import interfaceModule.ConsoleInterface;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -50,6 +51,9 @@ public class App {
 
         List<FeatureExtractor> featureExtractorList = consoleInterface.getFeatureExtractors(getListOfAvailableFeatureExtractors(wordHolder));
         featureExtractorList.forEach(w -> System.out.println(w.description()));
+
+        List<DistanceMeasurement> distanceMeasurementList = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
+        distanceMeasurementList.forEach(w -> System.out.println(w.description()));
     }
 
     private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {
