@@ -1,5 +1,6 @@
 import data.ArticleStore;
 import featuresModels.FeatureExtractor;
+import featuresModels.keyWords.WordHolder;
 import loadData.*;
 import loadData.articleCratorsFromXml.ArticleReader;
 import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
@@ -22,31 +23,48 @@ public class App {
 /*        GenerateSplitOfData generateSplitOfData = new GenerateSplitOfData();
         generateSplitOfData.generate(21000,30);*/
 
-        FileOpener fileOpener = new FileOpener();
         FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
 
         DataValidator dataValidator = new AllDataValidator();
 
-        List<Path> paths = fileOpener.loadArticlesFromDirectory(dataValidator);
-        ArticleStore articleStore = new ArticleStore();
+        List<Path> paths = getPaths(dataValidator);
+
+        String fileWithSplitName = "";
+        ArticleStore articleStore = new ArticleStore(fileWithSplitName);
         TagFilter tagFilter = new BasePlaceFilter();
         ArticleReader articleReader = new ArticleReaderWithPlaces();
 
-        for (Path path : paths) {
-            CharBuffer charBuffer;
-            try {
-                charBuffer = fileValidator.validate(fileOpener.getCharsFromFile(path));
-                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        readArticles(fileValidator, xmlParser, paths, articleStore, tagFilter, articleReader);
+
+        WordHolder wordHolder = new WordHolder();
+        createSetOfKeyWord(articleStore, wordHolder);
+
 
         System.out.println(articleStore);
         System.out.println(articleStore.getTestSet());
 
         List<FeatureExtractor> featureExtractorList = new ArrayList<>();
+    }
 
+    private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {
+        wordHolder.train(articleStore.getTrainSet());
+        wordHolder.trainDone();
+    }
+
+    private static void readArticles(FileTransformer fileValidator, XmlParser xmlParser, List<Path> paths, ArticleStore articleStore, TagFilter tagFilter, ArticleReader articleReader) {
+        for (Path path : paths) {
+            try {
+                CharBuffer charBuffer = fileValidator.transform(path);
+                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static List<Path> getPaths(DataValidator dataValidator) throws InvalidFilesException {
+        FileOpener fileOpener = new FileOpener();
+        return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
 }

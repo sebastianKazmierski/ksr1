@@ -17,14 +17,14 @@ public class ArticleStore {
     private List<Article> trainSet;
     private List<Article> testSet;
 
-    public ArticleStore() {
+    public ArticleStore(String fileWithSplitName) {
         this.trainSet = new ArrayList<>();
         this.testSet = new ArrayList<>();
         this.articleSets = new ArrayList<>();
         this.iterator = 0;
 
         try (InputStream fin = Files.newInputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS + "\\"
-                + Constants.NAME_OF_FILE_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS))) {
+                + fileWithSplitName))) {
             int i = fin.read();
             while (i != -1) {
                 articleSets.add(ArticleSets.values()[i]);
