@@ -2,7 +2,8 @@ package loadData;
 
 import data.Article;
 import data.ArticleStore;
-import grouping.Place;
+import loadData.articleCratorsFromXml.ArticleReader;
+import loadData.tagsFilter.TagFilter;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,11 +14,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.nio.CharBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 public class XmlParser {
-    public void readArticles(CharBuffer charBuffer, ArticleStore articleStore) {
+    public void readArticles(CharBuffer charBuffer, ArticleStore articleStore, ArticleReader articleReader, TagFilter placeFilter) {
         try {
             InputStream inputStream = IOUtils.toInputStream(charBuffer, "UTF-8");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -28,28 +27,16 @@ public class XmlParser {
 
             NodeList nList = doc.getElementsByTagName("REUTERS");
 
-
             for (int temp = 0; temp < nList.getLength(); temp++) {
-
                 Node nNode = nList.item(temp);
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
-                    String content;
-                    List<String> places = new ArrayList<>();
 
-                    try {
-                        content = eElement.getElementsByTagName("BODY").item(0).getTextContent();
-                        for (int i = 0; i < eElement.getElementsByTagName("PLACES").item(0).getChildNodes().getLength(); i++) {
-                            places.add(eElement.getElementsByTagName("PLACES").item(0).getChildNodes().item(i).getTextContent());
-                        }
-                    } catch (NullPointerException e) {
-                        continue;
-                    }
-                    PlacesFilter basePlaceFilter = new BasePlaceFilter();
-                    if (basePlaceFilter.isCorrect(places)) {
-                        articleStore.add(new Article(content, Place.valueOfLabel(places.get(0))));
+                    Article article = articleReader.read(eElement, placeFilter);
+                    if (article != null) {
+                        articleStore.add(article);
                     }
                 }
             }
@@ -57,4 +44,5 @@ public class XmlParser {
             System.err.print(e);
         }
     }
+
 }
