@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ChoseElementInterface<T extends ElementSelectedByUser> {
     private final static String QUESTION_FOR_MULTIPLE_CHOICE = " na podstawie któych chcesz dokonać grupowania: (podaj numery wybranych cech oddzielone spacją)";
-    private final static String QUESTION_FOR_SINGLE_CHOICE = " na podstawie której/którego chcesz dokonać grupowania: (podaj tylko jedną liczbę)";
+    private final static String QUESTION_FOR_SINGLE_CHOICE = " na podstawie której/którego chcesz dokonać grupowania: (podaj tylko jeden numer)";
 
     Scanner in;
     TypeOfChoice typeOfChoice;

@@ -20,15 +20,15 @@ public class ConsoleInterface {
 
     public ConsoleInterface() {
         this.in = new Scanner(System.in);
-        this.choseFeatureExtractors = new ChoseElementInterface<>(in);
-        this.choseDistanceMeasurement = new ChoseElementInterface<>(in);
+        this.choseFeatureExtractors = new ChoseElementInterface<>(in, TypeOfChoice.MULTIPLE);
+        this.choseDistanceMeasurement = new ChoseElementInterface<>(in, TypeOfChoice.SINGLE);
     }
 
-    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> featureExtractors)  {
+    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> featureExtractors) {
         return choseFeatureExtractors.getFeatureExtractors(featureExtractors);
     }
 
-    public List<DistanceMeasurement> getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements)  {
+    public List<DistanceMeasurement> getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements) {
         return choseDistanceMeasurement.getFeatureExtractors(distanceMeasurements);
     }
 
