@@ -13,11 +13,11 @@ public class AverageMinimumMetric implements DistanceMeasurement {
             sum += testElement.get(i) + trainElement.get(i);
         }
 
-        return min / (sum * 0.5);
+        return (sum * 0.5) / min;
     }
 
-        @Override
-            public String description() {
-                return "Średnia arytmetyczna minimum";
-            }
+    @Override
+    public String description() {
+        return "Średnia arytmetyczna minimum";
+    }
 }

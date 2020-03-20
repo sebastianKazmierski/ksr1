@@ -18,11 +18,11 @@ public class MinMaxMetric implements DistanceMeasurement {
             }
         }
 
-        return min / max;
+        return max / min;
     }
 
-        @Override
-            public String description() {
-                return "Minimum-maximum";
-            }
+    @Override
+    public String description() {
+        return "Minimum-maximum";
+    }
 }
