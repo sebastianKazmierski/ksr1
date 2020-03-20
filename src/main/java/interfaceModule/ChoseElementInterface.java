@@ -31,7 +31,7 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
 
         List<T> selectedFeatureExtractors = new ArrayList<>();
         for (Integer selectedNumber : selectedNumbers) {
-            selectedFeatureExtractors.add(featureExtractors.get(selectedNumber-1));
+            selectedFeatureExtractors.add(featureExtractors.get(selectedNumber));
         }
         return selectedFeatureExtractors;
     }
@@ -45,11 +45,11 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
         List<Integer> selectedNumbers = new ArrayList<>();
         for (String numberInString : userChoice) {
             int number = Integer.parseInt(numberInString);
-            if (number > maxNumber || number <= 0) {
+            if (number > maxNumber+1 || number <= 0) {
                 throw new NumberFormatException();
             }
 
-            selectedNumbers.add(number);
+            selectedNumbers.add(number-1);
         }
         return selectedNumbers;
     }

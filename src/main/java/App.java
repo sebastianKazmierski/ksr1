@@ -2,6 +2,7 @@ import data.Article;
 import data.ArticleStore;
 import distanceMetrics.*;
 import featuresModels.*;
+import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
 import grouping.Place;
 import interfaceModule.ConsoleInterface;
@@ -81,8 +82,16 @@ public class App {
             }
         }
 
+        int keyWords = 0;
+        for (Map.Entry<String, Word> stringWordEntry : wordHolder.getKeywords().entrySet()) {
+            if (stringWordEntry.getValue().isKeyWord()) {
+                keyWords++;
+            }
+        }
+
         System.out.println("good = "+ good);
         System.out.println("wrong = "+ wrong);
+        System.out.println("keyWords = "+ keyWords);
     }
 
     private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {

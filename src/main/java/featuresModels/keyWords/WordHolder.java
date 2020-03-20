@@ -31,6 +31,10 @@ public class WordHolder {
         }
     }
 
+    public Map<String, Word> getKeywords() {
+        return keywords;
+    }
+
     public Word getKeyWord(String word) {
         return keywords.get(word);
     }
