@@ -2,7 +2,6 @@ import data.Article;
 import data.ArticleStore;
 import distanceMetrics.*;
 import featuresModels.*;
-import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
 import grouping.Place;
 import interfaceModule.ConsoleInterface;
@@ -18,6 +17,7 @@ import loadData.filesTransformer.FileTransformer;
 import loadData.filesTransformer.XmlTransformer;
 import loadData.tagsFilter.BasePlaceFilter;
 import loadData.tagsFilter.TagFilter;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -28,7 +28,6 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
-
         ConsoleInterface consoleInterface = new ConsoleInterface();
         FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
@@ -37,7 +36,11 @@ public class App {
 
         List<Path> paths = getPaths(dataValidator);
 
+
+
+
         String fileWithSplitName = consoleInterface.getFileWithDataSplit();
+        System.out.println(fileWithSplitName);
 
         ArticleStore articleStore = new ArticleStore(fileWithSplitName);
         TagFilter tagFilter = new BasePlaceFilter();
@@ -49,32 +52,56 @@ public class App {
         createSetOfKeyWord(articleStore, wordHolder);
 
 
-       /* System.out.println(articleStore);
-        System.out.println(articleStore.getTestSet());*/
-        System.out.println(fileWithSplitName);
+
+
+
+
+
 
         List<FeatureExtractor> featureExtractorList = consoleInterface.getFeatureExtractors(getListOfAvailableFeatureExtractors(wordHolder));
         featureExtractorList.forEach(w -> System.out.println(w.description()));
 
-        List<DistanceMeasurement> distanceMeasurementList = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
-        distanceMeasurementList.forEach(w -> System.out.println(w.description()));
+
+
+
+
+
+
+
+        DistanceMeasurement distanceMeasurement = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
+        distanceMeasurement.description();
 
         //train
         Work work = new Work();
         Map<Article, List<Double>> trainSetFeatures = work.trainKNN(articleStore.getTrainSet(), featureExtractorList);
-        Map<Article, List<Double>> trainSetFeaturesAfterNormalization = work.normalize(trainSetFeatures);
+        List<Pair<Double, Double>> minMaxOfTrainSet = work.getMinMaxOfTrainSet(trainSetFeatures);
+        Map<Article, List<Double>> trainSetFeaturesAfterNormalization = work.normalize(trainSetFeatures,minMaxOfTrainSet);
 
         Knn knn = new Knn(trainSetFeaturesAfterNormalization);
 
 
+
+
+
+
+
+
         //test
         Map<Article, List<Double>> testSetFeatures = work.trainKNN(articleStore.getTestSet(), featureExtractorList);
-        Map<Article, List<Double>> testSetFeaturesAfterNormalization = work.normalize(testSetFeatures);
+        Map<Article, List<Double>> testSetFeaturesAfterNormalization = work.normalize(testSetFeatures,minMaxOfTrainSet);
+
+
+
+
+        int numberOfNeighbours = consoleInterface.getNumberOfNeighbours();
+
+
+
 
         int good =0;
         int wrong =0;
         for (Map.Entry<Article, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
-            Place place = knn.getResult(articleListEntry.getValue(), distanceMeasurementList.get(0), 6);
+            Place place = knn.getResult(articleListEntry.getValue(), distanceMeasurement, numberOfNeighbours);
             if (place == articleListEntry.getKey().getPlace()) {
                 good++;
             } else {
@@ -82,16 +109,13 @@ public class App {
             }
         }
 
-        int keyWords = 0;
-        for (Map.Entry<String, Word> stringWordEntry : wordHolder.getKeywords().entrySet()) {
-            if (stringWordEntry.getValue().isKeyWord()) {
-                keyWords++;
-            }
-        }
+
+
+
+
 
         System.out.println("good = "+ good);
         System.out.println("wrong = "+ wrong);
-        System.out.println("keyWords = "+ keyWords);
     }
 
     private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {

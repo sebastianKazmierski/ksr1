@@ -17,19 +17,25 @@ public class ConsoleInterface {
     Scanner in;
     ChoseElementInterface<FeatureExtractor> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
+    ChoseNumberOfNeighbours choseNumberOfNeighbours;
 
     public ConsoleInterface() {
         this.in = new Scanner(System.in);
         this.choseFeatureExtractors = new ChoseElementInterface<>(in, TypeOfChoice.MULTIPLE);
         this.choseDistanceMeasurement = new ChoseElementInterface<>(in, TypeOfChoice.SINGLE);
+        this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(in);
+    }
+
+    public int getNumberOfNeighbours() {
+        return choseNumberOfNeighbours.getNumberOfNeighbours();
     }
 
     public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> featureExtractors) {
-        return choseFeatureExtractors.getFeatureExtractors(featureExtractors);
+        return choseFeatureExtractors.getAnswer(featureExtractors);
     }
 
-    public List<DistanceMeasurement> getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements) {
-        return choseDistanceMeasurement.getFeatureExtractors(distanceMeasurements);
+    public DistanceMeasurement getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements) {
+        return choseDistanceMeasurement.getAnswer(distanceMeasurements).get(0);
     }
 
     public String getFileWithDataSplit() {

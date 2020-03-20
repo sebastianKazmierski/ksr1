@@ -11,21 +11,20 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
     Scanner in;
     TypeOfChoice typeOfChoice;
 
-
     public ChoseElementInterface(Scanner in, TypeOfChoice typeOfChoice) {
         this.in = in;
         this.typeOfChoice = typeOfChoice;
     }
 
-    public List<T> getFeatureExtractors(List<T> featureExtractors)  {
-        String[] userChoice = getUserChoiceFeatureExtractors(featureExtractors);
+    public List<T> getAnswer(List<T> featureExtractors)  {
+        String[] userChoice = getUserChoice(featureExtractors);
         List<Integer> selectedNumbers;
         while (true) {
             try {
                 selectedNumbers = parseStringToListOfInteger(userChoice, featureExtractors.size() - 1);
                 break;
             } catch (NumberFormatException e) {
-                userChoice = getCorrectUserChoiceFeatureExtractors(featureExtractors);
+                userChoice = getCorrectUserChoice(featureExtractors);
             }
         }
 
@@ -54,14 +53,14 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
         return selectedNumbers;
     }
 
-    private String[] getCorrectUserChoiceFeatureExtractors(List<T> featureExtractors) {
+    private String[] getCorrectUserChoice(List<T> featureExtractors) {
         System.out.println();
         System.out.println(":( Podana wartość jest nie prawidłowa. Spróbuj jeszcze raz");
         System.out.println();
-        return getUserChoiceFeatureExtractors(featureExtractors);
+        return getUserChoice(featureExtractors);
     }
 
-    public String[] getUserChoiceFeatureExtractors(List<T> featureExtractors) {
+    public String[] getUserChoice(List<T> featureExtractors) {
         for (int i = 0; i < featureExtractors.size(); i++) {
             System.out.println((i + 1) + ". " + featureExtractors.get(i).description());
         }

@@ -24,6 +24,14 @@ public class Work {
         return articlesPosition;
     }
 
+    public List<Pair<Double,Double>> getMinMaxOfTrainSet(Map<Article, List<Double>> trainSet) {
+        List<Pair<Double, Double>> minMaxList = new ArrayList<>();
+        for (int i = 0; i < trainSet.values().iterator().next().size(); i++) {
+            minMaxList.add(getMinMax(trainSet, i));
+        }
+        return minMaxList;
+    }
+
     public Pair<Double, Double> getMinMax(Map<Article, List<Double>> data, int indexOfFeatureToGetMinMax) {
         double min = data.entrySet().iterator().next().getValue().get(indexOfFeatureToGetMinMax);
 
@@ -40,12 +48,7 @@ public class Work {
         return new ImmutablePair<>(min, max);
     }
 
-    public Map<Article, List<Double>> normalize(Map<Article, List<Double>> dataToNormalize) {
-        List<Pair<Double, Double>> minMaxList = new ArrayList<>();
-        for (int i = 0; i < dataToNormalize.values().iterator().next().size(); i++) {
-            minMaxList.add(getMinMax(dataToNormalize, i));
-        }
-
+    public Map<Article, List<Double>> normalize(Map<Article, List<Double>> dataToNormalize, List<Pair<Double, Double>> minMaxList) {
         Map<Article, List<Double>> normalizedData = new HashMap<>();
 
         for (Map.Entry<Article, List<Double>> articleListEntry : dataToNormalize.entrySet()) {
@@ -59,7 +62,14 @@ public class Work {
         return normalizedData;
     }
 
+
     public double normalizationMinMax(double valueToNormalize, Pair<Double, Double> beginInterval, Pair<Double, Double> endInterval) {
+        if (valueToNormalize > beginInterval.getRight()) {
+            return endInterval.getRight();
+        }
+        if (valueToNormalize < beginInterval.getLeft()) {
+            return endInterval.getLeft();
+        }
         return ((valueToNormalize - beginInterval.getLeft()) / (beginInterval.getRight() - beginInterval.getLeft()))
                 * (endInterval.getRight() - endInterval.getLeft()) + endInterval.getLeft();
     }
