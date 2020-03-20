@@ -17,7 +17,7 @@ public class NumberOfParagraphsInRelationToLengthOfText implements FeatureExtrac
     public int getNumberOfParagraphs(Article article) {
         int counter = 1;
         for (String line : article.getContent().split("\n")) {
-            if (line.substring(0, 1).isBlank()) {
+            if (line.length()>0 && line.substring(0, 1).isBlank()) {
                 counter++;
             }
         }

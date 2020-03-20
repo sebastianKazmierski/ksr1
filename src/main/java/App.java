@@ -1,8 +1,11 @@
+import data.Article;
 import data.ArticleStore;
 import distanceMetrics.*;
 import featuresModels.*;
 import featuresModels.keyWords.WordHolder;
 import grouping.Place;
+import interfaceModule.ConsoleInterface;
+import knn.Knn;
 import loadData.FileOpener;
 import loadData.XmlParser;
 import loadData.articleCratorsFromXml.ArticleReader;
@@ -14,13 +17,13 @@ import loadData.filesTransformer.FileTransformer;
 import loadData.filesTransformer.XmlTransformer;
 import loadData.tagsFilter.BasePlaceFilter;
 import loadData.tagsFilter.TagFilter;
-import interfaceModule.ConsoleInterface;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
@@ -54,6 +57,32 @@ public class App {
 
         List<DistanceMeasurement> distanceMeasurementList = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
         distanceMeasurementList.forEach(w -> System.out.println(w.description()));
+
+        //train
+        Work work = new Work();
+        Map<Article, List<Double>> trainSetFeatures = work.trainKNN(articleStore.getTrainSet(), featureExtractorList);
+        Map<Article, List<Double>> trainSetFeaturesAfterNormalization = work.normalize(trainSetFeatures);
+
+        Knn knn = new Knn(trainSetFeaturesAfterNormalization);
+
+
+        //test
+        Map<Article, List<Double>> testSetFeatures = work.trainKNN(articleStore.getTestSet(), featureExtractorList);
+        Map<Article, List<Double>> testSetFeaturesAfterNormalization = work.normalize(testSetFeatures);
+
+        int good =0;
+        int wrong =0;
+        for (Map.Entry<Article, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
+            Place place = knn.getResult(articleListEntry.getValue(), distanceMeasurementList.get(0), 6);
+            if (place == articleListEntry.getKey().getPlace()) {
+                good++;
+            } else {
+                wrong++;
+            }
+        }
+
+        System.out.println("good = "+ good);
+        System.out.println("wrong = "+ wrong);
     }
 
     private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {

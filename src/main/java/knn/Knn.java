@@ -11,9 +11,9 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Knn {
-    HashMap<Article, List<Double>> articlesPosition;
+    Map<Article, List<Double>> articlesPosition;
 
-    public Knn(HashMap<Article, List<Double>> articlesPosition) {
+    public Knn(Map<Article, List<Double>> articlesPosition) {
         this.articlesPosition = articlesPosition;
     }
 
