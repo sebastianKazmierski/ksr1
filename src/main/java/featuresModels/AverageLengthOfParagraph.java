@@ -12,7 +12,7 @@ public class AverageLengthOfParagraph implements FeatureExtractor {
     @Override
     public double extract(Article article) {
         int numberOfWords = article.getContentTokens().size();
-        return (double)numberOfWords / numberOfParagraphs.getNumberOfParagraphs(article);
+        return (double)numberOfWords / this.numberOfParagraphs.getNumberOfParagraphs(article);
     }
 
     @Override

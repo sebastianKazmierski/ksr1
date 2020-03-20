@@ -17,7 +17,7 @@ public class Knn {
     public Place getResult(List<Double> testElementPosition, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
         HashMap<Article, Double> distanceMap = new HashMap<>();
 
-        for (Map.Entry<Article, List<Double>> articleListEntry : articlesPosition.entrySet()) {
+        for (Map.Entry<Article, List<Double>> articleListEntry : this.articlesPosition.entrySet()) {
             double distance = distanceMeasurement.count(testElementPosition, articleListEntry.getValue());
             distanceMap.put(articleListEntry.getKey(), distance);
         }

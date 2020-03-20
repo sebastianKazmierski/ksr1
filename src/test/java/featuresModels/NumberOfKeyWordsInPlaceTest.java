@@ -26,7 +26,7 @@ class NumberOfKeyWordsInPlaceTest {
 
     @BeforeEach
     public void init() {
-        Mockito.when(wordHolder.getKeyWord(anyString())).thenAnswer(
+        Mockito.when(this.wordHolder.getKeyWord(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> getKeyWord((String) invocation.getArguments()[0]));
     }
 
@@ -37,11 +37,11 @@ class NumberOfKeyWordsInPlaceTest {
 
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInPlace(Place.FRANCE, wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInPlace(Place.UK, wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInPlace(Place.USA, wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInPlace(Place.JAPAN, wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInPlace(Place.CANADA, wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInPlace(Place.FRANCE, this.wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInPlace(Place.UK, this.wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInPlace(Place.USA, this.wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInPlace(Place.JAPAN, this.wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInPlace(Place.CANADA, this.wordHolder);
 
         assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
         assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");

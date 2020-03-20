@@ -1,6 +1,7 @@
 package interfaceModule;
 
 import constants.Constants;
+import data.ArticleStore;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 
@@ -13,31 +14,46 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConsoleInterface {
+public class ConsoleInterface implements UserInterface {
     Scanner in;
     ChoseElementInterface<FeatureExtractor> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
+    ChoseLabel choseLabel;
 
     public ConsoleInterface() {
         this.in = new Scanner(System.in);
-        this.choseFeatureExtractors = new ChoseElementInterface<>(in, TypeOfChoice.MULTIPLE);
-        this.choseDistanceMeasurement = new ChoseElementInterface<>(in, TypeOfChoice.SINGLE);
-        this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(in);
+        this.choseFeatureExtractors = new ChoseElementInterface<>(this.in, TypeOfChoice.MULTIPLE);
+        this.choseDistanceMeasurement = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
+        this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(this.in);
+        this.choseLabel = new ChoseLabel(this.in);
     }
 
+    public void displayResult(ArticleStore articleStore, List<FeatureExtractor> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
+        
+    }
+
+    @Override
+    public String getLabel() {
+        return this.choseLabel.getLabel();
+    }
+
+    @Override
     public int getNumberOfNeighbours() {
-        return choseNumberOfNeighbours.getNumberOfNeighbours();
+        return this.choseNumberOfNeighbours.getNumberOfNeighbours();
     }
 
-    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> featureExtractors) {
-        return choseFeatureExtractors.getAnswer(featureExtractors);
+    @Override
+    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> availableFeatureExtractors) {
+        return this.choseFeatureExtractors.getAnswer(availableFeatureExtractors);
     }
 
-    public DistanceMeasurement getDistanceMeasurement(List<DistanceMeasurement> distanceMeasurements) {
-        return choseDistanceMeasurement.getAnswer(distanceMeasurements).get(0);
+    @Override
+    public DistanceMeasurement getDistanceMeasurement(List<DistanceMeasurement> availableDistanceMeasurements) {
+        return this.choseDistanceMeasurement.getAnswer(availableDistanceMeasurements).get(0);
     }
 
+    @Override
     public String getFileWithDataSplit() {
         String fileName = null;
         try (Stream<Path> paths = Files.walk(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS))) {
@@ -98,6 +114,6 @@ public class ConsoleInterface {
         }
         System.out.println("Wybierz podział na zestaw treningowy i testowy: (wpisz ile procent artykułów ma zawierać zestaw treningowy)");
         System.out.print("> ");
-        return in.nextLine().trim();
+        return this.in.nextLine().trim();
     }
 }

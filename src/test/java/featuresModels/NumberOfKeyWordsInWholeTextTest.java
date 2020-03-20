@@ -26,7 +26,7 @@ class NumberOfKeyWordsInWholeTextTest {
 
     @BeforeEach
     public void init() {
-        Mockito.when(wordHolder.getKeyWord(anyString())).thenAnswer(
+        Mockito.when(this.wordHolder.getKeyWord(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> getKeyWord((String) invocation.getArguments()[0]));
     }
 
@@ -37,7 +37,7 @@ class NumberOfKeyWordsInWholeTextTest {
 
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(wordHolder);
+        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(this.wordHolder);
 
         assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }

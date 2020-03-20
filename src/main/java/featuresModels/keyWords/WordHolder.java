@@ -14,29 +14,29 @@ public class WordHolder {
     private boolean isReady;
 
     public WordHolder() {
-        keywords = new HashMap<>();
-        isReady = false;
+        this.keywords = new HashMap<>();
+        this.isReady = false;
     }
 
     public void train(Article article) {
         Place place = article.getPlace();
         for (String word : article.getContentTokensAfterStemming()) {
-            if (keywords.containsKey(word)) {
-                keywords.get(word).train(place);
+            if (this.keywords.containsKey(word)) {
+                this.keywords.get(word).train(place);
             } else {
                 Word keyWord = new Word(word);
                 keyWord.train(place);
-                keywords.put(word, keyWord);
+                this.keywords.put(word, keyWord);
             }
         }
     }
 
     public Map<String, Word> getKeywords() {
-        return keywords;
+        return this.keywords;
     }
 
     public Word getKeyWord(String word) {
-        return keywords.get(word);
+        return this.keywords.get(word);
     }
 
     public void train(List<Article> articles) {
@@ -44,7 +44,7 @@ public class WordHolder {
     }
 
     public void trainDone() {
-        isReady = true;
-        keywords.values().forEach(Word::trainDone);
+        this.isReady = true;
+        this.keywords.values().forEach(Word::trainDone);
     }
 }

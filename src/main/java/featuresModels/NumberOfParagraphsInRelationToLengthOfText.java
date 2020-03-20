@@ -11,7 +11,7 @@ public class NumberOfParagraphsInRelationToLengthOfText implements FeatureExtrac
 
     @Override
     public double extract(Article article) {
-        return getNumberOfParagraphs(article)/lengthOfText.extract(article);
+        return this.getNumberOfParagraphs(article)/ this.lengthOfText.extract(article);
     }
 
     public int getNumberOfParagraphs(Article article) {

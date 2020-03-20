@@ -24,7 +24,7 @@ class NumberOfKeyWordsTest {
 
     @BeforeEach
     public void init() {
-        Mockito.when(wordHolder.getKeyWord(anyString())).thenAnswer(
+        Mockito.when(this.wordHolder.getKeyWord(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> getKeyWord((String) invocation.getArguments()[0]));
     }
 
@@ -44,14 +44,14 @@ class NumberOfKeyWordsTest {
         placeToOccurrenceMap.put(Place.CANADA, 0);
         placeToOccurrenceMap.put(Place.WEST_GERMANY, 0);
 
-        assertEquals(placeToOccurrenceMap, NumberOfKeyWords.count(contentTokensAfterStemming, wordHolder));
+        assertEquals(placeToOccurrenceMap, NumberOfKeyWords.count(contentTokensAfterStemming, this.wordHolder));
     }
 
     @Test
     void countAllKeyWords() {
         List<String> contentTokensAfterStemming = List.of("work", "work", "empty", "nothing", "something", ".", "...", "computer", "computer", "sister", "paper", "mouse", "bottle");
 
-        assertEquals(8, NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, wordHolder));
+        assertEquals(8, NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder));
     }
 
     public Word getKeyWord(String word) {

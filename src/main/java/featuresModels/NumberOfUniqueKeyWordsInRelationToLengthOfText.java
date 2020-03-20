@@ -23,7 +23,7 @@ public class NumberOfUniqueKeyWordsInRelationToLengthOfText implements FeatureEx
 
         List<String> uniqueTokensAfterStemming = contentTokensAfterStemming.stream().distinct().collect(Collectors.toList());
 
-        double numberOfUniqueKeyWords = NumberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, wordHolder);
+        double numberOfUniqueKeyWords = NumberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolder);
         double lengthOfText = this.lengthOfText.extract(article);
 
         return numberOfUniqueKeyWords / lengthOfText;

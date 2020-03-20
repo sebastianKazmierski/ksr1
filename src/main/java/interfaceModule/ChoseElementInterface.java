@@ -17,14 +17,14 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
     }
 
     public List<T> getAnswer(List<T> featureExtractors)  {
-        String[] userChoice = getUserChoice(featureExtractors);
+        String[] userChoice = this.getUserChoice(featureExtractors);
         List<Integer> selectedNumbers;
         while (true) {
             try {
-                selectedNumbers = parseStringToListOfInteger(userChoice, featureExtractors.size() - 1);
+                selectedNumbers = this.parseStringToListOfInteger(userChoice, featureExtractors.size() - 1);
                 break;
             } catch (NumberFormatException e) {
-                userChoice = getCorrectUserChoice(featureExtractors);
+                userChoice = this.getCorrectUserChoice(featureExtractors);
             }
         }
 
@@ -36,7 +36,7 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
     }
 
     public List<Integer> parseStringToListOfInteger(String[] userChoice, int maxNumber) throws NumberFormatException {
-        if (typeOfChoice == TypeOfChoice.SINGLE) {
+        if (this.typeOfChoice == TypeOfChoice.SINGLE) {
             if (userChoice.length > 1) {
                 throw new NumberFormatException();
             }
@@ -57,7 +57,7 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
         System.out.println();
         System.out.println(":( Podana wartość jest nie prawidłowa. Spróbuj jeszcze raz");
         System.out.println();
-        return getUserChoice(featureExtractors);
+        return this.getUserChoice(featureExtractors);
     }
 
     public String[] getUserChoice(List<T> featureExtractors) {
@@ -66,13 +66,13 @@ public class ChoseElementInterface<T extends ElementSelectedByUser> {
         }
         //TODO  Improve this
         T elementJustToInvokeFunction = featureExtractors.get(0);
-        if (typeOfChoice == TypeOfChoice.SINGLE) {
+        if (this.typeOfChoice == TypeOfChoice.SINGLE) {
             System.out.println("Wybierz " + elementJustToInvokeFunction.wordToInsertIntoQuestionAboutThisObject() + QUESTION_FOR_SINGLE_CHOICE);
         } else {
             System.out.println("Wybierz " + elementJustToInvokeFunction.wordToInsertIntoQuestionAboutThisObject() + QUESTION_FOR_MULTIPLE_CHOICE);
         }
         System.out.print("> ");
-        return in.nextLine().trim().split(" ");
+        return this.in.nextLine().trim().split(" ");
     }
 
 }

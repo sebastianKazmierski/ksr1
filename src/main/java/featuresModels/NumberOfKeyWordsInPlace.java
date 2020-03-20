@@ -21,12 +21,12 @@ public class NumberOfKeyWordsInPlace implements FeatureExtractor {
     public double extract(Article article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
         List<String> contentTokensAfterStemmingTenPercent = contentTokensAfterStemming.subList(0, (int) (contentTokensAfterStemming.size() / 10.0));
-        HashMap<Place, Integer> placeOccurrenceMap = NumberOfKeyWords.count(contentTokensAfterStemmingTenPercent, wordHolder);
-        return placeOccurrenceMap.get(place);
+        HashMap<Place, Integer> placeOccurrenceMap = NumberOfKeyWords.count(contentTokensAfterStemmingTenPercent, this.wordHolder);
+        return placeOccurrenceMap.get(this.place);
     }
 
         @Override
             public String description() {
-                return "Ilość słów kluczowych dla " + place.label;
+                return "Ilość słów kluczowych dla " + this.place.label;
             }
 }

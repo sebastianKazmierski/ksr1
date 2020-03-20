@@ -26,7 +26,7 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
 
     @BeforeEach
     public void init() {
-        Mockito.when(wordHolder.getKeyWord(anyString())).thenAnswer(
+        Mockito.when(this.wordHolder.getKeyWord(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> getKeyWord((String) invocation.getArguments()[0]));
     }
 
@@ -38,7 +38,7 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
         Article article = new Article(contentDuplicatedTenTimes, Place.UK);
 
         LengthOfText lengthOfText = new LengthOfText();
-        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(wordHolder,lengthOfText);
+        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(this.wordHolder,lengthOfText);
 
         assertEquals(3/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article),"0.001");
 

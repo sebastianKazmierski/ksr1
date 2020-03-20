@@ -28,6 +28,7 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
+        //nic tu nie jest potrzebne nigdy to nie jest powtarzane
         ConsoleInterface consoleInterface = new ConsoleInterface();
         FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
@@ -36,17 +37,15 @@ public class App {
 
         List<Path> paths = getPaths(dataValidator);
 
-
-
-
-        String fileWithSplitName = consoleInterface.getFileWithDataSplit();
-        System.out.println(fileWithSplitName);
-
-        ArticleStore articleStore = new ArticleStore(fileWithSplitName);
+        // zmieniane jeżeli zmieniamy rodzaj cechy według której szukamy
         TagFilter tagFilter = new BasePlaceFilter();
         ArticleReader articleReader = new ArticleReaderWithPlaces();
 
-        readArticles(fileValidator, xmlParser, paths, articleStore, tagFilter, articleReader);
+
+    // potrzebny jest plik z podziałem na testowy i treningowy
+        String fileWithSplitName = consoleInterface.getFileWithDataSplit();
+
+        ArticleStore articleStore = readArticles(fileValidator, xmlParser, paths, tagFilter, articleReader, fileWithSplitName);
 
         WordHolder wordHolder = new WordHolder();
         createSetOfKeyWord(articleStore, wordHolder);
@@ -57,22 +56,14 @@ public class App {
 
 
 
-
+        //potrzebne sa cechy
         List<FeatureExtractor> featureExtractorList = consoleInterface.getFeatureExtractors(getListOfAvailableFeatureExtractors(wordHolder));
-        featureExtractorList.forEach(w -> System.out.println(w.description()));
 
 
-
-
-
-
-
-
-        DistanceMeasurement distanceMeasurement = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
-        distanceMeasurement.description();
-
+        // powtarzane jezeli coś wyżej sie zmeini
         //train
         Work work = new Work();
+
         Map<Article, List<Double>> trainSetFeatures = work.trainKNN(articleStore.getTrainSet(), featureExtractorList);
         List<Pair<Double, Double>> minMaxOfTrainSet = work.getMinMaxOfTrainSet(trainSetFeatures);
         Map<Article, List<Double>> trainSetFeaturesAfterNormalization = work.normalize(trainSetFeatures,minMaxOfTrainSet);
@@ -84,19 +75,15 @@ public class App {
 
 
 
+        //potrzebna liczba sasiadów
+        int numberOfNeighbours = consoleInterface.getNumberOfNeighbours();
+        // potrzebny jest miara
+        DistanceMeasurement distanceMeasurement = consoleInterface.getDistanceMeasurement(getListOfAvailableDistanceMeasurement());
 
 
         //test
         Map<Article, List<Double>> testSetFeatures = work.trainKNN(articleStore.getTestSet(), featureExtractorList);
         Map<Article, List<Double>> testSetFeaturesAfterNormalization = work.normalize(testSetFeatures,minMaxOfTrainSet);
-
-
-
-
-        int numberOfNeighbours = consoleInterface.getNumberOfNeighbours();
-
-
-
 
         int good =0;
         int wrong =0;
@@ -110,10 +97,7 @@ public class App {
         }
 
 
-
-
-
-
+        //potrzebny wynik zawsze powtarzane
         System.out.println("good = "+ good);
         System.out.println("wrong = "+ wrong);
     }
@@ -123,7 +107,8 @@ public class App {
         wordHolder.trainDone();
     }
 
-    private static void readArticles(FileTransformer fileValidator, XmlParser xmlParser, List<Path> paths, ArticleStore articleStore, TagFilter tagFilter, ArticleReader articleReader) {
+    private static ArticleStore readArticles(FileTransformer fileValidator, XmlParser xmlParser, List<Path> paths, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) {
+        ArticleStore articleStore = new ArticleStore(fileWithSplitName);
         for (Path path : paths) {
             try {
                 CharBuffer charBuffer = fileValidator.transform(path);
@@ -132,6 +117,7 @@ public class App {
                 e.printStackTrace();
             }
         }
+        return articleStore;
     }
 
     private static List<Path> getPaths(DataValidator dataValidator) throws InvalidFilesException {

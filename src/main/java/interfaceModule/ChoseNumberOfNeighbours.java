@@ -27,7 +27,7 @@ public class ChoseNumberOfNeighbours {
     private String getUserChoice() {
         System.out.println("Podaj liczbę sąsiadów jaka ma być brana pod uwagę w algorytmie Knn: (podaj tylko jedną liczbę)");
         System.out.print("> ");
-        return in.nextLine().trim();
+        return this.in.nextLine().trim();
     }
 
     private String getCorrectUserChoice() {

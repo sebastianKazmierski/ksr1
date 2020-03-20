@@ -10,7 +10,7 @@ public class AllDataValidator implements DataValidator {
     private final String REQUIRED_FILES = "src/main/resources/fileValidators/allFiles.txt";
 
     private List<String> getREQUIRED_FILES() {
-        Scanner scanner = new Scanner(REQUIRED_FILES);
+        Scanner scanner = new Scanner(this.REQUIRED_FILES);
 
         List<String> filesNames = new ArrayList<>();
         while (scanner.hasNextLine()) {
