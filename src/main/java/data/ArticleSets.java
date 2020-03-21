@@ -11,6 +11,6 @@ public enum ArticleSets {
     }
 
     public int getIntValue() {
-        return intValue;
+        return this.intValue;
     }
 }

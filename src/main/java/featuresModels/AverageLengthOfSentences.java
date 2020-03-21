@@ -23,4 +23,9 @@ public class AverageLengthOfSentences implements FeatureExtractor {
         }
         return lengthOfSentence.stream().mapToInt(e -> e).average().orElse(0);
     }
+
+        @Override
+            public String description() {
+            return "Średnia długość zdania";
+            }
 }

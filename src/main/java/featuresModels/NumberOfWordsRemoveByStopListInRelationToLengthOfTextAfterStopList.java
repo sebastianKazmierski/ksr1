@@ -10,4 +10,9 @@ public class NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList 
         double lengthOfTextAfterStopList = featureExtractor.extract(article);
         return (lengthOfText - lengthOfTextAfterStopList) / lengthOfTextAfterStopList;
     }
+
+    @Override
+    public String description() {
+        return "Liczba słów usuniętych przez stop listę w stosunku do długości tekstu";
+    }
 }

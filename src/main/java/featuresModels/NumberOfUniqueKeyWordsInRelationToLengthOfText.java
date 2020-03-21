@@ -1,7 +1,7 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.keyWords.KeyWordHolder;
+import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
 
 import java.util.List;
@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 public class NumberOfUniqueKeyWordsInRelationToLengthOfText implements FeatureExtractor {
 
-    private KeyWordHolder keyWordHolder;
+    private WordHolder wordHolder;
     private LengthOfText lengthOfText;
 
-    public NumberOfUniqueKeyWordsInRelationToLengthOfText(KeyWordHolder keyWordHolder, LengthOfText lengthOfText) {
-        this.keyWordHolder = keyWordHolder;
+    public NumberOfUniqueKeyWordsInRelationToLengthOfText(WordHolder wordHolder, LengthOfText lengthOfText) {
+        this.wordHolder = wordHolder;
         this.lengthOfText = lengthOfText;
     }
 
@@ -23,9 +23,14 @@ public class NumberOfUniqueKeyWordsInRelationToLengthOfText implements FeatureEx
 
         List<String> uniqueTokensAfterStemming = contentTokensAfterStemming.stream().distinct().collect(Collectors.toList());
 
-        double numberOfUniqueKeyWords = NumberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, keyWordHolder);
+        double numberOfUniqueKeyWords = NumberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolder);
         double lengthOfText = this.lengthOfText.extract(article);
 
         return numberOfUniqueKeyWords / lengthOfText;
     }
+
+        @Override
+            public String description() {
+                return "Liczba unikalnych słów kluczowych w stosunku do długości tekstu";
+            }
 }

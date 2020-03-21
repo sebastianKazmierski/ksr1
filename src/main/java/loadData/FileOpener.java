@@ -1,11 +1,10 @@
 package loadData;
 
 import constants.Constants;
-import org.apache.commons.io.IOUtils;
+import loadData.dataValidators.DataValidator;
+import loadData.dataValidators.InvalidFilesException;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,10 +25,5 @@ public class FileOpener {
         }
 
         return dataValidator.validate(files);
-    }
-
-    public char[] getCharsFromFile(Path path) throws IOException {
-        Reader fileReader = new FileReader(path.toFile());
-        return IOUtils.toCharArray(fileReader);
     }
 }

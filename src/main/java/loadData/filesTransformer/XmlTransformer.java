@@ -1,10 +1,18 @@
-package loadData;
+package loadData.filesTransformer;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.CharBuffer;
+import java.nio.file.Path;
 
 public class XmlTransformer implements FileTransformer {
     @Override
-    public CharBuffer validate(char[] chars) {
+    public CharBuffer transform(Path path) throws IOException {
+        Reader fileReader = new FileReader(path.toFile());
+        char[] chars = IOUtils.toCharArray(fileReader);
         CharBuffer charBuffer = CharBuffer.allocate(chars.length);
 
         char current;

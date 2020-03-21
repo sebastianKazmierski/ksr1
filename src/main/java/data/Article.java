@@ -33,11 +33,11 @@ public class Article {
     }
 
     public Integer getNumberOfKeyWordsForPlace(Place place) {
-        return keyWordsForPlaces.getOrDefault(place, 0);
+        return this.keyWordsForPlaces.getOrDefault(place, 0);
     }
 
     private void stem() {
-        contentTokensAfterStemming = Stemmer.stem(contentTokensAfterStopList);
+        this.contentTokensAfterStemming = Stemmer.stem(this.contentTokensAfterStopList);
     }
 
     private String prepareContent(String content) {
@@ -50,28 +50,28 @@ public class Article {
     }
 
     private void setNumberOfWordsAfterStemming() {
-        numberOfWordsAfterStemming = Math.toIntExact(contentTokensAfterStemming.stream().filter(e -> Constants.END_WORD_PUNCTUATION.contains(e.substring(e.length() - 1))).count());
+        this.numberOfWordsAfterStemming = Math.toIntExact(this.contentTokensAfterStemming.stream().filter(e -> Constants.END_WORD_PUNCTUATION.contains(e.substring(e.length() - 1))).count());
     }
 
     private void tokenizeContent() {
-        contentTokens = Collections.list(new StringTokenizer(content, " \\\n")).stream()
+        this.contentTokens = Collections.list(new StringTokenizer(this.content, " \\\n")).stream()
                 .map(token -> (String) token)
                 .collect(Collectors.toList());
     }
 
     private void setContentTokensAfterStopList() {
-        contentTokensAfterStopList = new ArrayList<>();
+        this.contentTokensAfterStopList = new ArrayList<>();
 
-        for (String word : contentTokens) {
+        for (String word : this.contentTokens) {
             List<String> wordAndPunctuationMarks = Functions.deletePunctuationMarksFromEnd(word);
             List<String> stopList = StopList.getStopList();
 
             if (!stopList.contains(wordAndPunctuationMarks.get(0).toLowerCase())) {
                 if (!wordAndPunctuationMarks.get(0).isEmpty()) {
-                    contentTokensAfterStopList.add(wordAndPunctuationMarks.get(0));
+                    this.contentTokensAfterStopList.add(wordAndPunctuationMarks.get(0));
                 }
                 if (!wordAndPunctuationMarks.get(1).isEmpty()) {
-                    contentTokensAfterStopList.add(wordAndPunctuationMarks.get(1));
+                    this.contentTokensAfterStopList.add(wordAndPunctuationMarks.get(1));
                 }
             }
         }
@@ -80,8 +80,8 @@ public class Article {
     @Override
     public String toString() {
         return "all.Article{" +
-                "content='" + content + '\'' +
-                "\nplace=" + place +
+                "content='" + this.content + '\'' +
+                "\nplace=" + this.place +
                 '}';
     }
 }

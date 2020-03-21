@@ -1,8 +1,13 @@
 package distanceMetrics;
 
+import interfaceModule.ElementSelectedByUser;
+
 import java.util.List;
 
-@FunctionalInterface
-public interface DistanceMeasurement {
+public interface DistanceMeasurement extends ElementSelectedByUser {
     double count(List<Double> testElement, List<Double> trainElement);
+
+    default String wordToInsertIntoQuestionAboutThisObject () {
+        return "metrykę";
+    }
 }

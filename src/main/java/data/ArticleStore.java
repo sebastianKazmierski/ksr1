@@ -17,17 +17,17 @@ public class ArticleStore {
     private List<Article> trainSet;
     private List<Article> testSet;
 
-    public ArticleStore() {
+    public ArticleStore(String fileWithSplitName) {
         this.trainSet = new ArrayList<>();
         this.testSet = new ArrayList<>();
         this.articleSets = new ArrayList<>();
         this.iterator = 0;
 
         try (InputStream fin = Files.newInputStream(Paths.get(Constants.PATH_TO_DIRECTORY_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS + "\\"
-                + Constants.NAME_OF_FILE_WITH_DATA_SPLIT_ON_TEST_AMD_TRAIN_SETS))) {
+                + fileWithSplitName))) {
             int i = fin.read();
             while (i != -1) {
-                articleSets.add(ArticleSets.values()[i]);
+                this.articleSets.add(ArticleSets.values()[i]);
                 i = fin.read();
             }
         } catch (InvalidPathException e) {
@@ -38,29 +38,29 @@ public class ArticleStore {
     }
 
     public Article add(Article article) {
-        if (articleSets.get(iterator) == ArticleSets.TRAIN) {
-            trainSet.add(article);
+        if (this.articleSets.get(this.iterator) == ArticleSets.TRAIN) {
+            this.trainSet.add(article);
         } else {
-            testSet.add(article);
+            this.testSet.add(article);
         }
-        iterator++;
+        this.iterator++;
         return article;
     }
 
     @Override
     public String toString() {
         return "ArticleStore{" +
-                "Number of articles=" + iterator +
-                ", Size of trainSet=" + trainSet.size() +
-                ", Size of testSet=" + testSet.size() +
+                "Number of articles=" + this.iterator +
+                ", Size of trainSet=" + this.trainSet.size() +
+                ", Size of testSet=" + this.testSet.size() +
                 '}';
     }
 
     public void addTrainArticle(Article article) {
-        trainSet.add(article);
+        this.trainSet.add(article);
     }
 
     public void addTestArticle(Article article) {
-        testSet.add(article);
+        this.testSet.add(article);
     }
 }

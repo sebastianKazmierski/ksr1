@@ -2,7 +2,6 @@ package featuresModels;
 
 import data.Article;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,4 +27,9 @@ public class AverageLengthOfProperName implements FeatureExtractor {
         }
         return ((double) sumOfLengthProperName) / lengthOfProperNames.size();
     }
+
+        @Override
+            public String description() {
+                return "Średnia długość unikalnych nazw własnych";
+            }
 }

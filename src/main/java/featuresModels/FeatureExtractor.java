@@ -1,8 +1,13 @@
 package featuresModels;
 
 import data.Article;
+import interfaceModule.ElementSelectedByUser;
 
-@FunctionalInterface
-public interface FeatureExtractor {
+
+public interface FeatureExtractor extends ElementSelectedByUser {
     double extract(Article article);
+
+    default String wordToInsertIntoQuestionAboutThisObject () {
+        return "cechę";
+    }
 }

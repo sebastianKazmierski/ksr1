@@ -5,7 +5,7 @@ import data.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberOfProperNameInRelationToContentLength implements FeatureExtractor {
+public class NumberOfProperNameInRelationToLengthOfText implements FeatureExtractor {
     @Override
     public double extract(Article article) {
         List<String> tokens = article.getContentTokens();
@@ -36,4 +36,8 @@ public class NumberOfProperNameInRelationToContentLength implements FeatureExtra
         return ((double)counter)/tokens.size();
     }
 
+        @Override
+            public String description() {
+                return "Liczba nazw własnych w stosunku do długości tekstu";
+            }
 }

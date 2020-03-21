@@ -27,4 +27,9 @@ public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText im
         long counter = values.stream().filter(e -> e > 1).count();
         return (double) counter / contentTokensAfterStemming.size();
     }
+
+        @Override
+            public String description() {
+                return "Ilość słów które występują więcej niż raz w stosunku do długości tekstu";
+            }
 }

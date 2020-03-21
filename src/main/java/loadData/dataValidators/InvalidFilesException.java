@@ -1,4 +1,4 @@
-package loadData;
+package loadData.dataValidators;
 
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ public class InvalidFilesException extends Exception {
     public String toString() {
         String error = super.toString();
         return error + "\n"
-                + "Expected files: " + expectedFiles.toString() + "\n"
-                + "Actual files: " + actualFiles.toString();
+                + "Expected files: " + this.expectedFiles.toString() + "\n"
+                + "Actual files: " + this.actualFiles.toString();
     }
 }
