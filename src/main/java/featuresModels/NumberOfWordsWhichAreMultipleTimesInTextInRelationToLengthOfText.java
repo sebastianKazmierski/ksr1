@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText implements FeatureExtractor {
+public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         HashMap<String, Integer> occurrenceCounter = new HashMap<>();
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming()
                 .stream().filter(e -> !Constants.END_WORD_PUNCTUATION.contains(e.substring(e.length() - 1))).collect(Collectors.toList());

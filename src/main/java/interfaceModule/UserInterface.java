@@ -5,12 +5,12 @@ import featuresModels.FeatureExtractor;
 
 import java.util.List;
 
-public interface UserInterface {
+public interface UserInterface<T extends Enum<T>> {
     String getLabel();
 
     int getNumberOfNeighbours();
 
-    List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> availableFeatureExtractors);
+    List<FeatureExtractor<T>> getFeatureExtractors(List<FeatureExtractor<T>> availableFeatureExtractors);
 
     DistanceMeasurement getDistanceMeasurement(List<DistanceMeasurement> availableDistanceMeasurements);
 

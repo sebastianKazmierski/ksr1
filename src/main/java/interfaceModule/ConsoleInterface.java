@@ -14,9 +14,9 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConsoleInterface implements UserInterface {
+public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
     Scanner in;
-    ChoseElementInterface<FeatureExtractor> choseFeatureExtractors;
+    ChoseElementInterface<FeatureExtractor<T>> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
     ChoseLabel choseLabel;
@@ -29,7 +29,7 @@ public class ConsoleInterface implements UserInterface {
         this.choseLabel = new ChoseLabel(this.in);
     }
 
-    public void displayResult(ArticleStore articleStore, List<FeatureExtractor> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
+    public void displayResult(ArticleStore<T> articleStore, List<FeatureExtractor<T>> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
         
     }
 
@@ -44,7 +44,7 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> availableFeatureExtractors) {
+    public List<FeatureExtractor<T>> getFeatureExtractors(List<FeatureExtractor<T>> availableFeatureExtractors) {
         return this.choseFeatureExtractors.getAnswer(availableFeatureExtractors);
     }
 

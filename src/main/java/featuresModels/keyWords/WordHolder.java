@@ -1,45 +1,46 @@
 package featuresModels.keyWords;
 
 import data.Article;
-import grouping.Place;
 import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WordHolder {
-    private Map<String, Word> keywords;
+public class WordHolder<T extends Enum<T>> {
+    private Map<String, Word<T>> keywords;
     @Getter
     private boolean isReady;
+    Class<T> tClass;
 
-    public WordHolder() {
+    public WordHolder( Class<T> tClass) {
+        this.tClass = tClass;
         this.keywords = new HashMap<>();
         this.isReady = false;
     }
 
-    public void train(Article article) {
-        Place place = article.getPlace();
+    public void train(Article<T> article) {
+        T place = article.getLabel();
         for (String word : article.getContentTokensAfterStemming()) {
             if (this.keywords.containsKey(word)) {
                 this.keywords.get(word).train(place);
             } else {
-                Word keyWord = new Word(word);
+                Word<T> keyWord = new Word<>(word, tClass);
                 keyWord.train(place);
                 this.keywords.put(word, keyWord);
             }
         }
     }
 
-    public Map<String, Word> getKeywords() {
+    public Map<String, Word<T>> getKeywords() {
         return this.keywords;
     }
 
-    public Word getKeyWord(String word) {
+    public Word<T> getKeyWord(String word) {
         return this.keywords.get(word);
     }
 
-    public void train(List<Article> articles) {
+    public void train(List<Article<T>> articles) {
         articles.forEach(this::train);
     }
 

@@ -6,17 +6,19 @@ import featuresModels.keyWords.NumberOfKeyWords;
 
 import java.util.List;
 
-public class NumberOfKeyWordsInWholeText implements FeatureExtractor {
-    private WordHolder wordHolder;
+public class NumberOfKeyWordsInWholeText<T extends Enum<T>> implements FeatureExtractor<T> {
+    private WordHolder<T> wordHolder;
+    NumberOfKeyWords<T> numberOfKeyWords;
 
-    public NumberOfKeyWordsInWholeText(WordHolder wordHolder) {
+    public NumberOfKeyWordsInWholeText(WordHolder<T> wordHolder, Class<T> tClass) {
         this.wordHolder = wordHolder;
+        this.numberOfKeyWords = new NumberOfKeyWords<>(tClass);
     }
 
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
-        return  NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder);
+        return  numberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder);
     }
 
         @Override

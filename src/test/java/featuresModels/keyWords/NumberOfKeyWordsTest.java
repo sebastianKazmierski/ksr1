@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 class NumberOfKeyWordsTest {
 
     @Mock
-    WordHolder wordHolder;
+    WordHolder<Place> wordHolder;
 
     @BeforeEach
     public void init() {
@@ -54,20 +54,20 @@ class NumberOfKeyWordsTest {
         assertEquals(8, NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder));
     }
 
-    public Word getKeyWord(String word) {
-        Map<String, Word> keyWords = new HashMap<>();
+    public Word<Place> getKeyWord(String word) {
+        Map<String, Word<Place>> keyWords = new HashMap<String, Word<Place>>();
 
         List<String> words = List.of("work", "computer", "sister", "paper", "mouse", "bottle");
         List<Place> places = List.of(Place.FRANCE, Place.UK, Place.UK, Place.USA, Place.JAPAN, Place.USA);
 
         for (int i = 0; i < words.size(); i++) {
-            Word keyWord = new Word(words.get(i));
+            Word<Place> keyWord = new Word<Place>(words.get(i),Place.class);
             keyWord.train(places.get(i));
             keyWord.trainDone();
             keyWords.put(keyWord.getWord(), keyWord);
         }
 
-        Word noWord = new Word("empty");
+        Word<Place> noWord = new Word<Place>("empty",Place.class);
         noWord.trainDone();
         keyWords.put(noWord.getWord(), noWord);
         return keyWords.get(word);

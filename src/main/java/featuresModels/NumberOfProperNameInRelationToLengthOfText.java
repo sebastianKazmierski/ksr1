@@ -5,9 +5,9 @@ import data.Article;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberOfProperNameInRelationToLengthOfText implements FeatureExtractor {
+public class NumberOfProperNameInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         List<String> tokens = article.getContentTokens();
         List<String> properName = new ArrayList<>();
         int counter = 0;

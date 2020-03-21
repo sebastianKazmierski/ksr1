@@ -4,7 +4,6 @@ import constants.Constants;
 import convertDataModule.Stemmer;
 import convertDataModule.StopList;
 import featuresModels.Functions;
-import grouping.Place;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.text.StringEscapeUtils;
@@ -13,27 +12,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
-public class Article {
+public class Article<T> {
     private String content;
-    private Place place;
+    private T label;
     private List<String> contentTokens;
     private List<String> contentTokensAfterStopList;
     private List<String> contentTokensAfterStemming;
     private Integer numberOfWordsAfterStemming;
     @Setter
-    private Map<Place, Integer> keyWordsForPlaces;
+    private Map<T, Integer> keyWordsForPlaces;
 
-    public Article(String content, Place place) {
+    public Article(String content, T label) {
         this.content = this.prepareContent(content);
-        this.place = place;
+        this.label = label;
         this.tokenizeContent();
         this.setContentTokensAfterStopList();
         this.stem();
         this.setNumberOfWordsAfterStemming();
     }
 
-    public Integer getNumberOfKeyWordsForPlace(Place place) {
-        return this.keyWordsForPlaces.getOrDefault(place, 0);
+    public Integer getNumberOfKeyWordsForLabel(T label) {
+        return this.keyWordsForPlaces.getOrDefault(label, 0);
     }
 
     private void stem() {
@@ -81,7 +80,7 @@ public class Article {
     public String toString() {
         return "all.Article{" +
                 "content='" + this.content + '\'' +
-                "\nplace=" + this.place +
+                "\nplace=" + this.label +
                 '}';
     }
 }

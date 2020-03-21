@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ArticleStore {
+public class ArticleStore<T> {
     private final List<ArticleSets> articleSets;
     private int iterator;
-    private List<Article> trainSet;
-    private List<Article> testSet;
+    private List<Article<T>> trainSet;
+    private List<Article<T>> testSet;
 
     public ArticleStore(String fileWithSplitName) {
         this.trainSet = new ArrayList<>();
@@ -37,7 +37,7 @@ public class ArticleStore {
         }
     }
 
-    public Article add(Article article) {
+    public Article<T> add(Article<T> article) {
         if (this.articleSets.get(this.iterator) == ArticleSets.TRAIN) {
             this.trainSet.add(article);
         } else {
@@ -56,11 +56,11 @@ public class ArticleStore {
                 '}';
     }
 
-    public void addTrainArticle(Article article) {
+    public void addTrainArticle(Article<T> article) {
         this.trainSet.add(article);
     }
 
-    public void addTestArticle(Article article) {
+    public void addTestArticle(Article<T> article) {
         this.testSet.add(article);
     }
 }

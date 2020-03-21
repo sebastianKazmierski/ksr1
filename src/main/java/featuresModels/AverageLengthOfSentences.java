@@ -5,9 +5,9 @@ import data.Article;
 
 import java.util.*;
 
-public class AverageLengthOfSentences implements FeatureExtractor {
+public class AverageLengthOfSentences<T> implements FeatureExtractor<T> {
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
         List<Integer> lengthOfSentence = new ArrayList<>();
 

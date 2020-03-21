@@ -28,8 +28,25 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
+
+
+
+
+
+
         //nic tu nie jest potrzebne nigdy to nie jest powtarzane
         ConsoleInterface consoleInterface = new ConsoleInterface();
+        getListOfAvailableFeatureExtractors(wordHolder)
+
+
+        ArticleStore articleStore = readArticles(fileValidator, xmlParser, paths, tagFilter, articleReader, fileWithSplitName);
+
+        WordHolder wordHolder = new WordHolder();
+        createSetOfKeyWord(articleStore, wordHolder);
+
+
+
+
         FileTransformer fileValidator = new XmlTransformer();
         XmlParser xmlParser = new XmlParser();
 
@@ -45,10 +62,7 @@ public class App {
     // potrzebny jest plik z podziałem na testowy i treningowy
         String fileWithSplitName = consoleInterface.getFileWithDataSplit();
 
-        ArticleStore articleStore = readArticles(fileValidator, xmlParser, paths, tagFilter, articleReader, fileWithSplitName);
 
-        WordHolder wordHolder = new WordHolder();
-        createSetOfKeyWord(articleStore, wordHolder);
 
 
 
@@ -89,7 +103,7 @@ public class App {
         int wrong =0;
         for (Map.Entry<Article, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
             Place place = knn.getResult(articleListEntry.getValue(), distanceMeasurement, numberOfNeighbours);
-            if (place == articleListEntry.getKey().getPlace()) {
+            if (place == articleListEntry.getKey().getLabel()) {
                 good++;
             } else {
                 wrong++;
@@ -125,37 +139,7 @@ public class App {
         return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
 
-    public static List<FeatureExtractor> getListOfAvailableFeatureExtractors(WordHolder wordHolder) {
-        List<FeatureExtractor> featureExtractorList = new ArrayList<>();
 
-        featureExtractorList.add(new AverageLengthOfParagraph(new NumberOfParagraphsInRelationToLengthOfText(new LengthOfText())));
-        featureExtractorList.add(new AverageLengthOfProperName());
-        featureExtractorList.add(new AverageLengthOfSentences());
-        featureExtractorList.add(new LengthOfText());
-        featureExtractorList.add(new NumberOfKeyWordsInTenFirstPercentOfText(wordHolder));
-        featureExtractorList.add(new NumberOfKeyWordsInWholeText(wordHolder));
-        featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText(new LengthOfText()));
-        featureExtractorList.add(new NumberOfProperNameInRelationToLengthOfText());
-        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText(wordHolder, new LengthOfText()));
-        featureExtractorList.add(new NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList());
-        featureExtractorList.add(new NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText());
 
-        for (Place place : Place.values()) {
-            featureExtractorList.add(new NumberOfKeyWordsInPlace(place, wordHolder));
-        }
 
-        return featureExtractorList;
-    }
-
-    public static List<DistanceMeasurement> getListOfAvailableDistanceMeasurement() {
-        List<DistanceMeasurement> distanceMeasurements = new ArrayList<>();
-
-        distanceMeasurements.add(new AverageMinimumMetric());
-        distanceMeasurements.add(new CzebyszewMetric());
-        distanceMeasurements.add(new EuclidesMetric());
-        distanceMeasurements.add(new MinMaxMetric());
-        distanceMeasurements.add(new StreetMetric());
-
-        return distanceMeasurements;
-    }
 }

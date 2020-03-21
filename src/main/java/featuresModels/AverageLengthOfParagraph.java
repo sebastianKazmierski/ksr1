@@ -2,7 +2,7 @@ package featuresModels;
 
 import data.Article;
 
-public class AverageLengthOfParagraph implements FeatureExtractor {
+public class AverageLengthOfParagraph<T> implements FeatureExtractor<T> {
     NumberOfParagraphsInRelationToLengthOfText numberOfParagraphs;
 
     public AverageLengthOfParagraph(NumberOfParagraphsInRelationToLengthOfText numberOfParagraphs) {
@@ -10,7 +10,7 @@ public class AverageLengthOfParagraph implements FeatureExtractor {
     }
 
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         int numberOfWords = article.getContentTokens().size();
         return (double)numberOfWords / this.numberOfParagraphs.getNumberOfParagraphs(article);
     }
@@ -19,4 +19,6 @@ public class AverageLengthOfParagraph implements FeatureExtractor {
     public String description() {
         return "Średnia długość akapitu";
     }
+
+
 }

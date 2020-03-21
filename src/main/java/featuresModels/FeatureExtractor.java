@@ -4,8 +4,8 @@ import data.Article;
 import interfaceModule.ElementSelectedByUser;
 
 
-public interface FeatureExtractor extends ElementSelectedByUser {
-    double extract(Article article);
+public interface FeatureExtractor<T> extends ElementSelectedByUser {
+    double extract(Article<T> article);
 
     default String wordToInsertIntoQuestionAboutThisObject () {
         return "cechę";

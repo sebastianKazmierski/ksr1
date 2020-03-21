@@ -3,7 +3,7 @@ package grouping;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Topic {
+public enum Topic implements Label<Topic> {
     EARN("earn"),
     COFFEE("coffee");
 
@@ -21,8 +21,13 @@ public enum Topic {
         this.label = label;
     }
 
+    public String getLabel() {
+        return this.label;
+    }
 
-    public static Topic valueOfLabel(String label) {
+    public Topic valueOfLabel(String label) {
         return BY_LABEL.get(label);
     }
+
+
 }
