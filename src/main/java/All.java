@@ -87,6 +87,15 @@ public class All<T extends Enum<T>> {
         return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
     }
 
+    public boolean work() {
+        setFileWithDataSplit();
+        setFeatureExtractors();
+        setDistanceMeasurement();
+        setNumberOfNeighbours();
+        test();
+
+    }
+
     private Result test() {
         Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
         Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
@@ -165,17 +174,7 @@ public class All<T extends Enum<T>> {
         return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
 
-    class Result {
-        @Getter
-        int correct;
-        @Getter
-        int incorrect;
 
-        public Result(int correct, int wrong) {
-            this.correct = correct;
-            this.incorrect = wrong;
-        }
-    }
 
 
 }

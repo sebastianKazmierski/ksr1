@@ -30,7 +30,7 @@ public enum Topic implements Label<Topic> {
     }
 
     @Override
-    public String toString() {
+    public String description() {
         return "Topic";
     }
 }

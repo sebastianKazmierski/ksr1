@@ -1,5 +1,12 @@
 package grouping;
 
-public interface Label<T> {
+import interfaceModule.ElementSelectedByUser;
+
+public interface Label<T> extends ElementSelectedByUser {
     String getLabel();
+
+    @Override
+    default String wordToInsertIntoQuestionAboutThisObject() {
+        return "etykietę";
+    }
 }
