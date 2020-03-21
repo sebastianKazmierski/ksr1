@@ -1,5 +1,7 @@
 package interfaceModule;
 
+import changeSettings.ChangeSettings;
+import changeSettings.ChangeSettingsType;
 import constants.Constants;
 import data.ArticleStore;
 import distanceMetrics.DistanceMeasurement;
@@ -19,14 +21,15 @@ public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
     ChoseElementInterface<FeatureExtractor<T>> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
-    ChoseLabel choseLabel;
+    ChoseElementInterface<ChangeSettings> choseChangeSettings;
+
 
     public ConsoleInterface() {
         this.in = new Scanner(System.in);
         this.choseFeatureExtractors = new ChoseElementInterface<>(this.in, TypeOfChoice.MULTIPLE);
         this.choseDistanceMeasurement = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
         this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(this.in);
-        this.choseLabel = new ChoseLabel(this.in);
+        this.choseChangeSettings = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
     }
 
     public void displayResult(ArticleStore<T> articleStore, List<FeatureExtractor<T>> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
@@ -65,6 +68,11 @@ public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
             e.printStackTrace();
         }
         return fileName;
+    }
+
+    @Override
+    public ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList) {
+        return this.choseChangeSettings.getAnswer(changeSettingsList).get(0).getChange();
     }
 
     private List<String> getNamesOfFilesWithSplitPattern(Stream<Path> paths) {

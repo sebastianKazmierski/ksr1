@@ -1,0 +1,10 @@
+package changeSettings;
+
+public enum ChangeSettingsType {
+    ALL_SETTINGS,
+    DISTANCE_MEASUREMENT_SETTINGS,
+    FEATURE_EXTRACTORS_SETTINGS,
+    NUMBER_OF_NEIGHBOURS_SETTINGS,
+    LABEL_SETTINGS,
+    STOP_PROGRAM
+}

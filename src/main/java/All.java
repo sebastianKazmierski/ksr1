@@ -1,3 +1,4 @@
+import changeSettings.*;
 import data.Article;
 import data.ArticleStore;
 import distanceMetrics.*;
@@ -12,13 +13,13 @@ import loadData.dataValidators.DataValidator;
 import loadData.dataValidators.InvalidFilesException;
 import loadData.filesTransformer.FileTransformer;
 import loadData.tagsFilter.TagFilter;
-import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,11 @@ public class All<T extends Enum<T>> {
     private List<DistanceMeasurement> availableDistanceMeasurements;
     private Class<T> tClass;
     T[] enumConstants;
+    private FileTransformer fileValidator;
+    private XmlParser xmlParser;
+    private DataValidator dataValidator;
+
+
 
     Work<T> work;
 
@@ -53,17 +59,22 @@ public class All<T extends Enum<T>> {
 
 
     public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser,DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
-        this.userInterface = userInterface;
-        this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
+        this.fileValidator = fileValidator;
+        this.xmlParser = xmlParser;
+        this.dataValidator = dataValidator;
+        this.tagFilter = tagFilter;
+        this.articleReader = articleReader;
         this.tClass = tClass;
         this.enumConstants = tClass.getEnumConstants();
 
         this.work = new Work<T>();
+        this.userInterface = userInterface;
+        this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
     }
 
-    private void setFileWithDataSplit() {
+    private void setFileWithDataSplit() throws InvalidFilesException {
         String fileName = this.userInterface.getFileWithDataSplit();
-        this.articleStore = new ArticleStore<T>(fileName);
+        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, fileName);;
         this.wordHolder = createSetOfKeyWord(this.articleStore);
         this.availableFeatureExtractors = getListOfAvailableFeatureExtractors(this.wordHolder);
     }
@@ -87,16 +98,43 @@ public class All<T extends Enum<T>> {
         return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
     }
 
-    public boolean work() {
+    public boolean work() throws InvalidFilesException {
         setFileWithDataSplit();
         setFeatureExtractors();
         setDistanceMeasurement();
         setNumberOfNeighbours();
         test();
 
+        do {
+            List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(), new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(), new ChangeLabel(), new StopProgram());
+            ChangeSettingsType changeSettings = this.userInterface.getChangeSettings(changeSettingsList);
+
+            switch (changeSettings) {
+                case ALL_SETTINGS:
+                    setFileWithDataSplit();
+                    setFeatureExtractors();
+                    setDistanceMeasurement();
+                    setNumberOfNeighbours();
+                    break;
+                case FEATURE_EXTRACTORS_SETTINGS:
+                    setFeatureExtractors();
+                    break;
+                case DISTANCE_MEASUREMENT_SETTINGS:
+                    setDistanceMeasurement();
+                    break;
+                case NUMBER_OF_NEIGHBOURS_SETTINGS:
+                    setNumberOfNeighbours();
+                    break;
+                case LABEL_SETTINGS:
+                    return true;
+                case STOP_PROGRAM:
+                    return false;
+            }
+            test();
+        } while (true);
     }
 
-    private Result test() {
+    private void test() {
         Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
         Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
 
@@ -110,7 +148,8 @@ public class All<T extends Enum<T>> {
                 incorrect++;
             }
         }
-        return new Result(correct, incorrect);
+        System.out.println("correct: "+correct);
+        System.out.println("wrong: "+incorrect);
     }
 
     private WordHolder<T> createSetOfKeyWord(ArticleStore<T> articleStore) {
