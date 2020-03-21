@@ -16,7 +16,7 @@ class AverageLengthOfParagraphTest {
                 "    Chase, a property \n" +
                 "    It said agreements\n";
         Article<Place> article = new Article<>(content, Place.UK);
-        FeatureExtractor featureExtractor = new AverageLengthOfParagraph(new NumberOfParagraphsInRelationToLengthOfText(new LengthOfText()));
+        FeatureExtractor<Place> featureExtractor = new AverageLengthOfParagraph<>(new NumberOfParagraphsInRelationToLengthOfText<Place>(new LengthOfText<>()));
         assertEquals(18.0 / 4, featureExtractor.extract(article));
     }
 }

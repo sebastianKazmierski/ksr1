@@ -37,11 +37,11 @@ class NumberOfKeyWordsInLabelTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInLabel(Place.FRANCE, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInLabel(Place.UK, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInLabel(Place.USA, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInLabel(Place.JAPAN, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInLabel(Place.CANADA, this.wordHolder);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInLabel<Place>(Place.FRANCE, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInLabel<Place>(Place.UK, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInLabel<Place>(Place.USA, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInLabel<Place>(Place.JAPAN, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInLabel<Place>(Place.CANADA, this.wordHolder,Place.class);
 
         assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
         assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");

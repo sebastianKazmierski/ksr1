@@ -29,5 +29,8 @@ public enum Topic implements Label<Topic> {
         return BY_LABEL.get(label);
     }
 
-
+    @Override
+    public String toString() {
+        return "Topic";
+    }
 }

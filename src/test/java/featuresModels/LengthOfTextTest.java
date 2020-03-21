@@ -16,7 +16,7 @@ class LengthOfTextTest {
         Article<Place> article1 = new Article<>(contetn1, Place.UK);
         Article<Place> article2 = new Article<>(contetn2, Place.UK);
         Article<Place> article3 = new Article<>(contetn3, Place.UK);
-        FeatureExtractor featureExtractor = new LengthOfText();
+        FeatureExtractor<Place> featureExtractor = new LengthOfText<>();
         assertEquals(13,featureExtractor.extract(article1),"0,.001");
         assertEquals(0,featureExtractor.extract(article2),"0,.001");
         assertEquals(5,featureExtractor.extract(article3),"0,.001");

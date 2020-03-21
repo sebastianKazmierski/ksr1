@@ -1,41 +1,33 @@
-import data.Article;
-import data.ArticleStore;
-import distanceMetrics.*;
-import featuresModels.*;
-import featuresModels.keyWords.WordHolder;
 import grouping.Place;
-import interfaceModule.ConsoleInterface;
-import knn.Knn;
-import loadData.FileOpener;
-import loadData.XmlParser;
-import loadData.articleCratorsFromXml.ArticleReader;
-import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
-import loadData.dataValidators.AllDataValidator;
-import loadData.dataValidators.DataValidator;
+import grouping.Topic;
+import interfaceModule.ChoseLabel;
 import loadData.dataValidators.InvalidFilesException;
-import loadData.filesTransformer.FileTransformer;
-import loadData.filesTransformer.XmlTransformer;
-import loadData.tagsFilter.BasePlaceFilter;
-import loadData.tagsFilter.TagFilter;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.IOException;
-import java.nio.CharBuffer;
-import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws InvalidFilesException {
 
+        Scanner in = new Scanner(System.in);
 
+        List<? extends Enum> list = Arrays.asList(Place.USA, Topic.COFFEE);
+        ChoseLabel userInterface = new ChoseLabel(in,list);
+
+        userInterface.getLabel();
+
+/*        String userChoice = this.userInterface.getLabel();
+        if (userChoice.equals("p")) {
+            this.tagFilter = new BasePlaceFilter();
+            this.articleReader = new ArticleReaderWithPlaces();
+        }
 
 
 
 
         //nic tu nie jest potrzebne nigdy to nie jest powtarzane
-        ConsoleInterface consoleInterface = new ConsoleInterface();
+
         getListOfAvailableFeatureExtractors(wordHolder)
 
 
@@ -113,31 +105,13 @@ public class App {
 
         //potrzebny wynik zawsze powtarzane
         System.out.println("good = "+ good);
-        System.out.println("wrong = "+ wrong);
+        System.out.println("wrong = "+ wrong);*/
     }
 
-    private static void createSetOfKeyWord(ArticleStore articleStore, WordHolder wordHolder) {
-        wordHolder.train(articleStore.getTrainSet());
-        wordHolder.trainDone();
-    }
 
-    private static ArticleStore readArticles(FileTransformer fileValidator, XmlParser xmlParser, List<Path> paths, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) {
-        ArticleStore articleStore = new ArticleStore(fileWithSplitName);
-        for (Path path : paths) {
-            try {
-                CharBuffer charBuffer = fileValidator.transform(path);
-                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return articleStore;
-    }
 
-    private static List<Path> getPaths(DataValidator dataValidator) throws InvalidFilesException {
-        FileOpener fileOpener = new FileOpener();
-        return fileOpener.loadArticlesFromDirectory(dataValidator);
-    }
+
+
 
 
 

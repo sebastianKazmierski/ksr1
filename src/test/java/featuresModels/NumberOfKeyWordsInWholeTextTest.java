@@ -37,7 +37,7 @@ class NumberOfKeyWordsInWholeTextTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(this.wordHolder);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText<>(this.wordHolder,Place.class);
 
         assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }

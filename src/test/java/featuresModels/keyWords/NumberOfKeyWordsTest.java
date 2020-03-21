@@ -44,14 +44,16 @@ class NumberOfKeyWordsTest {
         placeToOccurrenceMap.put(Place.CANADA, 0);
         placeToOccurrenceMap.put(Place.WEST_GERMANY, 0);
 
-        assertEquals(placeToOccurrenceMap, NumberOfKeyWords.count(contentTokensAfterStemming, this.wordHolder));
+        NumberOfKeyWords<Place> numberOfKeyWords = new NumberOfKeyWords<>(Place.class);
+        assertEquals(placeToOccurrenceMap, numberOfKeyWords.count(contentTokensAfterStemming, this.wordHolder));
     }
 
     @Test
     void countAllKeyWords() {
         List<String> contentTokensAfterStemming = List.of("work", "work", "empty", "nothing", "something", ".", "...", "computer", "computer", "sister", "paper", "mouse", "bottle");
 
-        assertEquals(8, NumberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder));
+        NumberOfKeyWords<Place> numberOfKeyWords = new NumberOfKeyWords<>(Place.class);
+        assertEquals(8, numberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder));
     }
 
     public Word<Place> getKeyWord(String word) {

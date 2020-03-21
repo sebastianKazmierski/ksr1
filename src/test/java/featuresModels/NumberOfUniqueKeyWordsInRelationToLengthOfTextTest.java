@@ -37,8 +37,8 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        LengthOfText lengthOfText = new LengthOfText();
-        NumberOfUniqueKeyWordsInRelationToLengthOfText numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText(this.wordHolder,lengthOfText);
+        LengthOfText<Place> lengthOfText = new LengthOfText<>();
+        NumberOfUniqueKeyWordsInRelationToLengthOfText<Place> numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText<>(this.wordHolder,lengthOfText);
 
         assertEquals(3/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article),"0.001");
 

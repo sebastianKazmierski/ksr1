@@ -32,4 +32,9 @@ public enum Place implements Label<Place>{
     public static Place valueOfLabel(String label) {
         return BY_LABEL.get(label);
     }
+
+    @Override
+    public String toString() {
+        return "Place";
+    }
 }

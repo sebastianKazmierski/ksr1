@@ -34,11 +34,6 @@ public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
     }
 
     @Override
-    public String getLabel() {
-        return this.choseLabel.getLabel();
-    }
-
-    @Override
     public int getNumberOfNeighbours() {
         return this.choseNumberOfNeighbours.getNumberOfNeighbours();
     }

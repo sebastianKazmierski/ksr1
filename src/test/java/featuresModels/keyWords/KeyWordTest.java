@@ -9,7 +9,7 @@ class KeyWordTest {
 
     @Test
     void trainDone() {
-        Word word1 = new Word("empty",Place.class);
+        Word<Place> word1 = new Word<>("empty",Place.class);
         word1.trainDone();
         assertFalse(word1.isKeyWord());
         assertNull(word1.getKeyWordFor());

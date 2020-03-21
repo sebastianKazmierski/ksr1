@@ -5,13 +5,19 @@ import featuresModels.*;
 import featuresModels.keyWords.WordHolder;
 import interfaceModule.UserInterface;
 import knn.Knn;
+import loadData.FileOpener;
+import loadData.XmlParser;
 import loadData.articleCratorsFromXml.ArticleReader;
-import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
-import loadData.tagsFilter.BasePlaceFilter;
+import loadData.dataValidators.DataValidator;
+import loadData.dataValidators.InvalidFilesException;
+import loadData.filesTransformer.FileTransformer;
 import loadData.tagsFilter.TagFilter;
 import lombok.Getter;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.IOException;
+import java.nio.CharBuffer;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,21 +52,13 @@ public class All<T extends Enum<T>> {
     //tutaj jest testowanie które zawsze się zmienia
 
 
-    public All(UserInterface<T> userInterface, Class<T> tClass) {
+    public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser,DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
         this.userInterface = userInterface;
         this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
         this.tClass = tClass;
         this.enumConstants = tClass.getEnumConstants();
 
         this.work = new Work<T>();
-    }
-
-    private void setLabel() {
-        String userChoice = this.userInterface.getLabel();
-        if (userChoice.equals("p")) {
-            this.tagFilter = new BasePlaceFilter();
-            this.articleReader = new ArticleReaderWithPlaces();
-        }
     }
 
     private void setFileWithDataSplit() {
@@ -116,15 +114,15 @@ public class All<T extends Enum<T>> {
     private List<FeatureExtractor<T>> getListOfAvailableFeatureExtractors(WordHolder<T> wordHolder) {
         List<FeatureExtractor<T>> featureExtractorList = new ArrayList<>();
 
-        featureExtractorList.add(new AverageLengthOfParagraph<>(new NumberOfParagraphsInRelationToLengthOfText<>(new LengthOfText<>())));
+        featureExtractorList.add(new AverageLengthOfParagraph<>(new NumberOfParagraphsInRelationToLengthOfText<T>(new LengthOfText<>())));
         featureExtractorList.add(new AverageLengthOfProperName<>());
         featureExtractorList.add(new AverageLengthOfSentences<>());
         featureExtractorList.add(new LengthOfText<>());
         featureExtractorList.add(new NumberOfKeyWordsInTenFirstPercentOfText<T>(wordHolder, this.tClass));
         featureExtractorList.add(new NumberOfKeyWordsInWholeText<T>(wordHolder, this.tClass));
-        featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText<>(new LengthOfText<>()));
+        featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText<>(new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfProperNameInRelationToLengthOfText<>());
-        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<T>(wordHolder, new LengthOfText<>()));
+        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<>(wordHolder, new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<>());
         featureExtractorList.add(new NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<>());
 
@@ -146,6 +144,25 @@ public class All<T extends Enum<T>> {
         distanceMeasurements.add(new StreetMetric());
 
         return distanceMeasurements;
+    }
+
+    private ArticleStore<T> readArticles(FileTransformer fileValidator, XmlParser xmlParser,DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) throws InvalidFilesException {
+        ArticleStore<T> articleStore = new ArticleStore<>(fileWithSplitName);
+        List<Path> paths = getPaths(dataValidator);
+        for (Path path : paths) {
+            try {
+                CharBuffer charBuffer = fileValidator.transform(path);
+                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return articleStore;
+    }
+
+    private List<Path> getPaths(DataValidator dataValidator) throws InvalidFilesException {
+        FileOpener fileOpener = new FileOpener();
+        return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
 
     class Result {
