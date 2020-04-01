@@ -3,9 +3,10 @@ package interfaceModule;
 import changeSettings.ChangeSettings;
 import changeSettings.ChangeSettingsType;
 import constants.Constants;
-import data.ArticleStore;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
+import grouping.Label;
+import other.Result;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,15 +17,17 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
+public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
     Scanner in;
     ChoseElementInterface<FeatureExtractor<T>> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
     ChoseElementInterface<ChangeSettings> choseChangeSettings;
+    T[] enumConstants;
 
 
-    public ConsoleInterface() {
+    public ConsoleInterface(Class<T> tClass) {
+        this.enumConstants = tClass.getEnumConstants();
         this.in = new Scanner(System.in);
         this.choseFeatureExtractors = new ChoseElementInterface<>(this.in, TypeOfChoice.MULTIPLE);
         this.choseDistanceMeasurement = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
@@ -32,8 +35,14 @@ public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
         this.choseChangeSettings = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
     }
 
-    public void displayResult(ArticleStore<T> articleStore, List<FeatureExtractor<T>> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
-        
+    public void displayResult(Result<T> result) {
+        System.out.println("Accuracy: " + result.getAccuracy());
+        for (T enumConstant : this.enumConstants) {
+            System.out.println();
+            System.out.println("Etykieta:  "+enumConstant.getLabel());
+            System.out.println("Recall:    " + result.getRecall(enumConstant));
+            System.out.println("Precision: " + result.getPrecision(enumConstant));
+        }
     }
 
     @Override
@@ -74,7 +83,6 @@ public class ConsoleInterface<T extends Enum<T>> implements UserInterface<T> {
     public ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList) {
         return this.choseChangeSettings.getAnswer(changeSettingsList).get(0).getChange();
     }
-
     private List<String> getNamesOfFilesWithSplitPattern(Stream<Path> paths) {
         return paths.map(path -> path.getFileName().toString()).filter(s -> {
             String regex = "_";

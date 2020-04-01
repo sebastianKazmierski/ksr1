@@ -1,11 +1,12 @@
 package featuresModels.keyWords;
 
+import grouping.Label;
 import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Word<T extends Enum<T>> {
+public class Word<T extends Label<T>> {
     private static final double PERCENT_OF_ALL_OCCURRENCES_WHEN_WORD_IS_KEY_WORD = 0.51;
     @Getter
     private String word;

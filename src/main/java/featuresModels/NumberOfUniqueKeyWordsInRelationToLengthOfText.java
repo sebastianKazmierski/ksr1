@@ -3,12 +3,13 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import grouping.Label;
 import grouping.Place;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
 
     private WordHolder<T> wordHolder;
     private LengthOfText<T> lengthOfText;

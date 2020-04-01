@@ -1,11 +1,12 @@
 package featuresModels;
 
 import data.Article;
+import grouping.Label;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NumberOfProperNameInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfProperNameInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
     @Override
     public double extract(Article<T> article) {
         List<String> tokens = article.getContentTokens();

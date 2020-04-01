@@ -1,8 +1,9 @@
 package featuresModels;
 
 import data.Article;
+import grouping.Label;
 
-public class NumberOfParagraphsInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfParagraphsInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
     LengthOfText<T> lengthOfText;
 
     public NumberOfParagraphsInRelationToLengthOfText(LengthOfText<T> lengthOfText) {

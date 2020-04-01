@@ -1,4 +1,8 @@
-public class Result<T extends Enum<T>> {
+package other;
+
+import grouping.Label;
+
+public class Result<T extends Label<T>> {
     T[] enumConstants;
     int[][] matrix;
 

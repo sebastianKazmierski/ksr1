@@ -1,13 +1,14 @@
 package featuresModels.keyWords;
 
 import data.Article;
+import grouping.Label;
 import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WordHolder<T extends Enum<T>> {
+public class WordHolder<T extends Label<T>> {
     private Map<String, Word<T>> keywords;
     @Getter
     private boolean isReady;

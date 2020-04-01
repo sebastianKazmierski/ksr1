@@ -1,8 +1,9 @@
 package featuresModels;
 
 import data.Article;
+import grouping.Label;
 
-public class NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<T extends Label<T>> implements FeatureExtractor<T> {
     @Override
     public double extract(Article<T> article) {
         int lengthOfText = article.getContentTokens().size();

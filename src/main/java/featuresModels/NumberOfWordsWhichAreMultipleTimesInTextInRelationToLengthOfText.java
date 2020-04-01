@@ -2,13 +2,14 @@ package featuresModels;
 
 import constants.Constants;
 import data.Article;
+import grouping.Label;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
     @Override
     public double extract(Article<T> article) {
         HashMap<String, Integer> occurrenceCounter = new HashMap<>();

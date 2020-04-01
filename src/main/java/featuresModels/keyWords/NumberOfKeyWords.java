@@ -1,9 +1,11 @@
 package featuresModels.keyWords;
 
+import grouping.Label;
+
 import java.util.HashMap;
 import java.util.List;
 
-public class NumberOfKeyWords<T extends Enum<T>> {
+public class NumberOfKeyWords<T extends Label<T>> {
     T[] enumConstants;
 
     public NumberOfKeyWords(Class<T> tClass) {

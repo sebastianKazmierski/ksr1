@@ -4,6 +4,7 @@ import data.ArticleStore;
 import distanceMetrics.*;
 import featuresModels.*;
 import featuresModels.keyWords.WordHolder;
+import grouping.Label;
 import interfaceModule.UserInterface;
 import knn.Knn;
 import loadData.FileOpener;
@@ -14,6 +15,7 @@ import loadData.dataValidators.InvalidFilesException;
 import loadData.filesTransformer.FileTransformer;
 import loadData.tagsFilter.TagFilter;
 import org.apache.commons.lang3.tuple.Pair;
+import other.Result;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
@@ -23,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class All<T extends Enum<T>> {
+public class All<T extends Label<T>> {
     UserInterface<T> userInterface;
     private List<FeatureExtractor<T>> availableFeatureExtractors;
     private List<DistanceMeasurement> availableDistanceMeasurements;
@@ -32,7 +34,6 @@ public class All<T extends Enum<T>> {
     private FileTransformer fileValidator;
     private XmlParser xmlParser;
     private DataValidator dataValidator;
-
 
 
     Work<T> work;
@@ -58,7 +59,7 @@ public class All<T extends Enum<T>> {
     //tutaj jest testowanie które zawsze się zmienia
 
 
-    public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser,DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
+    public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
         this.fileValidator = fileValidator;
         this.xmlParser = xmlParser;
         this.dataValidator = dataValidator;
@@ -74,7 +75,8 @@ public class All<T extends Enum<T>> {
 
     private void setFileWithDataSplit() throws InvalidFilesException {
         String fileName = this.userInterface.getFileWithDataSplit();
-        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, fileName);;
+        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, fileName);
+        ;
         this.wordHolder = createSetOfKeyWord(this.articleStore);
         this.availableFeatureExtractors = getListOfAvailableFeatureExtractors(this.wordHolder);
     }
@@ -103,7 +105,7 @@ public class All<T extends Enum<T>> {
         setFeatureExtractors();
         setDistanceMeasurement();
         setNumberOfNeighbours();
-        test();
+        this.userInterface.displayResult(test());
 
         do {
             List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(), new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(), new ChangeLabel(), new StopProgram());
@@ -130,26 +132,29 @@ public class All<T extends Enum<T>> {
                 case STOP_PROGRAM:
                     return false;
             }
-            test();
+            this.userInterface.displayResult(test());
         } while (true);
     }
 
-    private void test() {
+    private Result<T> test() {
         Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
         Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
 
-        int correct =0;
-        int incorrect =0;
+        int correct = 0;
+        int incorrect = 0;
+        Result<T> result = new Result<>(this.tClass);
         for (Map.Entry<Article<T>, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
             T label = this.knn.getResult(articleListEntry.getValue(), this.distanceMeasurement, this.numberOfNeighbours);
+            result.addResult(articleListEntry.getKey().getLabel(), label);
             if (label == articleListEntry.getKey().getLabel()) {
                 correct++;
             } else {
                 incorrect++;
             }
         }
-        System.out.println("correct: "+correct);
-        System.out.println("wrong: "+incorrect);
+        System.out.println("correct: " + correct);
+        System.out.println("wrong: " + incorrect);
+        return result;
     }
 
     private WordHolder<T> createSetOfKeyWord(ArticleStore<T> articleStore) {
@@ -194,13 +199,13 @@ public class All<T extends Enum<T>> {
         return distanceMeasurements;
     }
 
-    private ArticleStore<T> readArticles(FileTransformer fileValidator, XmlParser xmlParser,DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) throws InvalidFilesException {
+    private ArticleStore<T> readArticles(FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) throws InvalidFilesException {
         ArticleStore<T> articleStore = new ArticleStore<>(fileWithSplitName);
         List<Path> paths = getPaths(dataValidator);
         for (Path path : paths) {
             try {
                 CharBuffer charBuffer = fileValidator.transform(path);
-                xmlParser.readArticles(charBuffer,articleStore,articleReader, tagFilter);
+                xmlParser.readArticles(charBuffer, articleStore, articleReader, tagFilter);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -212,8 +217,6 @@ public class All<T extends Enum<T>> {
         FileOpener fileOpener = new FileOpener();
         return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
-
-
 
 
 }

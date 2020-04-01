@@ -36,12 +36,12 @@ public class App {
             if (label instanceof Place) {
                 tagFilter = new BasePlaceFilter();
                 articleReader = new ArticleReaderWithPlaces();
-                All<Place> all = new All<>(new ConsoleInterface<>(), Place.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
+                All<Place> all = new All<>(new ConsoleInterface<>(Place.class), Place.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
                 repeat = all.work();
             } else if (label instanceof Topic) {
                 tagFilter = new BasePlaceFilter();
                 articleReader = new ArticleReaderWithPlaces();
-                All<Topic> all = new All<>(new ConsoleInterface<>(), Topic.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
+                All<Topic> all = new All<>(new ConsoleInterface<>(Topic.class), Topic.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
                 repeat = all.work();
             }
         } while (repeat);

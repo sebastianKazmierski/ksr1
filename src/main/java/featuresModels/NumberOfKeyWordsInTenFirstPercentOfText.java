@@ -3,10 +3,11 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import grouping.Label;
 
 import java.util.List;
 
-public class NumberOfKeyWordsInTenFirstPercentOfText<T extends Enum<T>> implements FeatureExtractor<T> {
+public class NumberOfKeyWordsInTenFirstPercentOfText<T extends Label<T>> implements FeatureExtractor<T> {
     private WordHolder<T> wordHolder;
     private NumberOfKeyWords<T> numberOfKeyWords;
 
