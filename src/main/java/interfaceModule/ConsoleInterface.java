@@ -1,41 +1,51 @@
 package interfaceModule;
 
+import changeSettings.ChangeSettings;
+import changeSettings.ChangeSettingsType;
 import constants.Constants;
-import data.ArticleStore;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
+import grouping.Label;
+import other.Result;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConsoleInterface implements UserInterface {
+public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
     Scanner in;
-    ChoseElementInterface<FeatureExtractor> choseFeatureExtractors;
+    ChoseElementInterface<FeatureExtractor<T>> choseFeatureExtractors;
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
-    ChoseLabel choseLabel;
+    ChoseElementInterface<ChangeSettings> choseChangeSettings;
+    T[] enumConstants;
 
-    public ConsoleInterface() {
+
+    public ConsoleInterface(Class<T> tClass) {
+        this.enumConstants = tClass.getEnumConstants();
         this.in = new Scanner(System.in);
         this.choseFeatureExtractors = new ChoseElementInterface<>(this.in, TypeOfChoice.MULTIPLE);
         this.choseDistanceMeasurement = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
         this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(this.in);
-        this.choseLabel = new ChoseLabel(this.in);
+        this.choseChangeSettings = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
     }
 
-    public void displayResult(ArticleStore articleStore, List<FeatureExtractor> featureExtractorList, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
-        
-    }
-
-    @Override
-    public String getLabel() {
-        return this.choseLabel.getLabel();
+    public void displayResult(Result<T> result) {
+        System.out.println("Accuracy: " + result.getAccuracy());
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        for (T enumConstant : this.enumConstants) {
+            System.out.println();
+            System.out.println("Etykieta:  "+enumConstant.getLabel());
+            System.out.println("Recall:    " + decimalFormat.format(result.getRecall(enumConstant)));
+            System.out.println("Precision: " + decimalFormat.format(result.getPrecision(enumConstant)));
+        }
+        this.in.nextLine();
     }
 
     @Override
@@ -44,7 +54,7 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public List<FeatureExtractor> getFeatureExtractors(List<FeatureExtractor> availableFeatureExtractors) {
+    public List<FeatureExtractor<T>> getFeatureExtractors(List<FeatureExtractor<T>> availableFeatureExtractors) {
         return this.choseFeatureExtractors.getAnswer(availableFeatureExtractors);
     }
 
@@ -72,6 +82,10 @@ public class ConsoleInterface implements UserInterface {
         return fileName;
     }
 
+    @Override
+    public ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList) {
+        return this.choseChangeSettings.getAnswer(changeSettingsList).get(0).getChange();
+    }
     private List<String> getNamesOfFilesWithSplitPattern(Stream<Path> paths) {
         return paths.map(path -> path.getFileName().toString()).filter(s -> {
             String regex = "_";

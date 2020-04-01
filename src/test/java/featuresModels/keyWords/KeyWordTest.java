@@ -9,12 +9,12 @@ class KeyWordTest {
 
     @Test
     void trainDone() {
-        Word word1 = new Word("empty");
+        Word<Place> word1 = new Word<>("empty",Place.class);
         word1.trainDone();
         assertFalse(word1.isKeyWord());
         assertNull(word1.getKeyWordFor());
 
-        Word word2 = new Word("empty");
+        Word<Place> word2 = new Word<Place>("empty",Place.class);
         word2.train(Place.UK);
         word2.train(Place.UK);
         word2.train(Place.CANADA);
@@ -24,7 +24,7 @@ class KeyWordTest {
         assertFalse(word2.isKeyWord());
         assertNull(word2.getKeyWordFor());
 
-        Word word3 = new Word("empty");
+        Word<Place> word3 = new Word<Place>("empty",Place.class);
         word3.train(Place.UK);
         word3.train(Place.UK);
         word3.train(Place.UK);
@@ -34,7 +34,7 @@ class KeyWordTest {
         assertTrue(word3.isKeyWord());
         assertEquals(Place.UK, word3.getKeyWordFor());
 
-        Word word4 = new Word("empty");
+        Word<Place> word4 = new Word<Place>("empty",Place.class);
         word4.train(Place.UK);
         word4.train(Place.UK);
         word4.train(Place.USA);

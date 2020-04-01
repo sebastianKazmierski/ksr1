@@ -2,52 +2,51 @@ package knn;
 
 import data.Article;
 import distanceMetrics.DistanceMeasurement;
-import grouping.Place;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Knn {
-    Map<Article, List<Double>> articlesPosition;
+public class Knn<T> {
+    Map<Article<T>, List<Double>> articlesPosition;
 
-    public Knn(Map<Article, List<Double>> articlesPosition) {
+    public Knn(Map<Article<T>, List<Double>> articlesPosition) {
         this.articlesPosition = articlesPosition;
     }
 
-    public Place getResult(List<Double> testElementPosition, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
-        HashMap<Article, Double> distanceMap = new HashMap<>();
+    public T getResult(List<Double> testElementPosition, DistanceMeasurement distanceMeasurement, int numberOfNeighbours) {
+        HashMap<Article<T>, Double> distanceMap = new HashMap<>();
 
-        for (Map.Entry<Article, List<Double>> articleListEntry : this.articlesPosition.entrySet()) {
+        for (Map.Entry<Article<T>, List<Double>> articleListEntry : this.articlesPosition.entrySet()) {
             double distance = distanceMeasurement.count(testElementPosition, articleListEntry.getValue());
             distanceMap.put(articleListEntry.getKey(), distance);
         }
 
-        final LinkedHashMap<Article, Double> sortedByCount = distanceMap.entrySet()
+        final LinkedHashMap<Article<T>, Double> sortedByCount = distanceMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
-        Set<Map.Entry<Article, Double>> neighboursSortedByCountEntries = sortedByCount.entrySet();
+        Set<Map.Entry<Article<T>, Double>> neighboursSortedByCountEntries = sortedByCount.entrySet();
         int checkNumberOfNeighbours = Math.min(neighboursSortedByCountEntries.size(), numberOfNeighbours);
 
-        List<Article> nearestNeighbours = new ArrayList<>();
+        List<Article<T>> nearestNeighbours = new ArrayList<>();
         sortedByCount.entrySet().stream().limit(checkNumberOfNeighbours).forEach(articleDoubleEntry -> {
             nearestNeighbours.add(articleDoubleEntry.getKey());
         });
 
-        HashMap<Place, Integer> placeOfNeighbours = new HashMap<>();
-        for (Article nearestNeighbour : nearestNeighbours) {
-            if (placeOfNeighbours.containsKey(nearestNeighbour.getPlace())) {
-                placeOfNeighbours.put(nearestNeighbour.getPlace(), placeOfNeighbours.get(nearestNeighbour.getPlace()) + 1);
+        HashMap<T, Integer> placeOfNeighbours = new HashMap<>();
+        for (Article<T> nearestNeighbour : nearestNeighbours) {
+            if (placeOfNeighbours.containsKey(nearestNeighbour.getLabel())) {
+                placeOfNeighbours.put(nearestNeighbour.getLabel(), placeOfNeighbours.get(nearestNeighbour.getLabel()) + 1);
             } else {
-                placeOfNeighbours.put(nearestNeighbour.getPlace(), 1);
+                placeOfNeighbours.put(nearestNeighbour.getLabel(), 1);
             }
         }
 
-        Place placeToReturn = null;
+        T placeToReturn = null;
         int max = -1;
 
-        for (Map.Entry<Place, Integer> place : placeOfNeighbours.entrySet()) {
+        for (Map.Entry<T, Integer> place : placeOfNeighbours.entrySet()) {
             if (max < place.getValue()) {
                 placeToReturn = place.getKey();
                 max = place.getValue();

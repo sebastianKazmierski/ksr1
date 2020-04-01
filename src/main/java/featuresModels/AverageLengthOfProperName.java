@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AverageLengthOfProperName implements FeatureExtractor {
+public class AverageLengthOfProperName<T> implements FeatureExtractor<T> {
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         List<String> tokens = article.getContentTokens();
         Map<String, Integer> lengthOfProperNames = new HashMap<>();
 

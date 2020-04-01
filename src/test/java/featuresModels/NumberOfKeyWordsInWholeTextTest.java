@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ExtendWith(MockitoExtension.class)
 class NumberOfKeyWordsInWholeTextTest {
     @Mock
-    WordHolder wordHolder;
+    WordHolder<Place> wordHolder;
 
     @BeforeEach
     public void init() {
@@ -35,9 +35,9 @@ class NumberOfKeyWordsInWholeTextTest {
         String content = "work work blank nothing something error sister pc sister sister ";
         String contentDuplicatedTenTimes = duplicateTenTimes(content);
 
-        Article article = new Article(contentDuplicatedTenTimes, Place.UK);
+        Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText(this.wordHolder);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText<>(this.wordHolder,Place.class);
 
         assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }
@@ -50,20 +50,20 @@ class NumberOfKeyWordsInWholeTextTest {
         return contentDuplicatedTenTimes;
     }
 
-    public Word getKeyWord(String word) {
-        Map<String, Word> keyWords = new HashMap<>();
+    public Word<Place> getKeyWord(String word) {
+        Map<String, Word<Place>> keyWords = new HashMap<>();
 
         List<String> words = List.of("work", "computer", "sister", "paper", "mouse", "bottle");
         List<Place> places = List.of(Place.FRANCE, Place.UK, Place.UK, Place.USA, Place.JAPAN, Place.USA);
 
         for (int i = 0; i < words.size(); i++) {
-            Word keyWord = new Word(words.get(i));
+            Word<Place> keyWord = new Word<Place>(words.get(i),Place.class);
             keyWord.train(places.get(i));
             keyWord.trainDone();
             keyWords.put(keyWord.getWord(), keyWord);
         }
 
-        Word noWord = new Word("blank");
+        Word<Place> noWord = new Word<Place>("blank",Place.class);
         noWord.trainDone();
         keyWords.put(noWord.getWord(), noWord);
         return keyWords.get(word);

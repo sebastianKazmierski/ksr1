@@ -17,11 +17,11 @@ class WordHolderTest {
         String content2 = "sister! pc sister! sister? sister? sister! sister... sister pc sister sister ";
         String content3 = "blank blank blank, blank. blank blank pc sister sister hello ";
 
-        Article article1 = new Article(content1, Place.UK);
-        Article article2 = new Article(content2, Place.USA);
-        Article article3 = new Article(content3, Place.CANADA);
+        Article<Place> article1 = new Article<>(content1, Place.UK);
+        Article<Place> article2 = new Article<>(content2, Place.USA);
+        Article<Place> article3 = new Article<>(content3, Place.CANADA);
 
-        WordHolder wordHolder = new WordHolder();
+        WordHolder<Place> wordHolder = new WordHolder<>(Place.class);
         wordHolder.train(List.of(article1, article2, article3));
         wordHolder.trainDone();
 

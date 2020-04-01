@@ -3,27 +3,29 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import grouping.Label;
+import grouping.Place;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NumberOfUniqueKeyWordsInRelationToLengthOfText implements FeatureExtractor {
+public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
 
-    private WordHolder wordHolder;
-    private LengthOfText lengthOfText;
+    private WordHolder<T> wordHolder;
+    private LengthOfText<T> lengthOfText;
 
-    public NumberOfUniqueKeyWordsInRelationToLengthOfText(WordHolder wordHolder, LengthOfText lengthOfText) {
+    public NumberOfUniqueKeyWordsInRelationToLengthOfText(WordHolder<T> wordHolder, LengthOfText<T> lengthOfText) {
         this.wordHolder = wordHolder;
         this.lengthOfText = lengthOfText;
     }
 
     @Override
-    public double extract(Article article) {
+    public double extract(Article<T> article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
 
         List<String> uniqueTokensAfterStemming = contentTokensAfterStemming.stream().distinct().collect(Collectors.toList());
-
-        double numberOfUniqueKeyWords = NumberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolder);
+        NumberOfKeyWords<T> numberOfKeyWords = new NumberOfKeyWords(Place.class);
+        double numberOfUniqueKeyWords = numberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolder);
         double lengthOfText = this.lengthOfText.extract(article);
 
         return numberOfUniqueKeyWords / lengthOfText;

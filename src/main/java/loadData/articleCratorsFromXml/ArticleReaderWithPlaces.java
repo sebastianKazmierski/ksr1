@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ArticleReaderWithPlaces implements ArticleReader {
     @Override
-    public Article read(Element eElement, TagFilter placeFilter) {
+    public Article<Place> read(Element eElement, TagFilter placeFilter) {
         String content;
         List<String> places = new ArrayList<>();
         try {
@@ -22,7 +22,7 @@ public class ArticleReaderWithPlaces implements ArticleReader {
             return null;
         }
         if (placeFilter.isCorrect(places)) {
-            return new Article(content, Place.valueOfLabel(places.get(0)));
+            return new Article<>(content, Place.valueOfLabel(places.get(0)));
         }
         return null;
     }

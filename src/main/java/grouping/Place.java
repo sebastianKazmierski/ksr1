@@ -3,7 +3,7 @@ package grouping;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Place {
+public enum Place implements Label<Place> {
     WEST_GERMANY("west-germany"),
     USA("usa"),
     FRANCE("france"),
@@ -25,8 +25,18 @@ public enum Place {
         this.label = label;
     }
 
+    public String getLabel() {
+        return this.label;
+    }
+
     public static Place valueOfLabel(String label) {
         return BY_LABEL.get(label);
     }
+
+    @Override
+    public String description() {
+        return "Place";
+    }
+
 
 }

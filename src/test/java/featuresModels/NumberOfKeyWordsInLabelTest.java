@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
-class NumberOfKeyWordsInPlaceTest {
+class NumberOfKeyWordsInLabelTest {
     @Mock
-    WordHolder wordHolder;
+    WordHolder<Place> wordHolder;
 
     @BeforeEach
     public void init() {
@@ -35,13 +35,13 @@ class NumberOfKeyWordsInPlaceTest {
         String content = "work work blank nothing something error sister pc sister sister paper ";
         String contentDuplicatedTenTimes = duplicateTenTimes(content);
 
-        Article article = new Article(contentDuplicatedTenTimes, Place.UK);
+        Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInPlace(Place.FRANCE, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInPlace(Place.UK, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInPlace(Place.USA, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInPlace(Place.JAPAN, this.wordHolder);
-        FeatureExtractor numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInPlace(Place.CANADA, this.wordHolder);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInLabel<Place>(Place.FRANCE, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInLabel<Place>(Place.UK, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInLabel<Place>(Place.USA, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInLabel<Place>(Place.JAPAN, this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInLabel<Place>(Place.CANADA, this.wordHolder,Place.class);
 
         assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
         assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");
@@ -58,20 +58,20 @@ class NumberOfKeyWordsInPlaceTest {
         return contentDuplicatedTenTimes;
     }
 
-    public Word getKeyWord(String word) {
-        Map<String, Word> keyWords = new HashMap<>();
+    public Word<Place> getKeyWord(String word) {
+        Map<String, Word<Place>> keyWords = new HashMap<String, Word<Place>>();
 
         List<String> words = List.of("work", "computer", "sister", "paper", "mouse", "bottle");
         List<Place> places = List.of(Place.FRANCE, Place.UK, Place.UK, Place.USA, Place.JAPAN, Place.USA);
 
         for (int i = 0; i < words.size(); i++) {
-            Word keyWord = new Word(words.get(i));
+            Word<Place> keyWord = new Word<Place>(words.get(i),Place.class);
             keyWord.train(places.get(i));
             keyWord.trainDone();
             keyWords.put(keyWord.getWord(), keyWord);
         }
 
-        Word noWord = new Word("blank");
+        Word<Place> noWord = new Word<Place>("blank",Place.class);
         noWord.trainDone();
         keyWords.put(noWord.getWord(), noWord);
         return keyWords.get(word);
