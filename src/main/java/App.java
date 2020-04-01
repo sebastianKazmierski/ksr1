@@ -4,12 +4,14 @@ import interfaceModule.*;
 import loadData.XmlParser;
 import loadData.articleCratorsFromXml.ArticleReader;
 import loadData.articleCratorsFromXml.ArticleReaderWithPlaces;
+import loadData.articleCratorsFromXml.ArticleReaderWithTopics;
 import loadData.dataValidators.AllDataValidator;
 import loadData.dataValidators.DataValidator;
 import loadData.dataValidators.InvalidFilesException;
 import loadData.filesTransformer.FileTransformer;
 import loadData.filesTransformer.XmlTransformer;
 import loadData.tagsFilter.BasePlaceFilter;
+import loadData.tagsFilter.BaseTopicFilter;
 import loadData.tagsFilter.TagFilter;
 
 import java.util.Arrays;
@@ -39,8 +41,8 @@ public class App {
                 All<Place> all = new All<>(new ConsoleInterface<>(Place.class), Place.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
                 repeat = all.work();
             } else if (label instanceof Topic) {
-                tagFilter = new BasePlaceFilter();
-                articleReader = new ArticleReaderWithPlaces();
+                tagFilter = new BaseTopicFilter();
+                articleReader = new ArticleReaderWithTopics();
                 All<Topic> all = new All<>(new ConsoleInterface<>(Topic.class), Topic.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
                 repeat = all.work();
             }

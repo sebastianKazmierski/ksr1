@@ -12,7 +12,7 @@ public enum Topic implements Label<Topic> {
     private static final Map<String, Topic> BY_LABEL = new HashMap<>();
 
     static {
-        for (Topic e: values()) {
+        for (Topic e : values()) {
             BY_LABEL.put(e.label, e);
         }
     }
@@ -25,7 +25,7 @@ public enum Topic implements Label<Topic> {
         return this.label;
     }
 
-    public Topic valueOfLabel(String label) {
+    public static Topic valueOfLabel(String label) {
         return BY_LABEL.get(label);
     }
 

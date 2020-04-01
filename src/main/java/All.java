@@ -76,7 +76,6 @@ public class All<T extends Label<T>> {
     private void setFileWithDataSplit() throws InvalidFilesException {
         String fileName = this.userInterface.getFileWithDataSplit();
         this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, fileName);
-        ;
         this.wordHolder = createSetOfKeyWord(this.articleStore);
         this.availableFeatureExtractors = getListOfAvailableFeatureExtractors(this.wordHolder);
     }

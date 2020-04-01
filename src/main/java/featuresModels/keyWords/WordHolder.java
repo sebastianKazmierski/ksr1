@@ -26,7 +26,7 @@ public class WordHolder<T extends Label<T>> {
             if (this.keywords.containsKey(word)) {
                 this.keywords.get(word).train(place);
             } else {
-                Word<T> keyWord = new Word<>(word, tClass);
+                Word<T> keyWord = new Word<>(word, this.tClass);
                 keyWord.train(place);
                 this.keywords.put(word, keyWord);
             }
