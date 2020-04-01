@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -37,12 +38,14 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
 
     public void displayResult(Result<T> result) {
         System.out.println("Accuracy: " + result.getAccuracy());
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
         for (T enumConstant : this.enumConstants) {
             System.out.println();
             System.out.println("Etykieta:  "+enumConstant.getLabel());
-            System.out.println("Recall:    " + result.getRecall(enumConstant));
-            System.out.println("Precision: " + result.getPrecision(enumConstant));
+            System.out.println("Recall:    " + decimalFormat.format(result.getRecall(enumConstant)));
+            System.out.println("Precision: " + decimalFormat.format(result.getPrecision(enumConstant)));
         }
+        this.in.nextLine();
     }
 
     @Override
