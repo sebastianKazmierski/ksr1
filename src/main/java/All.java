@@ -15,6 +15,7 @@ import loadData.dataValidators.InvalidFilesException;
 import loadData.filesTransformer.FileTransformer;
 import loadData.tagsFilter.TagFilter;
 import org.apache.commons.lang3.tuple.Pair;
+import other.CaseDescription;
 import other.Result;
 
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class All<T extends Label<T>> {
     private ArticleReader articleReader;
 
     // potrzebny jest plik z podziałem na testowy i treningowy
+    private String fileName;
     private ArticleStore<T> articleStore;
     private WordHolder<T> wordHolder;
 
@@ -74,8 +76,8 @@ public class All<T extends Label<T>> {
     }
 
     private void setFileWithDataSplit() throws InvalidFilesException {
-        String fileName = this.userInterface.getFileWithDataSplit();
-        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, fileName);
+        this.fileName = this.userInterface.getFileWithDataSplit();
+        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, this.fileName);
         this.wordHolder = createSetOfKeyWord(this.articleStore);
         this.availableFeatureExtractors = getListOfAvailableFeatureExtractors(this.wordHolder);
     }
@@ -104,8 +106,9 @@ public class All<T extends Label<T>> {
         setFeatureExtractors();
         setDistanceMeasurement();
         setNumberOfNeighbours();
-        this.userInterface.displayResult(test());
-
+      //  this.userInterface.displayResult(test());
+        CaseDescription<T> caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
+        this.userInterface.displayResultInColumn(caseDescription);
         do {
             List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(), new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(), new ChangeLabel(), new StopProgram());
             ChangeSettingsType changeSettings = this.userInterface.getChangeSettings(changeSettingsList);
@@ -131,7 +134,9 @@ public class All<T extends Label<T>> {
                 case STOP_PROGRAM:
                     return false;
             }
-            this.userInterface.displayResult(test());
+            caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
+            this.userInterface.displayResultInColumn(caseDescription);
+            //this.userInterface.displayResult(test());
         } while (true);
     }
 
