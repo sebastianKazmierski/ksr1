@@ -51,6 +51,11 @@ public class Result<T extends Label<T>> {
         for (int i = 0; i < this.matrix.length; i++) {
             allPredicated += this.matrix[i][predicatedIndex];
         }
+
+        if (allPredicated == 0) {
+            return 0;
+        }
+
         return correctPredicated / allPredicated;
     }
 
@@ -62,6 +67,11 @@ public class Result<T extends Label<T>> {
         for (int i = 0; i < this.matrix.length; i++) {
             allActual += this.matrix[actualIndex][i];
         }
+
+        if (allActual == 0) {
+            return 0;
+        }
+
         return correctPredicated / allActual;
     }
 
