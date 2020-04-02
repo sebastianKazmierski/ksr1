@@ -20,10 +20,8 @@ import other.Result;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class All<T extends Label<T>> {
     UserInterface<T> userInterface;
@@ -209,6 +207,15 @@ public class All<T extends Label<T>> {
                 e.printStackTrace();
             }
         }
+
+        HashMap<String, Integer> temp = articleReader.getTopicsOccurences();
+        final Map<String, Integer> sortedByCount = temp.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        sortedByCount.forEach((key,value) -> System.out.println(key + "  " + value));
+
         return articleStore;
     }
 

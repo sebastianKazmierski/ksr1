@@ -1,15 +1,21 @@
 package loadData.articleCratorsFromXml;
 
 import data.Article;
-import grouping.Place;
 import grouping.Topic;
 import loadData.tagsFilter.TagFilter;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ArticleReaderWithTopics implements ArticleReader {
+    HashMap<String, Integer> topicsOccurences = new HashMap<>();
+
+    public HashMap<String, Integer> getTopicsOccurences() {
+        return this.topicsOccurences;
+    }
+
     @Override
     public Article read(Element eElement, TagFilter topicFilter) {
         String content;
@@ -23,6 +29,11 @@ public class ArticleReaderWithTopics implements ArticleReader {
             return null;
         }
         if (topicFilter.isCorrect(topics)) {
+            if (this.topicsOccurences.containsKey(topics.get(0))) {
+                this.topicsOccurences.put(topics.get(0), this.topicsOccurences.get(topics.get(0)) + 1);
+            } else {
+                this.topicsOccurences.put(topics.get(0), 1);
+            }
             return new Article<>(content, Topic.valueOfLabel(topics.get(0)));
         }
         return null;

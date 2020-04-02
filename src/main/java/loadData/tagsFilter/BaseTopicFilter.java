@@ -1,7 +1,5 @@
 package loadData.tagsFilter;
 
-import constants.Constants;
-
 import java.util.List;
 
 public class BaseTopicFilter implements TagFilter {
@@ -10,6 +8,6 @@ public class BaseTopicFilter implements TagFilter {
         if (topics.size() != 1) {
             return false;
         }
-        return Constants.ALLOWED_TOPICS.contains(topics.get(0));
+        return true;
     }
 }
