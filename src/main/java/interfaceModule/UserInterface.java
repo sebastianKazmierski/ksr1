@@ -5,6 +5,7 @@ import changeSettings.ChangeSettingsType;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 import grouping.Label;
+import other.CaseDescription;
 import other.Result;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface UserInterface<T extends Label<T>> {
 
     ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList);
 
-    public void displayResult(Result<T> result);
+    void displayResult(Result<T> result);
+
+    void displayResultInColumn(CaseDescription<T> caseDescription);
 }

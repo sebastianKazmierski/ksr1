@@ -37,6 +37,4 @@ public enum Place implements Label<Place> {
     public String description() {
         return "Place";
     }
-
-
 }

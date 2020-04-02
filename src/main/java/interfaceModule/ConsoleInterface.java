@@ -6,6 +6,7 @@ import constants.Constants;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 import grouping.Label;
+import other.CaseDescription;
 import other.Result;
 
 import java.io.IOException;
@@ -41,9 +42,26 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         for (T enumConstant : this.enumConstants) {
             System.out.println();
-            System.out.println("Etykieta:  "+enumConstant.getLabel());
+            System.out.println("Etykieta:  " + enumConstant.getLabel());
             System.out.println("Recall:    " + decimalFormat.format(result.getRecall(enumConstant)));
             System.out.println("Precision: " + decimalFormat.format(result.getPrecision(enumConstant)));
+        }
+        this.in.nextLine();
+    }
+
+    public void displayResultInColumn(CaseDescription<T> caseDescription) {
+        System.out.println(caseDescription.getLabel());
+        System.out.println(caseDescription.getDataSplit());
+        System.out.println(caseDescription.getFeatureExtractorList());
+        System.out.println(caseDescription.getDistanceMeasurement());
+        System.out.println(caseDescription.getNumberOfNeighbours());
+
+        Result<T> result = caseDescription.getResult();
+        System.out.println(result.getAccuracy());
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        for (T enumConstant : this.enumConstants) {
+            System.out.println(decimalFormat.format(result.getRecall(enumConstant)));
+            System.out.println(decimalFormat.format(result.getPrecision(enumConstant)));
         }
         this.in.nextLine();
     }
@@ -86,6 +104,7 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
     public ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList) {
         return this.choseChangeSettings.getAnswer(changeSettingsList).get(0).getChange();
     }
+
     private List<String> getNamesOfFilesWithSplitPattern(Stream<Path> paths) {
         return paths.map(path -> path.getFileName().toString()).filter(s -> {
             String regex = "_";
