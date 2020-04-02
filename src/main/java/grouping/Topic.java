@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum Topic implements Label<Topic> {
     EARN("earn"),
-    COFFEE("coffee");
+    ACQ("acq");
 
     public final String label;
 

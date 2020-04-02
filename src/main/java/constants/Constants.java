@@ -12,10 +12,4 @@ public class Constants {
     public static final String NAME_OF_FILE_WITH_STOP_LIST = "stopList2.txt";
 
     public static final List<String> END_WORD_PUNCTUATION = List.of("!", "?", ",", ".", ":", ";");
-
-    public static final List<String> ALLOWED_PLACES = List.of("west-germany", "usa", "france", "uk", "canada", "japan");
-
-    public static final List<String> ALLOWED_TOPICS = List.of("earn", "coffee");
-
-
 }

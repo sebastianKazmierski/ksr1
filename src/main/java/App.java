@@ -26,7 +26,7 @@ public class App {
         TagFilter tagFilter;
         ArticleReader articleReader;
         Scanner in = new Scanner(System.in);
-        List<ElementSelectedByUser> list = Arrays.asList(Place.USA, Topic.COFFEE);
+        List<ElementSelectedByUser> list = Arrays.asList(Place.values()[0], Topic.values()[0]);
 
         boolean repeat = false;
         do {
