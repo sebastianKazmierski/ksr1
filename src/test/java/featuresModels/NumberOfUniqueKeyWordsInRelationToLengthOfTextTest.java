@@ -3,6 +3,7 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,8 +38,11 @@ class NumberOfUniqueKeyWordsInRelationToLengthOfTextTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
+        WordHolderProvider<Place> wordHolderProvider = new WordHolderProvider<>();
+        wordHolderProvider.setWordHolder(this.wordHolder);
+
         LengthOfText<Place> lengthOfText = new LengthOfText<>();
-        NumberOfUniqueKeyWordsInRelationToLengthOfText<Place> numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText<>(this.wordHolder,lengthOfText);
+        NumberOfUniqueKeyWordsInRelationToLengthOfText<Place> numberOfUniqueKeyWordsInRelationToLengthOfText = new NumberOfUniqueKeyWordsInRelationToLengthOfText<>(wordHolderProvider,Place.class,lengthOfText);
 
         assertEquals(3/lengthOfText.extract(article), numberOfUniqueKeyWordsInRelationToLengthOfText.extract(article),"0.001");
 

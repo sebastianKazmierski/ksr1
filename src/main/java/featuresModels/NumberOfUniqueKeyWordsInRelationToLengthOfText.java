@@ -1,22 +1,23 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Label;
-import grouping.Place;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Label<T>> implements FeatureExtractor<T> {
 
-    private WordHolder<T> wordHolder;
+    private WordHolderProvider<T> wordHolderProvider;
     private LengthOfText<T> lengthOfText;
+    private Class<T> tClass;
 
-    public NumberOfUniqueKeyWordsInRelationToLengthOfText(WordHolder<T> wordHolder, LengthOfText<T> lengthOfText) {
-        this.wordHolder = wordHolder;
+    public NumberOfUniqueKeyWordsInRelationToLengthOfText(WordHolderProvider<T> wordHolder,Class<T> tClass, LengthOfText<T> lengthOfText) {
+        this.wordHolderProvider = wordHolder;
         this.lengthOfText = lengthOfText;
+        this.tClass=tClass;
     }
 
     @Override
@@ -24,8 +25,8 @@ public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Label<T>> 
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
 
         List<String> uniqueTokensAfterStemming = contentTokensAfterStemming.stream().distinct().collect(Collectors.toList());
-        NumberOfKeyWords<T> numberOfKeyWords = new NumberOfKeyWords(Place.class);
-        double numberOfUniqueKeyWords = numberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolder);
+        NumberOfKeyWords<T> numberOfKeyWords = new NumberOfKeyWords<>(this.tClass);
+        double numberOfUniqueKeyWords = numberOfKeyWords.countAllKeyWords(uniqueTokensAfterStemming, this.wordHolderProvider.getWordHolder());
         double lengthOfText = this.lengthOfText.extract(article);
 
         return numberOfUniqueKeyWords / lengthOfText;

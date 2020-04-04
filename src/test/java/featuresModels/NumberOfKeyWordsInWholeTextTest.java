@@ -3,6 +3,7 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +38,10 @@ class NumberOfKeyWordsInWholeTextTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText<>(this.wordHolder,Place.class);
+        WordHolderProvider<Place> wordHolderProvider = new WordHolderProvider<>();
+        wordHolderProvider.setWordHolder(this.wordHolder);
+
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInWholeText<Place>(wordHolderProvider,Place.class);
 
         assertEquals(50, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }

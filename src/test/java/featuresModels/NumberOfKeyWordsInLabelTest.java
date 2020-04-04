@@ -3,6 +3,7 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,11 +38,14 @@ class NumberOfKeyWordsInLabelTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInLabel<Place>(Place.FRANCE, this.wordHolder,Place.class);
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInLabel<Place>(Place.UK, this.wordHolder,Place.class);
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInLabel<Place>(Place.USA, this.wordHolder,Place.class);
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInLabel<Place>(Place.JAPAN, this.wordHolder,Place.class);
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInLabel<Place>(Place.CANADA, this.wordHolder,Place.class);
+        WordHolderProvider<Place> wordHolderProvider = new WordHolderProvider<>();
+        wordHolderProvider.setWordHolder(this.wordHolder);
+
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextFr = new NumberOfKeyWordsInLabel<Place>(Place.FRANCE, wordHolderProvider,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUk = new NumberOfKeyWordsInLabel<Place>(Place.UK, wordHolderProvider,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextUsa = new NumberOfKeyWordsInLabel<Place>(Place.USA, wordHolderProvider,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextJa = new NumberOfKeyWordsInLabel<Place>(Place.JAPAN, wordHolderProvider,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfTextCa = new NumberOfKeyWordsInLabel<Place>(Place.CANADA, wordHolderProvider,Place.class);
 
         assertEquals(2, numberOfKeyWordsInTenFirstPercentOfTextFr.extract(article),"0.001");
         assertEquals(3, numberOfKeyWordsInTenFirstPercentOfTextUk.extract(article),"0.001");

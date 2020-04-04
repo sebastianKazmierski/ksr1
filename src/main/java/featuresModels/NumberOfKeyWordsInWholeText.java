@@ -1,25 +1,25 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Label;
 
 import java.util.List;
 
 public class NumberOfKeyWordsInWholeText<T extends Label<T>> implements FeatureExtractor<T> {
-    private WordHolder<T> wordHolder;
+    private WordHolderProvider<T> wordHolderProvider;
     NumberOfKeyWords<T> numberOfKeyWords;
 
-    public NumberOfKeyWordsInWholeText(WordHolder<T> wordHolder, Class<T> tClass) {
-        this.wordHolder = wordHolder;
+    public NumberOfKeyWordsInWholeText(WordHolderProvider<T> wordHolder, Class<T> tClass) {
+        this.wordHolderProvider = wordHolder;
         this.numberOfKeyWords = new NumberOfKeyWords<>(tClass);
     }
 
     @Override
     public double extract(Article<T> article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
-        return  numberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolder);
+        return this.numberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolderProvider.getWordHolder());
     }
 
         @Override

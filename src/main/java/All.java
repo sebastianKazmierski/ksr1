@@ -4,6 +4,7 @@ import data.ArticleStore;
 import distanceMetrics.*;
 import featuresModels.*;
 import featuresModels.keyWords.WordHolder;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Label;
 import interfaceModule.UserInterface;
 import knn.Knn;
@@ -46,7 +47,7 @@ public class All<T extends Label<T>> {
     // potrzebny jest plik z podziałem na testowy i treningowy
     private String fileName;
     private ArticleStore<T> articleStore;
-    private WordHolder<T> wordHolder;
+    private WordHolderProvider<T> wordHolderProvider;
 
     //potrzebne sa cechy
     private List<FeatureExtractor<T>> featureExtractorList;
@@ -60,6 +61,9 @@ public class All<T extends Label<T>> {
 
     //tutaj jest testowanie które zawsze się zmienia
 
+    private boolean mustRebuildKnn;
+    private boolean mustReadData;
+
 
     public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
         this.fileValidator = fileValidator;
@@ -70,21 +74,24 @@ public class All<T extends Label<T>> {
         this.tClass = tClass;
         this.enumConstants = tClass.getEnumConstants();
 
-        this.work = new Work<T>();
+        this.work = new Work<>();
         this.userInterface = userInterface;
         this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
+        this.wordHolderProvider = new WordHolderProvider<>();
+        this.availableFeatureExtractors = getListOfAvailableFeatureExtractors();
+        this.mustRebuildKnn = true;
+        this.mustReadData = true;
     }
 
-    private void setFileWithDataSplit() throws InvalidFilesException {
+    private void setFileWithDataSplit() {
         this.fileName = this.userInterface.getFileWithDataSplit();
-        this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, this.fileName);
-        this.wordHolder = createSetOfKeyWord(this.articleStore);
-        this.availableFeatureExtractors = getListOfAvailableFeatureExtractors(this.wordHolder);
+        this.mustReadData = true;
+        this.mustRebuildKnn = true;
     }
 
     private void setFeatureExtractors() {
         this.featureExtractorList = this.userInterface.getFeatureExtractors(this.availableFeatureExtractors);
-        this.knn = new Knn<T>(normalizeTrainData());
+        this.mustRebuildKnn = true;
     }
 
     private void setDistanceMeasurement() {
@@ -95,10 +102,26 @@ public class All<T extends Label<T>> {
         this.numberOfNeighbours = this.userInterface.getNumberOfNeighbours();
     }
 
+    private void readData()  {
+        if (this.mustReadData) {
+            this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, this.fileName);
+            this.wordHolderProvider.setWordHolder(createSetOfKeyWord(this.articleStore));
+            this.mustReadData = false;
+        }
+    }
+
     private Map<Article<T>, List<Double>> normalizeTrainData() {
         Map<Article<T>, List<Double>> trainSetFeatures = this.work.trainKNN(this.articleStore.getTrainSet(), this.featureExtractorList);
         this.minMaxOfTrainSet = this.work.getMinMaxOfTrainSet(trainSetFeatures);
         return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
+    }
+
+    private void train(){
+        readData();
+        if (this.mustRebuildKnn) {
+            this.knn = new Knn<>(normalizeTrainData());
+            this.mustRebuildKnn = false;
+        }
     }
 
     public boolean work() throws InvalidFilesException {
@@ -107,57 +130,60 @@ public class All<T extends Label<T>> {
         setDistanceMeasurement();
         setNumberOfNeighbours();
       //  this.userInterface.displayResult(test());
-        CaseDescription<T> caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
-        this.userInterface.displayResultInColumn(caseDescription);
+        prepareResult();
         do {
             List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(), new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(), new ChangeLabel(), new StopProgram());
             ChangeSettingsType changeSettings = this.userInterface.getChangeSettings(changeSettingsList);
 
-            switch (changeSettings) {
-                case ALL_SETTINGS:
-                    setFileWithDataSplit();
-                    setFeatureExtractors();
-                    setDistanceMeasurement();
-                    setNumberOfNeighbours();
-                    break;
-                case FEATURE_EXTRACTORS_SETTINGS:
-                    setFeatureExtractors();
-                    break;
-                case DISTANCE_MEASUREMENT_SETTINGS:
-                    setDistanceMeasurement();
-                    break;
-                case NUMBER_OF_NEIGHBOURS_SETTINGS:
-                    setNumberOfNeighbours();
-                    break;
-                case LABEL_SETTINGS:
-                    return true;
-                case STOP_PROGRAM:
-                    return false;
-            }
-            caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
-            this.userInterface.displayResultInColumn(caseDescription);
+            Boolean x = changeSettings(changeSettings);
+            if (x != null) return x;
+            prepareResult();
             //this.userInterface.displayResult(test());
         } while (true);
     }
+
+    private void prepareResult() {
+        train();
+        CaseDescription<T> caseDescription;
+        caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
+        this.userInterface.displayResultInColumn(caseDescription);
+    }
+
+    private Boolean changeSettings(ChangeSettingsType changeSettings) throws InvalidFilesException {
+        switch (changeSettings) {
+            case ALL_SETTINGS:
+                setFileWithDataSplit();
+                setFeatureExtractors();
+                setDistanceMeasurement();
+                setNumberOfNeighbours();
+                break;
+            case FEATURE_EXTRACTORS_SETTINGS:
+                setFeatureExtractors();
+                break;
+            case DISTANCE_MEASUREMENT_SETTINGS:
+                setDistanceMeasurement();
+                break;
+            case NUMBER_OF_NEIGHBOURS_SETTINGS:
+                setNumberOfNeighbours();
+                break;
+            case LABEL_SETTINGS:
+                return true;
+            case STOP_PROGRAM:
+                return false;
+        }
+        return null;
+    }
+
 
     private Result<T> test() {
         Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
         Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
 
-        int correct = 0;
-        int incorrect = 0;
         Result<T> result = new Result<>(this.tClass);
         for (Map.Entry<Article<T>, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
             T label = this.knn.getResult(articleListEntry.getValue(), this.distanceMeasurement, this.numberOfNeighbours);
             result.addResult(articleListEntry.getKey().getLabel(), label);
-            if (label == articleListEntry.getKey().getLabel()) {
-                correct++;
-            } else {
-                incorrect++;
-            }
         }
-        System.out.println("correct: " + correct);
-        System.out.println("wrong: " + incorrect);
         return result;
     }
 
@@ -168,23 +194,23 @@ public class All<T extends Label<T>> {
         return wordHolder;
     }
 
-    private List<FeatureExtractor<T>> getListOfAvailableFeatureExtractors(WordHolder<T> wordHolder) {
+    private List<FeatureExtractor<T>> getListOfAvailableFeatureExtractors() {
         List<FeatureExtractor<T>> featureExtractorList = new ArrayList<>();
 
         featureExtractorList.add(new AverageLengthOfParagraph<>(new NumberOfParagraphsInRelationToLengthOfText<T>(new LengthOfText<>())));
         featureExtractorList.add(new AverageLengthOfProperName<>());
         featureExtractorList.add(new AverageLengthOfSentences<>());
         featureExtractorList.add(new LengthOfText<>());
-        featureExtractorList.add(new NumberOfKeyWordsInTenFirstPercentOfText<T>(wordHolder, this.tClass));
-        featureExtractorList.add(new NumberOfKeyWordsInWholeText<T>(wordHolder, this.tClass));
+        featureExtractorList.add(new NumberOfKeyWordsInTenFirstPercentOfText<T>(this.wordHolderProvider, this.tClass));
+        featureExtractorList.add(new NumberOfKeyWordsInWholeText<T>(this.wordHolderProvider, this.tClass));
         featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText<>(new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfProperNameInRelationToLengthOfText<>());
-        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<>(wordHolder, new LengthOfText<T>()));
+        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<T>(this.wordHolderProvider,this.tClass, new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<>());
         featureExtractorList.add(new NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<>());
 
         for (T label : this.enumConstants) {
-            featureExtractorList.add(new NumberOfKeyWordsInLabel<>(label, wordHolder, this.tClass));
+            featureExtractorList.add(new NumberOfKeyWordsInLabel<T>(label, this.wordHolderProvider, this.tClass));
         }
 
         return featureExtractorList;
@@ -203,9 +229,11 @@ public class All<T extends Label<T>> {
         return distanceMeasurements;
     }
 
-    private ArticleStore<T> readArticles(FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) throws InvalidFilesException {
+    private ArticleStore<T> readArticles(FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader, String fileWithSplitName) {
         ArticleStore<T> articleStore = new ArticleStore<>(fileWithSplitName);
-        List<Path> paths = getPaths(dataValidator);
+        List<Path> paths;
+        try {
+            paths = getPaths(dataValidator);
         for (Path path : paths) {
             try {
                 CharBuffer charBuffer = fileValidator.transform(path);
@@ -213,6 +241,9 @@ public class All<T extends Label<T>> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        } catch (InvalidFilesException e) {
+            e.printStackTrace();
         }
         return articleStore;
     }

@@ -1,19 +1,19 @@
 package featuresModels;
 
 import data.Article;
-import featuresModels.keyWords.WordHolder;
 import featuresModels.keyWords.NumberOfKeyWords;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Label;
 
 import java.util.List;
 
 public class NumberOfKeyWordsInTenFirstPercentOfText<T extends Label<T>> implements FeatureExtractor<T> {
-    private WordHolder<T> wordHolder;
+    private WordHolderProvider<T> wordHolderProvider;
     private NumberOfKeyWords<T> numberOfKeyWords;
 
 
-    public NumberOfKeyWordsInTenFirstPercentOfText(WordHolder<T> wordHolder, Class<T> tClass) {
-        this.wordHolder = wordHolder;
+    public NumberOfKeyWordsInTenFirstPercentOfText(WordHolderProvider<T> wordHolder, Class<T> tClass) {
+        this.wordHolderProvider = wordHolder;
         this.numberOfKeyWords = new NumberOfKeyWords<>(tClass);
     }
 
@@ -21,7 +21,7 @@ public class NumberOfKeyWordsInTenFirstPercentOfText<T extends Label<T>> impleme
     public double extract(Article<T> article) {
         List<String> contentTokensAfterStemming = article.getContentTokensAfterStemming();
         List<String> contentTokensAfterStemmingTenPercent = contentTokensAfterStemming.subList(0, (int) ( contentTokensAfterStemming.size() / 10.0));
-        return numberOfKeyWords.countAllKeyWords(contentTokensAfterStemmingTenPercent, this.wordHolder);
+        return this.numberOfKeyWords.countAllKeyWords(contentTokensAfterStemmingTenPercent, this.wordHolderProvider.getWordHolder());
     }
 
         @Override
