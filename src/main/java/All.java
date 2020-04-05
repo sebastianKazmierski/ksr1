@@ -37,7 +37,6 @@ public class All<T extends Label<T>> {
     private XmlParser xmlParser;
     private DataValidator dataValidator;
 
-
     Work<T> work;
 
     // zmieniane jeżeli zmieniamy etykiete według której grupujemy
@@ -102,7 +101,7 @@ public class All<T extends Label<T>> {
         this.numberOfNeighbours = this.userInterface.getNumberOfNeighbours();
     }
 
-    private void readData()  {
+    private void readData() {
         if (this.mustReadData) {
             this.articleStore = readArticles(this.fileValidator, this.xmlParser, this.dataValidator, this.tagFilter, this.articleReader, this.fileName);
             this.wordHolderProvider.setWordHolder(createSetOfKeyWord(this.articleStore));
@@ -116,7 +115,7 @@ public class All<T extends Label<T>> {
         return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
     }
 
-    private void train(){
+    private void train() {
         readData();
         if (this.mustRebuildKnn) {
             this.knn = new Knn<>(normalizeTrainData());
@@ -124,32 +123,33 @@ public class All<T extends Label<T>> {
         }
     }
 
-    public boolean work() throws InvalidFilesException {
+    public boolean work() {
         setFileWithDataSplit();
         setFeatureExtractors();
         setDistanceMeasurement();
         setNumberOfNeighbours();
-      //  this.userInterface.displayResult(test());
-        prepareResult();
+        //  this.userInterface.displayResult(test());
+        this.userInterface.displayResult(prepareResult());
         do {
-            List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(), new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(), new ChangeLabel(), new StopProgram());
+            List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeAllSettings(),
+                    new ChangeFeatureExtractors(), new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours(),
+                    new ChangeSplitData(), new CreateSequence(), new ChangeLabel(), new StopProgram());
             ChangeSettingsType changeSettings = this.userInterface.getChangeSettings(changeSettingsList);
 
             Boolean x = changeSettings(changeSettings);
             if (x != null) return x;
             prepareResult();
-            //this.userInterface.displayResult(test());
+            this.userInterface.displayResult(prepareResult());
         } while (true);
     }
 
-    private void prepareResult() {
+    private CaseDescription<T> prepareResult() {
         train();
-        CaseDescription<T> caseDescription;
-        caseDescription = new CaseDescription<T>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
-        this.userInterface.displayResultInColumn(caseDescription);
+        return new CaseDescription<>(this.tClass, this.fileName, this.featureExtractorList, this.distanceMeasurement, this.numberOfNeighbours, test());
+//        this.userInterface.displayResultInColumn(caseDescription);
     }
 
-    private Boolean changeSettings(ChangeSettingsType changeSettings) throws InvalidFilesException {
+    private Boolean changeSettings(ChangeSettingsType changeSettings) {
         switch (changeSettings) {
             case ALL_SETTINGS:
                 setFileWithDataSplit();
@@ -166,12 +166,76 @@ public class All<T extends Label<T>> {
             case NUMBER_OF_NEIGHBOURS_SETTINGS:
                 setNumberOfNeighbours();
                 break;
+            case DATA_SPLIT:
+                setFileWithDataSplit();
+                break;
+            case CREATE_SEQUENCE:
+                createSequence();
+                break;
             case LABEL_SETTINGS:
                 return true;
             case STOP_PROGRAM:
                 return false;
         }
         return null;
+    }
+
+    private void createSequence() {
+        List<ChangeSettings> changeSettingsList = Arrays.asList(new ChangeSplitData(), new ChangeFeatureExtractors(),
+                new ChangeDistanceMeasurement(), new ChangeNumberOfNeighbours());
+        ChangeSettingsType changeSettings = this.userInterface.getChangeSettings(changeSettingsList);
+        int numberOfSequence = this.userInterface.getNumberOfSequence();
+        List<CaseDescription<T>> result = new ArrayList<>();
+        switch (changeSettings) {
+            case DATA_SPLIT:
+                List<String> fileNames = new ArrayList<>();
+                for (int i = 0; i < numberOfSequence; i++) {
+                    fileNames.add(this.userInterface.getFileWithDataSplit());
+                }
+                for (String fileName : fileNames) {
+                    this.fileName = fileName;
+                    this.mustReadData = true;
+                    this.mustRebuildKnn = true;
+                    result.add(prepareResult());
+                }
+                break;
+            case FEATURE_EXTRACTORS_SETTINGS:
+                List<List<FeatureExtractor<T>>> featureExtractorList = new ArrayList<>();
+                for (int i = 0; i < numberOfSequence; i++) {
+                    featureExtractorList.add(this.userInterface.getFeatureExtractors(this.availableFeatureExtractors));
+                }
+                for (List<FeatureExtractor<T>> featureExtractor : featureExtractorList) {
+                    this.featureExtractorList = featureExtractor;
+                    this.mustRebuildKnn = true;
+                    result.add(prepareResult());
+                }
+                break;
+            case DISTANCE_MEASUREMENT_SETTINGS:
+                List<DistanceMeasurement> distanceMeasurements = new ArrayList<>();
+                for (int i = 0; i < numberOfSequence; i++) {
+                    distanceMeasurements.add(this.userInterface.getDistanceMeasurement(this.availableDistanceMeasurements));
+                }
+                for (DistanceMeasurement distanceMeasurement : distanceMeasurements) {
+                    this.distanceMeasurement = distanceMeasurement;
+                    result.add(prepareResult());
+                }
+                break;
+            case NUMBER_OF_NEIGHBOURS_SETTINGS:
+                List<Integer> numbersOfNeighbours = new ArrayList<>();
+                for (int i = 0; i < numberOfSequence; i++) {
+                    numbersOfNeighbours.add(this.userInterface.getNumberOfNeighbours());
+                }
+                for (Integer numberOfNeighbours : numbersOfNeighbours) {
+                    this.numberOfNeighbours = numberOfNeighbours;
+                    result.add(prepareResult());
+                }
+                break;
+        }
+        try {
+            this.userInterface.displayResultInColumn1(result, changeSettings);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -205,7 +269,7 @@ public class All<T extends Label<T>> {
         featureExtractorList.add(new NumberOfKeyWordsInWholeText<T>(this.wordHolderProvider, this.tClass));
         featureExtractorList.add(new NumberOfParagraphsInRelationToLengthOfText<>(new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfProperNameInRelationToLengthOfText<>());
-        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<T>(this.wordHolderProvider,this.tClass, new LengthOfText<T>()));
+        featureExtractorList.add(new NumberOfUniqueKeyWordsInRelationToLengthOfText<T>(this.wordHolderProvider, this.tClass, new LengthOfText<T>()));
         featureExtractorList.add(new NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<>());
         featureExtractorList.add(new NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<>());
 
@@ -234,14 +298,14 @@ public class All<T extends Label<T>> {
         List<Path> paths;
         try {
             paths = getPaths(dataValidator);
-        for (Path path : paths) {
-            try {
-                CharBuffer charBuffer = fileValidator.transform(path);
-                xmlParser.readArticles(charBuffer, articleStore, articleReader, tagFilter);
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (Path path : paths) {
+                try {
+                    CharBuffer charBuffer = fileValidator.transform(path);
+                    xmlParser.readArticles(charBuffer, articleStore, articleReader, tagFilter);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
         } catch (InvalidFilesException e) {
             e.printStackTrace();
         }
@@ -252,7 +316,5 @@ public class All<T extends Label<T>> {
         FileOpener fileOpener = new FileOpener();
         return fileOpener.loadArticlesFromDirectory(dataValidator);
     }
-
-
 }
 
