@@ -3,6 +3,7 @@ package featuresModels;
 import data.Article;
 import featuresModels.keyWords.Word;
 import featuresModels.keyWords.WordHolder;
+import featuresModels.keyWords.WordHolderProvider;
 import grouping.Place;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,8 +38,10 @@ class NumberOfKeyWordsInTenFirstPercentOfTextTest {
 
         Article<Place> article = new Article<>(contentDuplicatedTenTimes, Place.UK);
 
+        WordHolderProvider<Place> wordHolderProvider = new WordHolderProvider<>();
+        wordHolderProvider.setWordHolder(this.wordHolder);
 
-        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInTenFirstPercentOfText<Place>(this.wordHolder,Place.class);
+        FeatureExtractor<Place> numberOfKeyWordsInTenFirstPercentOfText = new NumberOfKeyWordsInTenFirstPercentOfText<Place>(wordHolderProvider,Place.class);
 
         assertEquals(5, numberOfKeyWordsInTenFirstPercentOfText.extract(article),"0.001");
     }

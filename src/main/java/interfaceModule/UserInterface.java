@@ -5,9 +5,11 @@ import changeSettings.ChangeSettingsType;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 import grouping.Label;
+import interfaceModule.knnParameters.KnnParameter;
+import interfaceModule.knnParameters.KnnParameterType;
 import other.CaseDescription;
-import other.Result;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserInterface<T extends Label<T>> {
@@ -21,7 +23,13 @@ public interface UserInterface<T extends Label<T>> {
 
     ChangeSettingsType getChangeSettings(List<ChangeSettings> changeSettingsList);
 
-    void displayResult(Result<T> result);
+    void displayResult(CaseDescription<T> caseDescription);
+
+    void displayResultInColumn1(List<CaseDescription<T>> caseDescriptions, ChangeSettingsType changeSettingsType) throws IOException;
+
+    int getNumberOfSequence();
+
+    KnnParameterType getKnnParameterType(List<KnnParameter> knnParameters);
 
     void displayResultInColumn(CaseDescription<T> caseDescription);
 }

@@ -6,6 +6,8 @@ import constants.Constants;
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;
 import grouping.Label;
+import interfaceModule.knnParameters.KnnParameter;
+import interfaceModule.knnParameters.KnnParameterType;
 import other.CaseDescription;
 import other.Result;
 
@@ -14,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -25,7 +28,9 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
     ChoseElementInterface<DistanceMeasurement> choseDistanceMeasurement;
     ChoseNumberOfNeighbours choseNumberOfNeighbours;
     ChoseElementInterface<ChangeSettings> choseChangeSettings;
+    ChoseElementInterface<KnnParameter> choseKnnParameter;
     T[] enumConstants;
+    CsvHandler csvHandler;
 
 
     public ConsoleInterface(Class<T> tClass) {
@@ -35,9 +40,25 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
         this.choseDistanceMeasurement = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
         this.choseNumberOfNeighbours = new ChoseNumberOfNeighbours(this.in);
         this.choseChangeSettings = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
+        this.choseKnnParameter = new ChoseElementInterface<>(this.in, TypeOfChoice.SINGLE);
+        this.csvHandler = new CsvHandler();
     }
 
-    public void displayResult(Result<T> result) {
+    @Override
+    public KnnParameterType getKnnParameterType(List<KnnParameter> knnParameters) {
+        return this.choseKnnParameter.getAnswer(knnParameters).get(0).getParameterType();
+    }
+
+    public int getNumberOfSequence() {
+        System.out.println("Podaj liczbę sekwencji");
+        System.out.print("> ");
+        String userChoice = this.in.nextLine().trim();
+        return Integer.parseInt(userChoice);
+    }
+
+    @Override
+    public void displayResult(CaseDescription<T> caseDescription) {
+        Result<T> result = caseDescription.getResult();
         System.out.println("Accuracy: " + result.getAccuracy());
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         for (T enumConstant : this.enumConstants) {
@@ -64,6 +85,16 @@ public class ConsoleInterface<T extends Label<T>> implements UserInterface<T> {
             System.out.println(decimalFormat.format(result.getPrecision(enumConstant)));
         }
         this.in.nextLine();
+    }
+
+    public void displayResultInColumn1(List<CaseDescription<T>> caseDescriptions, ChangeSettingsType changeSettingsType) throws IOException {
+        List<List<String>> data = new ArrayList<>();
+
+        for (CaseDescription<T> caseDescription : caseDescriptions) {
+            data.add(caseDescription.getRow());
+        }
+        String fileName = changeSettingsType.name();
+        this.csvHandler.createFile(fileName, caseDescriptions.get(0).getHeaders(), data);
     }
 
     @Override
