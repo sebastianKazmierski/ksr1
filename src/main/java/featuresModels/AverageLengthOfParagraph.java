@@ -17,7 +17,7 @@ public class AverageLengthOfParagraph<T> implements FeatureExtractor<T> {
 
     @Override
     public int getNumber() {
-        return 11;
+        return 10;
     }
 
     @Override
