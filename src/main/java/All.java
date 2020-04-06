@@ -37,7 +37,7 @@ public class All<T extends Label<T>> {
     private XmlParser xmlParser;
     private DataValidator dataValidator;
 
-    Work<T> work;
+    NeighboursSpaceCreator<T> neighboursSpaceCreator;
 
     // zmieniane jeżeli zmieniamy etykiete według której grupujemy
     private TagFilter tagFilter;
@@ -73,7 +73,7 @@ public class All<T extends Label<T>> {
         this.tClass = tClass;
         this.enumConstants = tClass.getEnumConstants();
 
-        this.work = new Work<>();
+        this.neighboursSpaceCreator = new NeighboursSpaceCreator<>();
         this.userInterface = userInterface;
         this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
         this.wordHolderProvider = new WordHolderProvider<>();
@@ -110,9 +110,9 @@ public class All<T extends Label<T>> {
     }
 
     private Map<Article<T>, List<Double>> normalizeTrainData() {
-        Map<Article<T>, List<Double>> trainSetFeatures = this.work.trainKNN(this.articleStore.getTrainSet(), this.featureExtractorList);
-        this.minMaxOfTrainSet = this.work.getMinMaxOfTrainSet(trainSetFeatures);
-        return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
+        Map<Article<T>, List<Double>> trainSetFeatures = this.neighboursSpaceCreator.trainKNN(this.articleStore.getTrainSet(), this.featureExtractorList);
+        this.minMaxOfTrainSet = this.neighboursSpaceCreator.getMinMaxOfTrainSet(trainSetFeatures);
+        return this.neighboursSpaceCreator.normalize(trainSetFeatures, this.minMaxOfTrainSet);
     }
 
     private void train() {
@@ -244,8 +244,8 @@ public class All<T extends Label<T>> {
 
 
     private Result<T> test() {
-        Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
-        Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
+        Map<Article<T>, List<Double>> testSetFeatures = this.neighboursSpaceCreator.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
+        Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.neighboursSpaceCreator.normalize(testSetFeatures, this.minMaxOfTrainSet);
 
         Result<T> result = new Result<>(this.tClass);
         for (Map.Entry<Article<T>, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {

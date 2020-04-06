@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Work<T extends Label<T>> {
+public class NeighboursSpaceCreator<T extends Label<T>> {
     private final static Pair<Double, Double> NORMALIZE_TO_INTERVAL = new ImmutablePair<>(0.0, 1.0);
 
     public Map<Article<T>, List<Double>> trainKNN(List<Article<T>> articles, List<FeatureExtractor<T>> featureExtractors) {
