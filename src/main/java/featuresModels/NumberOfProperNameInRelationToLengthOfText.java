@@ -37,7 +37,12 @@ public class NumberOfProperNameInRelationToLengthOfText<T extends Label<T>> impl
         return ((double)counter)/tokens.size();
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 3;
+    }
+
+    @Override
             public String description() {
                 return "Liczba nazw własnych w stosunku do długości tekstu";
             }

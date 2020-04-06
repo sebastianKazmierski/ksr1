@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class All<T extends Label<T>> {
+public class SettingsManager<T extends Label<T>> {
     UserInterface<T> userInterface;
     private List<FeatureExtractor<T>> availableFeatureExtractors;
     private List<DistanceMeasurement> availableDistanceMeasurements;
@@ -37,7 +37,7 @@ public class All<T extends Label<T>> {
     private XmlParser xmlParser;
     private DataValidator dataValidator;
 
-    Work<T> work;
+    NeighboursSpaceCreator<T> neighboursSpaceCreator;
 
     // zmieniane jeżeli zmieniamy etykiete według której grupujemy
     private TagFilter tagFilter;
@@ -64,7 +64,7 @@ public class All<T extends Label<T>> {
     private boolean mustReadData;
 
 
-    public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
+    public SettingsManager(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
         this.fileValidator = fileValidator;
         this.xmlParser = xmlParser;
         this.dataValidator = dataValidator;
@@ -73,7 +73,7 @@ public class All<T extends Label<T>> {
         this.tClass = tClass;
         this.enumConstants = tClass.getEnumConstants();
 
-        this.work = new Work<>();
+        this.neighboursSpaceCreator = new NeighboursSpaceCreator<>();
         this.userInterface = userInterface;
         this.availableDistanceMeasurements = getListOfAvailableDistanceMeasurement();
         this.wordHolderProvider = new WordHolderProvider<>();
@@ -110,9 +110,9 @@ public class All<T extends Label<T>> {
     }
 
     private Map<Article<T>, List<Double>> normalizeTrainData() {
-        Map<Article<T>, List<Double>> trainSetFeatures = this.work.trainKNN(this.articleStore.getTrainSet(), this.featureExtractorList);
-        this.minMaxOfTrainSet = this.work.getMinMaxOfTrainSet(trainSetFeatures);
-        return this.work.normalize(trainSetFeatures, this.minMaxOfTrainSet);
+        Map<Article<T>, List<Double>> trainSetFeatures = this.neighboursSpaceCreator.trainKNN(this.articleStore.getTrainSet(), this.featureExtractorList);
+        this.minMaxOfTrainSet = this.neighboursSpaceCreator.getMinMaxOfTrainSet(trainSetFeatures);
+        return this.neighboursSpaceCreator.normalize(trainSetFeatures, this.minMaxOfTrainSet);
     }
 
     private void train() {
@@ -197,6 +197,7 @@ public class All<T extends Label<T>> {
                     this.mustReadData = true;
                     this.mustRebuildKnn = true;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case FEATURE_EXTRACTORS_SETTINGS:
@@ -208,6 +209,7 @@ public class All<T extends Label<T>> {
                     this.featureExtractorList = featureExtractor;
                     this.mustRebuildKnn = true;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case DISTANCE_MEASUREMENT_SETTINGS:
@@ -218,6 +220,7 @@ public class All<T extends Label<T>> {
                 for (DistanceMeasurement distanceMeasurement : distanceMeasurements) {
                     this.distanceMeasurement = distanceMeasurement;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case NUMBER_OF_NEIGHBOURS_SETTINGS:
@@ -228,6 +231,7 @@ public class All<T extends Label<T>> {
                 for (Integer numberOfNeighbours : numbersOfNeighbours) {
                     this.numberOfNeighbours = numberOfNeighbours;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
         }
@@ -240,8 +244,8 @@ public class All<T extends Label<T>> {
 
 
     private Result<T> test() {
-        Map<Article<T>, List<Double>> testSetFeatures = this.work.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
-        Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.work.normalize(testSetFeatures, this.minMaxOfTrainSet);
+        Map<Article<T>, List<Double>> testSetFeatures = this.neighboursSpaceCreator.trainKNN(this.articleStore.getTestSet(), this.featureExtractorList);
+        Map<Article<T>, List<Double>> testSetFeaturesAfterNormalization = this.neighboursSpaceCreator.normalize(testSetFeatures, this.minMaxOfTrainSet);
 
         Result<T> result = new Result<>(this.tClass);
         for (Map.Entry<Article<T>, List<Double>> articleListEntry : testSetFeaturesAfterNormalization.entrySet()) {
@@ -289,6 +293,7 @@ public class All<T extends Label<T>> {
         distanceMeasurements.add(new EuclidesMetric());
         distanceMeasurements.add(new MinMaxMetric());
         distanceMeasurements.add(new StreetMetric());
+        distanceMeasurements.add(new OurMetrics());
 
         return distanceMeasurements;
     }

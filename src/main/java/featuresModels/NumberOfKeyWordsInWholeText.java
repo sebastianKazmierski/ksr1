@@ -22,7 +22,12 @@ public class NumberOfKeyWordsInWholeText<T extends Label<T>> implements FeatureE
         return this.numberOfKeyWords.countAllKeyWords(contentTokensAfterStemming, this.wordHolderProvider.getWordHolder());
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 2;
+    }
+
+    @Override
             public String description() {
                 return "Liczba wszystkich słów kluczowych w całym tekście";
             }

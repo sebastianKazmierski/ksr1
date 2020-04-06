@@ -15,7 +15,12 @@ public class LengthOfText<T> implements FeatureExtractor<T> {
         return counter;
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 5;
+    }
+
+    @Override
             public String description() {
                 return "Długość tekstu";
             }

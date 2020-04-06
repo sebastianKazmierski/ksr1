@@ -15,6 +15,11 @@ public class NumberOfParagraphsInRelationToLengthOfText<T extends Label<T>> impl
         return this.getNumberOfParagraphs(article)/ this.lengthOfText.extract(article);
     }
 
+    @Override
+    public int getNumber() {
+        return 9;
+    }
+
     public int getNumberOfParagraphs(Article<T> article) {
         int counter = 1;
         for (String line : article.getContent().split("\n")) {

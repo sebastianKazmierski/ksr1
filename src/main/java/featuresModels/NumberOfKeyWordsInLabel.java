@@ -28,7 +28,20 @@ public class NumberOfKeyWordsInLabel<T extends Label<T>> implements FeatureExtra
         return placeOccurrenceMap.get(this.label);
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        int index=0;
+        Label[] enumConstants = this.label.getClass().getEnumConstants();
+        for (int i = 0; i < enumConstants.length; i++) {
+            if (this.label == enumConstants[i]) {
+                index = i + 1;
+                break;
+            }
+        }
+        return 11 + index;
+    }
+
+    @Override
             public String description() {
                 return "Ilość słów kluczowych dla " + this.label;
             }

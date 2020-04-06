@@ -38,13 +38,13 @@ public class App {
             if (label instanceof Place) {
                 tagFilter = new BasePlaceFilter();
                 articleReader = new ArticleReaderWithPlaces();
-                All<Place> all = new All<>(new ConsoleInterface<>(Place.class), Place.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
-                repeat = all.work();
+                SettingsManager<Place> settingsManager = new SettingsManager<>(new ConsoleInterface<>(Place.class), Place.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
+                repeat = settingsManager.work();
             } else if (label instanceof Topic) {
                 tagFilter = new BaseTopicFilter();
                 articleReader = new ArticleReaderWithTopics();
-                All<Topic> all = new All<>(new ConsoleInterface<>(Topic.class), Topic.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
-                repeat = all.work();
+                SettingsManager<Topic> settingsManager = new SettingsManager<>(new ConsoleInterface<>(Topic.class), Topic.class, fileValidator, xmlParser, dataValidator, tagFilter, articleReader);
+                repeat = settingsManager.work();
             }
         } while (repeat);
     }

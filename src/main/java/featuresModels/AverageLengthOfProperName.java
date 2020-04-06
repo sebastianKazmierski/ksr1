@@ -28,7 +28,12 @@ public class AverageLengthOfProperName<T> implements FeatureExtractor<T> {
         return ((double) sumOfLengthProperName) / lengthOfProperNames.size();
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 4;
+    }
+
+    @Override
             public String description() {
                 return "Średnia długość unikalnych nazw własnych";
             }

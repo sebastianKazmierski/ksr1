@@ -6,11 +6,10 @@ Cechy:
 5. Długość tekstu (ilość wszystkich słów po stop liście)
 6. Ilość słów które występują więcej niż raz w stosunku do długości tekstu (po stop liście i po stemizacji)
 7. Średnia długość zdań (ilość słów) (po stop liście i  po stemizacji)
-8. Średnia ilość przecinków w zdaniu
-9. Ilość unikalnych słów w stosunku do długości tekstu (po stop liście)
-10. Ilość akapitów w stosunku do długości tekstu (po stop liście)
-11. Średnia długość akapitu (ilość słów) (przed stop listą)
-12. Ilość wszystkich słów usuniętych przez stop listę w stosunku do długości tekstu po stop liście
+8. Ilość unikalnych słów w stosunku do długości tekstu (po stop liście)
+9. Ilość akapitów w stosunku do długości tekstu (po stop liście)
+10. Średnia długość akapitu (ilość słów) (przed stop listą)
+11. Ilość wszystkich słów usuniętych przez stop listę w stosunku do długości tekstu po stop liście
 
 * nazwa własna – słowo pisane wielką literą które nie jest na początku zdania lub jest na 
 * długość tekstu – ilość wszystkich słów w tekście

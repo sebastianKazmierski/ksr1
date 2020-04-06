@@ -24,7 +24,12 @@ public class NumberOfKeyWordsInTenFirstPercentOfText<T extends Label<T>> impleme
         return this.numberOfKeyWords.countAllKeyWords(contentTokensAfterStemmingTenPercent, this.wordHolderProvider.getWordHolder());
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 1;
+    }
+
+    @Override
             public String description() {
                 return "Liczba wszystkich słów kluczowych w 10% pierwszych procentach tekstu";
             }
