@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class All<T extends Label<T>> {
+public class SettingsManager<T extends Label<T>> {
     UserInterface<T> userInterface;
     private List<FeatureExtractor<T>> availableFeatureExtractors;
     private List<DistanceMeasurement> availableDistanceMeasurements;
@@ -64,7 +64,7 @@ public class All<T extends Label<T>> {
     private boolean mustReadData;
 
 
-    public All(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
+    public SettingsManager(UserInterface<T> userInterface, Class<T> tClass, FileTransformer fileValidator, XmlParser xmlParser, DataValidator dataValidator, TagFilter tagFilter, ArticleReader articleReader) {
         this.fileValidator = fileValidator;
         this.xmlParser = xmlParser;
         this.dataValidator = dataValidator;
