@@ -197,6 +197,7 @@ public class All<T extends Label<T>> {
                     this.mustReadData = true;
                     this.mustRebuildKnn = true;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case FEATURE_EXTRACTORS_SETTINGS:
@@ -208,6 +209,7 @@ public class All<T extends Label<T>> {
                     this.featureExtractorList = featureExtractor;
                     this.mustRebuildKnn = true;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case DISTANCE_MEASUREMENT_SETTINGS:
@@ -218,6 +220,7 @@ public class All<T extends Label<T>> {
                 for (DistanceMeasurement distanceMeasurement : distanceMeasurements) {
                     this.distanceMeasurement = distanceMeasurement;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
             case NUMBER_OF_NEIGHBOURS_SETTINGS:
@@ -228,6 +231,7 @@ public class All<T extends Label<T>> {
                 for (Integer numberOfNeighbours : numbersOfNeighbours) {
                     this.numberOfNeighbours = numberOfNeighbours;
                     result.add(prepareResult());
+                    System.out.println("work");
                 }
                 break;
         }

@@ -13,6 +13,11 @@ public class NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<
     }
 
     @Override
+    public int getNumber() {
+        return 12;
+    }
+
+    @Override
     public String description() {
         return "Liczba słów usuniętych przez stop listę w stosunku do długości tekstu";
     }

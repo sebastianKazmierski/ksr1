@@ -29,7 +29,12 @@ public class NumberOfWordsWhichAreMultipleTimesInTextInRelationToLengthOfText<T 
         return (double) counter / contentTokensAfterStemming.size();
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 6;
+    }
+
+    @Override
             public String description() {
                 return "Ilość słów które występują więcej niż raz w stosunku do długości tekstu";
             }

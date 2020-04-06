@@ -10,4 +10,6 @@ public interface FeatureExtractor<T> extends ElementSelectedByUser {
     default String wordToInsertIntoQuestionAboutThisObject () {
         return "cechę";
     }
+
+    int getNumber();
 }

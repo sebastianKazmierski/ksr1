@@ -32,7 +32,12 @@ public class NumberOfUniqueKeyWordsInRelationToLengthOfText<T extends Label<T>> 
         return numberOfUniqueKeyWords / lengthOfText;
     }
 
-        @Override
+    @Override
+    public int getNumber() {
+        return 8;
+    }
+
+    @Override
             public String description() {
                 return "Liczba unikalnych słów kluczowych w stosunku do długości tekstu";
             }
