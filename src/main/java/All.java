@@ -293,6 +293,7 @@ public class All<T extends Label<T>> {
         distanceMeasurements.add(new EuclidesMetric());
         distanceMeasurements.add(new MinMaxMetric());
         distanceMeasurements.add(new StreetMetric());
+        distanceMeasurements.add(new OurMetrics());
 
         return distanceMeasurements;
     }
