@@ -7,7 +7,7 @@ import featuresModels.FeatureExtractor;
 import grouping.Label;
 import interfaceModule.knnParameters.KnnParameter;
 import interfaceModule.knnParameters.KnnParameterType;
-import other.CaseDescription;
+import result.CaseDescription;
 
 import java.io.IOException;
 import java.util.List;

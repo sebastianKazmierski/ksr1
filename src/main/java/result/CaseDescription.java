@@ -1,4 +1,4 @@
-package other;
+package result;
 
 import distanceMetrics.DistanceMeasurement;
 import featuresModels.FeatureExtractor;

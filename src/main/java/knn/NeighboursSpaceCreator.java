@@ -1,3 +1,5 @@
+package knn;
+
 import data.Article;
 import featuresModels.FeatureExtractor;
 import grouping.Label;
