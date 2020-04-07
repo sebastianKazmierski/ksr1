@@ -23,6 +23,6 @@ public class OurMetrics implements DistanceMeasurement {
 
     @Override
     public String description() {
-        return "Nasz metryka";
+        return "Nasza metryka";
     }
 }

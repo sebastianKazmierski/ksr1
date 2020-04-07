@@ -14,7 +14,7 @@ public class NumberOfWordsRemoveByStopListInRelationToLengthOfTextAfterStopList<
 
     @Override
     public int getNumber() {
-        return 12;
+        return 11;
     }
 
     @Override
