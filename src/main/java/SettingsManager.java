@@ -8,6 +8,7 @@ import featuresModels.keyWords.WordHolderProvider;
 import grouping.Label;
 import interfaceModule.UserInterface;
 import knn.Knn;
+import knn.NeighboursSpaceCreator;
 import loadData.FileOpener;
 import loadData.XmlParser;
 import loadData.articleCratorsFromXml.ArticleReader;
@@ -16,8 +17,8 @@ import loadData.dataValidators.InvalidFilesException;
 import loadData.filesTransformer.FileTransformer;
 import loadData.tagsFilter.TagFilter;
 import org.apache.commons.lang3.tuple.Pair;
-import other.CaseDescription;
-import other.Result;
+import result.CaseDescription;
+import result.Result;
 
 import java.io.IOException;
 import java.nio.CharBuffer;
