@@ -41,16 +41,16 @@ Do ekstrakcji danych wykorzystaliśmy wektor następujących cech:
   \item Liczba wszystkich słów kluczowych w pierwszych 10\% procentach tekstu
   \newline 
   \begin{equation}
-  	\sum_{i=0}^{10}a_i
+  	\sum_{i=0}^{10}k_i
   \end{equation}
-   \newline \quad $a_i$ - liczba słów kluczowych w i-tym procencie tekstu
+   \newline \quad $k_i$ - liczba słów kluczowych w i-tym procencie tekstu
    
   \item Liczba wszystkich słów kluczowych w całym tekście
  \newline 
   \begin{equation}
-  	\sum_{i=0}^{100}a_i
+  	\sum_{i=0}^{100}k_i
   \end{equation}
-  \newline\quad $a_i$ - liczba słów kluczowych w i-tym procencie tekstu
+  \newline\quad $k_i$ - liczba słów kluczowych w i-tym procencie tekstu
   
   \item Liczba wszystkich nazw własnych w stosunku do liczby słów w tekście (po stop liście)
   \newline 
@@ -105,7 +105,7 @@ Do ekstrakcji danych wykorzystaliśmy wektor następujących cech:
   	\frac{S}{W_{STOP}}
   \end{equation}
   \newline \quad $S$ - liczba akapitów w tekście
-  \newline \quad $W_{STOP}$ - liczna 
+  \newline \quad $W_{STOP}$ - liczba słów w tekście po stopliście
   
   \item Średnia długość akapitu (liczba słów) (przed stop listą)
   \newline
@@ -129,47 +129,47 @@ Do ekstrakcji danych wykorzystaliśmy wektor następujących cech:
   \begin{equation}
   	W_{WG}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla WEST\_GERMANY
+  \newline \quad $K_{WG}$ - liczba słów kluczowych dla WEST\_GERMANY
   
   \item Liczba słów kluczowych dla USA
   \newline
   \begin{equation}
-  	W_{USA}
+  	K_{USA}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla USA
+  \newline \quad $K_{USA}$ - liczba słów kluczowych dla USA
   
   
   \item Liczba słów kluczowych dla FRANCE
   \newline
   \begin{equation}
-  	W_{FRA}
+  	K_{FRA}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla FRANCE
+  \newline \quad $K_{FRA}$ - liczba słów kluczowych dla FRANCE
   
   
   \item Liczba słów kluczowych dla UK
   \newline
   \begin{equation}
-  	W_{UK}
+  	K_{UK}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla UK
+  \newline \quad $K_{UK}$ - liczba słów kluczowych dla UK
   
   
   \item Liczba słów kluczowych dla CANADA
   \newline
   \begin{equation}
-  	W_{CAN}
+  	K_{CAN}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla CANADA
+  \newline \quad $K_{CAN}$ - liczba słów kluczowych dla CANADA
   
   
   \item Liczba słów kluczowych dla JAPAN
   \newline
   \begin{equation}
-  	W_{JAP}
+  	K_{JAP}
   \end{equation}
-  \newline \quad $W_{WG}$ - liczba słów kluczowych dla JAPAN
-
+  \newline \quad $K_{JAP}$ - liczba słów kluczowych dla JAPAN
+  \newline \newline
   * nazwa własna – słowo pisane wielką literą które nie jest na początku zdania lub jest na początku zdania, ale przynajmniej raz występuje w środku\newline
 * długość tekstu – liczba wszystkich słów w tekście
 \end{enumerate}
