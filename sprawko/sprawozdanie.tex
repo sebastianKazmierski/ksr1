@@ -39,24 +39,137 @@ Bezparametrowość algorytmu objawia się brakiem założeń co do rozkładu pod
 Do ekstrakcji danych wykorzystaliśmy wektor następujących cech:
 \begin{enumerate}
   \item Liczba wszystkich słów kluczowych w pierwszych 10\% procentach tekstu
+  \newline 
+  \begin{equation}
+  	\sum_{i=0}^{10}k_i
+  \end{equation}
+   \newline \quad $k_i$ - liczba słów kluczowych w i-tym procencie tekstu
+   
   \item Liczba wszystkich słów kluczowych w całym tekście
+ \newline 
+  \begin{equation}
+  	\sum_{i=0}^{100}k_i
+  \end{equation}
+  \newline\quad $k_i$ - liczba słów kluczowych w i-tym procencie tekstu
+  
   \item Liczba wszystkich nazw własnych w stosunku do liczby słów w tekście (po stop liście)
-  \item Średnia długość unikalnych nazw własnych 
+  \newline 
+  \begin{equation}
+  	\frac{P_{STOP}}{W_{STOP}}
+  \end{equation}
+  \newline \quad $P_{STOP}$ - liczba nazw własnych* po stopliście
+  \newline \quad $W_{STOP}$ - liczba wszystkich słów w tekście po stopliście
+  
+  \item Średnia długość unikalnych nazw własnych*
+  \newline
+  \begin{equation}
+  	\frac{\sum_{i=0}^nlen(p_i)}{n}
+  \end{equation}
+  \newline \quad $len$ - funkcja długości słowa
+  \newline \quad $p_i$ - i-ta unikalna nazwa własna*
+  \newline \quad $n$ - liczba unikalnych nazw własnych*
+  
   \item Długość tekstu (liczba wszystkich słów po stop liście)
+  \begin{equation}
+  	W_{STOP}
+  \end{equation}
+  \newline \quad $W_{STOP}$ - liczba wszystkich słów w tekście po stopliście
+  
   \item Liczba słów które występują więcej niż raz w stosunku do długości tekstu (po stop liście i po stemizacji)
+  \newline 
+  \begin{equation}
+  	\frac{M}{W_{STOP\ STEM}}
+  \end{equation}
+  \newline \quad $M$ - liczba słów, które wystąpiły w tekście więcej niż raz
+  \newline \quad $W_{STOP\ STEM}$ - liczba słów w tekście po stopliście i stemizacji
+  
   \item Średnia długość zdań (liczba słów) (po stop liście i  po stemizacji)
+  \newline
+  \begin{equation}
+  	\frac{\sum_{i=0}^S len(s_i)}{n}
+  \end{equation}
+  \newline \quad $len$ - funkcja długości zdania po stopliście i stemizacji
+  \newline \quad $S$ - liczba wszystkich zdan w tekście po stopliście i stemizacji
+  
   \item Liczba unikalnych słów w stosunku do długości tekstu (po stop liście)
+  \newline
+  \begin{equation}
+  	\frac{U}{W}
+  \end{equation}
+  \newline \quad $U$ - liczba unikalnych słów po stopliście
+  \newline \quad $W$ - liczba wszystkich słów po stopliście
+  
   \item Liczba akapitów w stosunku do długości tekstu (po stop liście)
+  \newline
+  \begin{equation}
+  	\frac{S}{W_{STOP}}
+  \end{equation}
+  \newline \quad $S$ - liczba akapitów w tekście
+  \newline \quad $W_{STOP}$ - liczba słów w tekście po stopliście
+  
   \item Średnia długość akapitu (liczba słów) (przed stop listą)
+  \newline
+  \begin{equation}
+  	\frac{\sum_{i=0}^S len(s_i)}{S}
+  \end{equation}
+  \newline \quad $len$ - funkcja długości akapitu
+  \newline \quad $s_i$ - i-ty akapit
+  \newline \quad $S$ - liczba wszystkich akapitów
+  
   \item Liczba wszystkich słów usuniętych przez stop listę w stosunku do długości tekstu po stop liście
+  \newline
+  \begin{equation}
+  	\frac{R_{STOP}}{W_{STOP}}
+  \end{equation}
+  \newline \quad $R_{STOP}$ - liczba słów usuniętych przez stoplistę 
+  \newline \quad $W_{STOP}$ - liczba słów w tekście po stopliście
+  
   \item Liczba słów kluczowych dla WEST\_GERMANY
+  \newline
+  \begin{equation}
+  	W_{WG}
+  \end{equation}
+  \newline \quad $K_{WG}$ - liczba słów kluczowych dla WEST\_GERMANY
+  
   \item Liczba słów kluczowych dla USA
+  \newline
+  \begin{equation}
+  	K_{USA}
+  \end{equation}
+  \newline \quad $K_{USA}$ - liczba słów kluczowych dla USA
+  
+  
   \item Liczba słów kluczowych dla FRANCE
+  \newline
+  \begin{equation}
+  	K_{FRA}
+  \end{equation}
+  \newline \quad $K_{FRA}$ - liczba słów kluczowych dla FRANCE
+  
+  
   \item Liczba słów kluczowych dla UK
+  \newline
+  \begin{equation}
+  	K_{UK}
+  \end{equation}
+  \newline \quad $K_{UK}$ - liczba słów kluczowych dla UK
+  
+  
   \item Liczba słów kluczowych dla CANADA
+  \newline
+  \begin{equation}
+  	K_{CAN}
+  \end{equation}
+  \newline \quad $K_{CAN}$ - liczba słów kluczowych dla CANADA
+  
+  
   \item Liczba słów kluczowych dla JAPAN
   \newline
-  \newline
+  \begin{equation}
+  	K_{JAP}
+  \end{equation}
+  \newline \quad $K_{JAP}$ - liczba słów kluczowych dla JAPAN
+  \newline \newline
   * nazwa własna – słowo pisane wielką literą które nie jest na początku zdania lub jest na początku zdania, ale przynajmniej raz występuje w środku\newline
 * długość tekstu – liczba wszystkich słów w tekście
 \end{enumerate}
