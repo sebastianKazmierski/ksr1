@@ -321,7 +321,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 {
 \subsection{Wyniki klasyfikacji metodą k-NN dla 10 różnych wartości parametru k (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|c|c|c|c|}
@@ -353,7 +353,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \includegraphics[width=1\textwidth]{i2}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|l|l|l|l|l|l|l|}
@@ -374,7 +374,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|l|l|l|l|l|l|l|}
@@ -396,7 +396,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 5 różnych podziałów na zbiór uczący i testowy (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy}
 \begin{tabular}{|c|c|c|c|}
@@ -425,7 +425,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \end{figure}
 
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|l|l|l|l|l|l|l|}
@@ -440,7 +440,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \end{center}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|l|l|l|l|l|l|l|}
@@ -457,7 +457,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych metryk/miar}
 \begin{tabular}{|c|c|c|c|}
@@ -485,10 +485,43 @@ Nasza metryka                & 0,821             & 0,242                  & 0,42
 \includegraphics[width=1\textwidth]{i6}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{Metryka}                                                           & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ france\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Średnia \\ arytmetyczna\\  minimum\end{tabular} & 0,008                                                                  & 0,333                                                                     & 0,995                                                         & 0,827                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Czebyszewa\end{tabular}               & 0,016                                                                  & 0,4                                                                       & 0,994                                                         & 0,825                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Euklidesa\end{tabular}                & 0,033                                                                  & 0,5                                                                       & 0,989                                                         & 0,832                                                            & 0,011                                                            & 0,167                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Minimum\\ -maximum\end{tabular}                 & 0,008                                                                  & 0,333                                                                     & 0,995                                                         & 0,827                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka \\ Uliczna\end{tabular}                 & 0,016                                                                  & 0,5                                                                       & 0,994                                                         & 0,832                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nasza\\ metryka\end{tabular}                    & 0,008                                                                  & 0,333                                                                     & 0,994                                                         & 0,83                                                             & 0,011                                                            & 0,167                                                               \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{Metryka}                                                           & \textbf{\begin{tabular}[c]{@{}l@{}}Recall \\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  japan\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  japan\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Średnia \\ arytmetyczna\\  minimum\end{tabular} & 0,271                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,099                                                            & 0,514                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Czebyszewa\end{tabular}               & 0,244                                                         & 0,58                                                             & 0                                                                 & 0                                                                    & 0,084                                                            & 0,471                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Euklidesa\end{tabular}                & 0,312                                                         & 0,555                                                            & 0                                                                 & 0                                                                    & 0,084                                                            & 0,34                                                                \\ \hline
+\begin{tabular}[c]{@{}l@{}}Minimum\\ -maximum\end{tabular}                 & 0,271                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,099                                                            & 0,514                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka \\ Uliczna\end{tabular}                 & 0,3                                                           & 0,637                                                            & 0                                                                 & 0                                                                    & 0,141                                                            & 0,474                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nasza\\ metryka\end{tabular}                    & 0,285                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,152                                                            & 0,558                                                               \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla różnych cech (Places)}
 Podstawowe cechy to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla 4 podzbiorów cech}
 \begin{tabular}{|c|c|c|c|}
@@ -505,7 +538,7 @@ Brak cechy 9                                                                    
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 10 różnych wartości parametru k}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów (Topics)}
 \begin{tabular}{|c|c|c|c|}
@@ -537,7 +570,7 @@ Brak cechy 9                                                                    
 \includegraphics[width=1\textwidth]{i8}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|l|l|l|l|l|}
@@ -559,7 +592,7 @@ Brak cechy 9                                                                    
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 5 różnych podziałów na zbiór uczący i testowy (Topics)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy}
 \begin{tabular}{|c|c|c|c|}
@@ -587,7 +620,7 @@ Brak cechy 9                                                                    
 \includegraphics[width=1\textwidth]{i12}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla różnych etykiet}
 \begin{tabular}{|l|l|l|l|l|}
@@ -605,7 +638,7 @@ Brak cechy 9                                                                    
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Topics)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych metryk/miar}
 \begin{tabular}{|c|c|c|c|}
@@ -633,11 +666,27 @@ Nasza metryka                & 0,907             & 0,916                  & 0,89
 \includegraphics[width=1\textwidth]{i10}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla różnych etykiet}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Metryka}             & \textbf{Recall earn} & \textbf{Precision earn} & \textbf{Recall acq} & \textbf{Precision acq} \\ \hline
+Średnia arytmetyczna minimum & 0,871                & 0,978                   & 0,966               & 0,809                  \\ \hline
+Metryka   Czebyszewa         & 0,89                 & 0,968                   & 0,947               & 0,829                  \\ \hline
+Metryka Euklidesa            & 0,898                & 0,97                    & 0,951               & 0,841                  \\ \hline
+Minimum-maximum              & 0,871                & 0,978                   & 0,966               & 0,809                  \\ \hline
+Metryka Uliczna              & 0,887                & 0,971                   & 0,953               & 0,826                  \\ \hline
+Nasza   metryka              & 0,882                & 0,969                   & 0,949               & 0,82                   \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla różnych cech (Topics)}
 
 Podstawowe cechy to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla 4 podzbiorów cech}
 \begin{tabular}{|c|c|c|c|}
