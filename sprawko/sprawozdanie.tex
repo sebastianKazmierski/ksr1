@@ -321,7 +321,7 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 {
 \subsection{Wyniki klasyfikacji metodą k-NN dla 10 różnych wartości parametru k (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|c|c|c|c|}
@@ -353,9 +353,50 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \includegraphics[width=1\textwidth]{i2}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ france\end{tabular} \\ \hline
+1                                                        & 0,16                                                          & 0,136                                                            & 0,813                                                & 0,876                                                   & 0,085                                                   & 0,054                                                      \\ \hline
+3                                                        & 0,113                                                         & 0,16                                                             & 0,864                                                & 0,875                                                   & 0,017                                                   & 0,048                                                      \\ \hline
+4                                                        & 0,075                                                         & 0,154                                                            & 0,886                                                & 0,875                                                   & 0,017                                                   & 0,034                                                      \\ \hline
+7                                                        & 0,132                                                         & 0,326                                                            & 0,936                                                & 0,862                                                   & 0,034                                                   & 0,111                                                      \\ \hline
+11                                                       & 0,075                                                         & 0,333                                                            & 0,962                                                & 0,854                                                   & 0,017                                                   & 0,111                                                      \\ \hline
+12                                                       & 0,094                                                         & 0,333                                                            & 0,964                                                & 0,852                                                   & 0                                                       & 0                                                          \\ \hline
+13                                                       & 0,094                                                         & 0,345                                                            & 0,969                                                & 0,853                                                   & 0                                                       & 0                                                          \\ \hline
+19                                                       & 0,038                                                         & 0,25                                                             & 0,981                                                & 0,841                                                   & 0                                                       & 0                                                          \\ \hline
+37                                                       & 0,028                                                         & 0,429                                                            & 0,991                                                & 0,828                                                   & 0,017                                                   & 1                                                          \\ \hline
+59                                                       & 0,009                                                         & 0,143                                                            & 0,993                                                & 0,823                                                   & 0,017                                                   & 0,25                                                       \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall \\ uk\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\  uk\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\  canada\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\  canada\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\  japan\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\  japan\end{tabular} \\ \hline
+1                                                        & 0,332                                                & 0,298                                                   & 0,189                                                    & 0,138                                                       & 0,303                                                   & 0,219                                                      \\ \hline
+3                                                        & 0,378                                                & 0,303                                                   & 0,119                                                    & 0,184                                                       & 0,352                                                   & 0,184                                                      \\ \hline
+4                                                        & 0,401                                                & 0,35                                                    & 0,139                                                    & 0,179                                                       & 0,345                                                   & 0,24                                                       \\ \hline
+7                                                        & 0,385                                                & 0,409                                                   & 0,057                                                    & 0,187                                                       & 0,31                                                    & 0,283                                                      \\ \hline
+11                                                       & 0,378                                                & 0,478                                                   & 0,041                                                    & 0,25                                                        & 0,331                                                   & 0,361                                                      \\ \hline
+12                                                       & 0,363                                                & 0,468                                                   & 0,037                                                    & 0,231                                                       & 0,283                                                   & 0,35                                                       \\ \hline
+13                                                       & 0,37                                                 & 0,469                                                   & 0,025                                                    & 0,188                                                       & 0,29                                                    & 0,382                                                      \\ \hline
+19                                                       & 0,332                                                & 0,503                                                   & 0,012                                                    & 0,214                                                       & 0,214                                                   & 0,378                                                      \\ \hline
+37                                                       & 0,282                                                & 0,607                                                   & 0                                                        & 0                                                           & 0,159                                                   & 0,365                                                      \\ \hline
+59                                                       & 0,252                                                & 0,595                                                   & 0                                                        & 0                                                           & 0,103                                                   & 0,405                                                      \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 5 różnych podziałów na zbiór uczący i testowy (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy}
 \begin{tabular}{|c|c|c|c|}
@@ -383,9 +424,40 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \includegraphics[width=1\textwidth]{i4}
 \end{figure}
 
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla etykiet}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział\\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\    west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision \\ france\end{tabular}} \\ \hline
+30\%                                                              & 0,018                                                                     & 0,444                                                                      & 0,99                                                           & 0,825                                                             & 0,019                                                             & 0,2                                                                  \\ \hline
+40\%                                                              & 0,031                                                                     & 0,333                                                                      & 0,99                                                           & 0,823                                                             & 0                                                                 & 0                                                                    \\ \hline
+50\%                                                              & 0,019                                                                     & 0,375                                                                      & 0,987                                                          & 0,83                                                              & 0                                                                 & 0                                                                    \\ \hline
+60\%                                                              & 0,033                                                                     & 0,444                                                                      & 0,989                                                          & 0,833                                                             & 0,011                                                             & 0,25                                                                 \\ \hline
+70\%                                                              & 0,028                                                                     & 0,429                                                                      & 0,991                                                          & 0,828                                                             & 0,017                                                             & 1                                                                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla etykiet}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział\\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  japan\end{tabular}} & \textbf{Precision japan} \\ \hline
+30\%                                                              & 0,272                                                        & 0,561                                                            & 0                                                                 & 0                                                                    & 0,075                                                            & 0,293                    \\ \hline
+40\%                                                              & 0,279                                                        & 0,515                                                            & 0                                                                 & 0                                                                    & 0,108                                                            & 0,544                    \\ \hline
+50\%                                                              & 0,329                                                        & 0,536                                                            & 0                                                                 & 0                                                                    & 0,102                                                            & 0,26                     \\ \hline
+60\%                                                              & 0,312                                                        & 0,558                                                            & 0                                                                 & 0                                                                    & 0,089                                                            & 0,34                     \\ \hline
+70\%                                                              & 0,282                                                        & 0,607                                                            & 0                                                                 & 0                                                                    & 0,159                                                            & 0,365                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Places)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych metryk/miar}
 \begin{tabular}{|c|c|c|c|}
@@ -413,10 +485,43 @@ Nasza metryka                & 0,821             & 0,242                  & 0,42
 \includegraphics[width=1\textwidth]{i6}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych mair/metryk z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{Metryka}                                                           & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ france\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Średnia \\ arytmetyczna\\  minimum\end{tabular} & 0,008                                                                  & 0,333                                                                     & 0,995                                                         & 0,827                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Czebyszewa\end{tabular}               & 0,016                                                                  & 0,4                                                                       & 0,994                                                         & 0,825                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Euklidesa\end{tabular}                & 0,033                                                                  & 0,5                                                                       & 0,989                                                         & 0,832                                                            & 0,011                                                            & 0,167                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Minimum\\ -maximum\end{tabular}                 & 0,008                                                                  & 0,333                                                                     & 0,995                                                         & 0,827                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka \\ Uliczna\end{tabular}                 & 0,016                                                                  & 0,5                                                                       & 0,994                                                         & 0,832                                                            & 0                                                                & 0                                                                   \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nasza\\ metryka\end{tabular}                    & 0,008                                                                  & 0,333                                                                     & 0,994                                                         & 0,83                                                             & 0,011                                                            & 0,167                                                               \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych mair/metryk z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{Metryka}                                                           & \textbf{\begin{tabular}[c]{@{}l@{}}Recall \\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  japan\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  japan\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Średnia \\ arytmetyczna\\  minimum\end{tabular} & 0,271                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,099                                                            & 0,514                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Czebyszewa\end{tabular}               & 0,244                                                         & 0,58                                                             & 0                                                                 & 0                                                                    & 0,084                                                            & 0,471                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Euklidesa\end{tabular}                & 0,312                                                         & 0,555                                                            & 0                                                                 & 0                                                                    & 0,084                                                            & 0,34                                                                \\ \hline
+\begin{tabular}[c]{@{}l@{}}Minimum\\ -maximum\end{tabular}                 & 0,271                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,099                                                            & 0,514                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka \\ Uliczna\end{tabular}                 & 0,3                                                           & 0,637                                                            & 0                                                                 & 0                                                                    & 0,141                                                            & 0,474                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nasza\\ metryka\end{tabular}                    & 0,285                                                         & 0,63                                                             & 0                                                                 & 0                                                                    & 0,152                                                            & 0,558                                                               \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla różnych cech (Places)}
 Podstawowe cechy to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla 4 podzbiorów cech}
 \begin{tabular}{|c|c|c|c|}
@@ -431,9 +536,44 @@ Brak cechy 9                                                                    
 \end{center}
 \end{table}
 
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla 4 podzbiorów cech z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Różnice\\ w cechach\end{tabular}}    & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ france\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Cechy\\ podstawowe\end{tabular}              & 0,033                                                                  & 0,5                                                                       & 0,989                                                         & 0,832                                                            & 0,011                                                            & 0,167                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Dodatkowo\\ 12 13 14\\ 15 16 17\end{tabular} & 0,325                                                                  & 0,952                                                                     & 0,995                                                         & 0,873                                                            & 0,389                                                            & 0,833                                                               \\ \hline
+Brak 8                                                                  & 0                                                                      & 0                                                                         & 0,998                                                         & 0,806                                                            & 0                                                                & 0                                                                   \\ \hline
+Brak 6                                                                  & 0,024                                                                  & 0,429                                                                     & 0,99                                                          & 0,825                                                            & 0                                                                & 0                                                                   \\ \hline
+Brak 9                                                                  & 0,033                                                                  & 0,5                                                                       & 0,991                                                         & 0,833                                                            & 0,011                                                            & 0,2                                                                 \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla 4 podzbiorów cech z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Różnice\\ w cechach\end{tabular}}    & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ japan\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ japan\end{tabular}} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Cechy\\ podstawowe\end{tabular}              & 0,312                                                        & 0,555                                                           & 0                                                                & 0                                                                   & 0,084                                                           & 0,34                                                               \\ \hline
+\begin{tabular}[c]{@{}l@{}}Dodatkowo\\ 12 13 14\\ 15 16 17\end{tabular} & 0,468                                                        & 0,874                                                           & 0,254                                                            & 0,86                                                                & 0,524                                                           & 0,962                                                              \\ \hline
+Brak 8                                                                  & 0,074                                                        & 0,694                                                           & 0                                                                & 0                                                                   & 0                                                               & 0                                                                  \\ \hline
+Brak 6                                                                  & 0,212                                                        & 0,514                                                           & 0                                                                & 0                                                                   & 0,094                                                           & 0,34                                                               \\ \hline
+Brak 9                                                                  & 0,321                                                        & 0,565                                                           & 0                                                                & 0                                                                   & 0,089                                                           & 0,405                                                              \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 10 różnych wartości parametru k}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnej liczby sąsiadów (Topics)}
 \begin{tabular}{|c|c|c|c|}
@@ -465,9 +605,29 @@ Brak cechy 9                                                                    
 \includegraphics[width=1\textwidth]{i8}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Liczba sąsiadów} & \textbf{Recall earn} & \textbf{Precision earn} & \textbf{Recall acq} & \textbf{Precision acq} \\ \hline
+1                        & 0,897                & 0,899                   & 0,822               & 0,819                  \\ \hline
+3                        & 0,901                & 0,928                   & 0,877               & 0,834                  \\ \hline
+4                        & 0,873                & 0,96                    & 0,936               & 0,807                  \\ \hline
+7                        & 0,906                & 0,946                   & 0,908               & 0,845                  \\ \hline
+11                       & 0,906                & 0,957                   & 0,928               & 0,847                  \\ \hline
+12                       & 0,894                & 0,968                   & 0,948               & 0,835                  \\ \hline
+13                       & 0,902                & 0,958                   & 0,93                & 0,843                  \\ \hline
+19                       & 0,901                & 0,961                   & 0,935               & 0,843                  \\ \hline
+37                       & 0,898                & 0,97                    & 0,951               & 0,841                  \\ \hline
+59                       & 0,884                & 0,974                   & 0,959               & 0,824                  \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 5 różnych podziałów na zbiór uczący i testowy (Topics)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy}
 \begin{tabular}{|c|c|c|c|}
@@ -495,9 +655,25 @@ Brak cechy 9                                                                    
 \includegraphics[width=1\textwidth]{i12}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla różnych etykiet}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział \\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall \\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  usa\end{tabular}} & \textbf{Precision usa} \\ \hline
+30,00\%                                                            & 0,018                                                                    & 0,444                                                                      & 0,99                                                           & 0,825                  \\ \hline
+40,00\%                                                            & 0,031                                                                    & 0,333                                                                      & 0,99                                                           & 0,823                  \\ \hline
+50,00\%                                                            & 0,019                                                                    & 0,375                                                                      & 0,987                                                          & 0,83                   \\ \hline
+60,00\%                                                            & 0,033                                                                    & 0,444                                                                      & 0,989                                                          & 0,833                  \\ \hline
+70,00\%                                                            & 0,028                                                                    & 0,429                                                                      & 0,991                                                          & 0,828                  \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Topics)}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla różnych metryk/miar}
 \begin{tabular}{|c|c|c|c|}
@@ -525,11 +701,27 @@ Nasza metryka                & 0,907             & 0,916                  & 0,89
 \includegraphics[width=1\textwidth]{i10}
 \end{figure}
 
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych metryk z podziałem na etykiet}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Metryka}                                                         & \textbf{Recall earn} & \textbf{Precision earn} & \textbf{Recall acq} & \textbf{Precision acq} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Średnia\\ arytmetyczna\\ minimum\end{tabular} & 0,871                & 0,978                   & 0,966               & 0,809                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Czebyszewa\end{tabular}             & 0,89                 & 0,968                   & 0,947               & 0,829                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Euklidesa\end{tabular}              & 0,898                & 0,97                    & 0,951               & 0,841                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Minimum\\ -maximum\end{tabular}               & 0,871                & 0,978                   & 0,966               & 0,809                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Metryka\\ Uliczna\end{tabular}                & 0,887                & 0,971                   & 0,953               & 0,826                  \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nasza\\ metryka\end{tabular}                  & 0,882                & 0,969                   & 0,949               & 0,82                   \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla różnych cech (Topics)}
 
 Podstawowe cechy to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \caption{Wyniki klasyfikacji dla 4 podzbiorów cech}
 \begin{tabular}{|c|c|c|c|}
@@ -544,11 +736,27 @@ Brak cechy 10                                                                   
 \end{center}
 \end{table}
 
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla 4 podzbiorów cech z podziałem na etykiety}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Różnice\\ w cechach\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ earn\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ earn\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ acq\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ acq\end{tabular}} \\ \hline
+Podstawowe                                                           & 0,909                                                          & 0,966                                                             & 0,943                                                         & 0,852                                                            \\ \hline
+\begin{tabular}[c]{@{}l@{}}Dodatkowo\\ 12 13\end{tabular}            & 0,921                                                          & 0,981                                                             & 0,967                                                         & 0,872                                                            \\ \hline
+Brak 11                                                              & 0,879                                                          & 0,951                                                             & 0,919                                                         & 0,809                                                            \\ \hline
+Brak 3                                                               & 0,829                                                          & 0,966                                                             & 0,948                                                         & 0,755                                                            \\ \hline
+Brak 10                                                              & 0,917                                                          & 0,964                                                             & 0,938                                                         & 0,863                                                            \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Porównanie naszej metryki z metryką Czebyszewa  (Places)}
 
 \begin{table}[H]
 \begin{center}
-\caption{Wyniki klasyfikacji dla 4 podzbiorów cech}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Liczba sąsiadów} & \textbf{\begin{tabular}[c]{@{}c@{}}Accuracy \\ Nasza Metryka\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Accuracy\\ Metryka Czebyszewa\end{tabular}} \\ \hline
@@ -565,6 +773,87 @@ Brak cechy 10                                                                   
 \end{tabular}
 \end{center}
 \end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety (Nasza metryka)}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  france\end{tabular}} \\ \hline
+1                                                                  & 0,171                                                                  & 0,149                                                                     & 0,808                                                         & 0,883                                                            & 0,111                                                            & 0,075                                                                \\ \hline
+3                                                                  & 0,081                                                                  & 0,204                                                                     & 0,882                                                         & 0,885                                                            & 0,156                                                            & 0,083                                                                \\ \hline
+4                                                                  & 0,098                                                                  & 0,231                                                                     & 0,897                                                         & 0,879                                                            & 0,078                                                            & 0,062                                                                \\ \hline
+7                                                                  & 0,057                                                                  & 0,179                                                                     & 0,952                                                         & 0,866                                                            & 0,1                                                              & 0,155                                                                \\ \hline
+11                                                                 & 0,049                                                                  & 0,261                                                                     & 0,973                                                         & 0,856                                                            & 0,089                                                            & 0,216                                                                \\ \hline
+12                                                                 & 0,033                                                                  & 0,2                                                                       & 0,974                                                         & 0,854                                                            & 0,089                                                            & 0,235                                                                \\ \hline
+13                                                                 & 0,049                                                                  & 0,353                                                                     & 0,975                                                         & 0,851                                                            & 0,056                                                            & 0,185                                                                \\ \hline
+19                                                                 & 0,024                                                                  & 0,273                                                                     & 0,985                                                         & 0,843                                                            & 0,044                                                            & 0,222                                                                \\ \hline
+37                                                                 & 0,008                                                                  & 0,333                                                                     & 0,994                                                         & 0,83                                                             & 0,011                                                            & 0,167                                                                \\ \hline
+59                                                                 & 0                                                                      & 0                                                                         & 0,998                                                         & 0,821                                                            & 0                                                                & 0                                                                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety (Nasza Metryka)}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ japan\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ japan\end{tabular}} \\ \hline
+1                                                                  & 0,382                                                        & 0,297                                                           & 0,187                                                            & 0,125                                                               & 0,33                                                            & 0,267                                                              \\ \hline
+3                                                                  & 0,335                                                        & 0,376                                                           & 0,165                                                            & 0,141                                                               & 0,236                                                           & 0,241                                                              \\ \hline
+4                                                                  & 0,368                                                        & 0,379                                                           & 0,152                                                            & 0,155                                                               & 0,204                                                           & 0,235                                                              \\ \hline
+7                                                                  & 0,374                                                        & 0,439                                                           & 0,076                                                            & 0,224                                                               & 0,215                                                           & 0,293                                                              \\ \hline
+11                                                                 & 0,365                                                        & 0,506                                                           & 0,057                                                            & 0,273                                                               & 0,194                                                           & 0,349                                                              \\ \hline
+12                                                                 & 0,359                                                        & 0,508                                                           & 0,06                                                             & 0,311                                                               & 0,194                                                           & 0,352                                                              \\ \hline
+13                                                                 & 0,365                                                        & 0,512                                                           & 0,044                                                            & 0,311                                                               & 0,178                                                           & 0,327                                                              \\ \hline
+19                                                                 & 0,324                                                        & 0,545                                                           & 0,029                                                            & 0,375                                                               & 0,178                                                           & 0,405                                                              \\ \hline
+37                                                                 & 0,285                                                        & 0,63                                                            & 0                                                                & 0                                                                   & 0,152                                                           & 0,558                                                              \\ \hline
+59                                                                 & 0,232                                                        & 0,681                                                           & 0                                                                & 0                                                                   & 0,058                                                           & 0,611                                                              \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety (Metryka Czebyszewa)}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\ france\end{tabular}} \\ \hline
+1                                                                  & 0,179                                                                  & 0,142                                                                     & 0,807                                                         & 0,875                                                            & 0,089                                                            & 0,066                                                               \\ \hline
+3                                                                  & 0,089                                                                  & 0,224                                                                     & 0,866                                                         & 0,878                                                            & 0,089                                                            & 0,052                                                               \\ \hline
+4                                                                  & 0,114                                                                  & 0,255                                                                     & 0,884                                                         & 0,868                                                            & 0,1                                                              & 0,087                                                               \\ \hline
+7                                                                  & 0,081                                                                  & 0,27                                                                      & 0,944                                                         & 0,856                                                            & 0,078                                                            & 0,091                                                               \\ \hline
+11                                                                 & 0,065                                                                  & 0,242                                                                     & 0,964                                                         & 0,847                                                            & 0,033                                                            & 0,088                                                               \\ \hline
+12                                                                 & 0,041                                                                  & 0,208                                                                     & 0,969                                                         & 0,843                                                            & 0,022                                                            & 0,061                                                               \\ \hline
+13                                                                 & 0,024                                                                  & 0,167                                                                     & 0,973                                                         & 0,843                                                            & 0                                                                & 0                                                                   \\ \hline
+19                                                                 & 0,049                                                                  & 0,316                                                                     & 0,983                                                         & 0,838                                                            & 0,011                                                            & 0,062                                                               \\ \hline
+37                                                                 & 0,016                                                                  & 0,4                                                                       & 0,994                                                         & 0,825                                                            & 0                                                                & 0                                                                   \\ \hline
+59                                                                 & 0                                                                      & 0                                                                         & 0,997                                                         & 0,82                                                             & 0                                                                & 0                                                                   \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów z podziałem na etykiety (Metryka Czebyszewa)}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\begin{tabular}[c]{@{}l@{}}Liczba\\ sąsiadów\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ uk\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ uk\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ canada\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ canada\end{tabular} & \begin{tabular}[c]{@{}l@{}}Recall\\ japan\end{tabular} & \begin{tabular}[c]{@{}l@{}}Precision\\ japan\end{tabular} \\ \hline
+1                                                         & 0,261                                               & 0,159                                                  & 0,114                                                   & 0,309                                                      & 0,245                                                  & 0,267                                                     \\ \hline
+3                                                         & 0,309                                               & 0,152                                                  & 0,134                                                   & 0,225                                                      & 0,207                                                  & 0,241                                                     \\ \hline
+4                                                         & 0,325                                               & 0,124                                                  & 0,132                                                   & 0,209                                                      & 0,227                                                  & 0,235                                                     \\ \hline
+7                                                         & 0,422                                               & 0,051                                                  & 0,165                                                   & 0,162                                                      & 0,215                                                  & 0,293                                                     \\ \hline
+11                                                        & 0,466                                               & 0,019                                                  & 0,146                                                   & 0,178                                                      & 0,276                                                  & 0,349                                                     \\ \hline
+12                                                        & 0,473                                               & 0,016                                                  & 0,167                                                   & 0,162                                                      & 0,29                                                   & 0,352                                                     \\ \hline
+13                                                        & 0,479                                               & 0,016                                                  & 0,161                                                   & 0,157                                                      & 0,286                                                  & 0,327                                                     \\ \hline
+19                                                        & 0,518                                               & 0                                                      & 0                                                       & 0,131                                                      & 0,316                                                  & 0,405                                                     \\ \hline
+37                                                        & 0,58                                                & 0                                                      & 0                                                       & 0,084                                                      & 0,471                                                  & 0,558                                                     \\ \hline
+59                                                        & 0,636                                               & 0                                                      & 0                                                       & 0,052                                                      & 0,5                                                    & 0,611                                                     \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
 }
 
 \section{Dyskusja}
@@ -572,25 +861,25 @@ Brak cechy 10                                                                   
 
 Liczba sąsiadów
 
-W poniższej dyskusji odwołujemy się do Rysunków 2 i 8 oraz Tabel 1 i 5
+W poniższej dyskusji odwołujemy się do Rysunków 2 i 8 oraz Tabel 1 i 13
 
 Po wyznaczeniu klasyfikacji metodą Knn dla różnej liczby sąsiadów otrzymaliśmy podobne wyniki w przypadku klasyfikacji w kategorii „places” (6 etykiet) i „topic” (2 etykiety). W obu przypadkach można zauważyć znaczy wzrost dokładności klasyfikacji przy zwiększaniu liczby sąsiadów od 1 do 11. Wynika z tego, że zbyt mała liczba sąsiadów znacznie obniża accuracy klasyfikacji. Powyżej 11 sąsiadów accuracy w przypadku kategorii „topic” się stabilizuje i waha wokół wartości osiągniętej w przypadku 11 sąsiadów.  W przypadku kategorii „places” accuracy bardzo powoli ale jednak rośnie aż do 37 sąsiadów. Wynika z tego, że liczba sąsiadów przy której metoda Knn osiąga największe accuracy rośnie wraz z liczbą etykiet na które dzielimy dany zbiór. Wynika z tego również, że zbyt duża liczba sąsiadów zwiększa tylko czas obliczeń a nie poprawia otrzymanego wyniku.
 \\*
 \par Podział danych na zbiór uczący i testowy
 
-Poniżej odwołujemy się do Rysunków 4 i 10 oraz Tabel 2 i 6
+Poniżej odwołujemy się do Rysunków 4 i 10 oraz Tabel 4 i 15
 
 W oby kategoriach „places” i „topic” otrzymaliśmy podobne wyniki. Różnica pomiędzy najlepszym i najgorszym wynikiem nie przekraczała 2\%. Najlepszy wynik otrzymaliśmy dla podziału 60\% danych na zbiór uczący oraz 4\% danych na zbiór testowy. Natomiast najgorszy wynik otrzymaliśmy w zestawie który jest lustrzanym odbiciem poprzedniego czyli 40\% na zbiór uczący i 60\% na zbiór testowy. Wynika z tego, że podział na zbiór uczący i testowy nie ma dużego wpływu na otrzymane wyniki. Wynika z tego również, że to który podział jest najlepszy a który najgorszy jest niezależne od kategorii i ilości etykiet według których chcemy klasyfikować nasze dane. Dodatkowo wynika z tego że podział 60\% na zbiór uczący i 40\% na zbiór testowy jest dużo lepszym podziałem niż podział 40\% na zbiór uczący i 60\% na zbiór testowy.
 \\*
 \par Miara/Metryka
 
-Poniżej odwołujemy się do Rysunków 6 i 12 oraz Tabel 3 i 7
+Poniżej odwołujemy się do Rysunków 6 i 12 oraz Tabel 7 i 17
 
 W obu kategoriach „places” i „topic” otrzymaliśmy różne wyniki. Różnica pomiędzy najlepszym a najgorszym wynikiem znowu nie przekracza 2\%. W przypadku kategorii „places” dwie najlepsze metryki to „Metryka Uliczna” i „Nasza Metryka” a dwie najgorsze to „Metryka Euklidesa” i „Metryka Czebyszewa”. W przypadku kategorii „topic” dwie najlepsze metryki to „Metryka Czebyszewa” i „Metryka Euklidesa” a dwie najgorsze to „Średnia arytmetyczna minimum” i „Minimum maximum”. Wynika z tego, że metryka nie ma dużego wpływu na wynik. Wynika z tego również, że to która metryka jest najlepsza zależny od kategorii oraz ilości etykiet na które dzielimy nasz zbiór.
 \\*
 \par Różne cechy.
 
-Poniżej odwołujemy się do Tabel 4 i 8
+Poniżej odwołujemy się do Tabel 10 i 19
 
 W przypadku kategorii „places” znaczną przewagę nad innymi mają cechy z słowami kluczowymi dla poszczególnych etykiet (jednak jest ich 6 i muszą występować wszystkie razem). Wyniki dla pozostały cech bardzo mało się różnią. Jednak za dwie najlepsze to cechy 8 i 6 a za najgorszą ponieważ jej obecność pogarsza wynik cechę 9 W przypadku kategorii „topic” cech ze słowami kluczowymi dla poszczególny etykiet nie mają już tak dużego wpływu jak poprzednio. Dwie najlepsze cechy w tym przypadku to 11 i 3 a najgorsza jest cecha 10.. Wynika z tego, że jakość cechy bardzo mocno zależy od kategorii oraz etykiet na które dzielimy nasz zbiór. 
 }
@@ -606,7 +895,12 @@ W przypadku kategorii „places” znaczną przewagę nad innymi mają cechy z s
 \item  Metryka nie ma dużego wpływu na accuracy otrzymanego wyniku
 \item  To która metryka jest najlepsza silnie zależy od kategorii i tego na jakie etykiety dzielimy nasz zbiór.
 \item  Cechy mają duży wpływ na otrzymane wyniki.
-\item  To które cechy są najlepsze silnie zależy od kategorii i tego na jakie etykiety dzielimy nasz zbiór. 
+\item  To które cechy są najlepsze silnie zależy od kategorii i tego na jakie etykiety dzielimy nasz zbiór.
+\item  Metoda Knn daje dobre wyniki w przypadku gdy do każdej etykiet należy zbliżona  liczba elementów
+\item  Metoda Knn nie sprawdza się dobrze w przypadku gdy w zbiorze elementów z jednej etykiet jest znacznie więcej niż elementów należących do innych etykiet.
+\item  Accuracy nie jest dobrą miarą skuteczności metody aby otrzymać pełne informacje o działaniu metody należy obliczyć recall i precision dla każdej z etykiet 
+\item W przypadku gdy elementy należące do jednej z etykiet są dużo bardziej liczne niż elementy należące do innych etykiet metoda knn zdecydowanie częściej przypisuje testowy element do tej etykiety niż do innych nie zależnie od tego do jakiej etykiety powinien należeć element. 
+
 
 \end{enumerate}
 }
