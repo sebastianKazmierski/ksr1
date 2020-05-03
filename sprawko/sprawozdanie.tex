@@ -424,6 +424,37 @@ Cechy: 1,2,3,4,5,6,7,8,9,10,11
 \includegraphics[width=1\textwidth]{i4}
 \end{figure}
 
+
+\begin{table}[h]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział\\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\    west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  usa\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  france\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision \\ france\end{tabular}} \\ \hline
+30\%                                                              & 0,018                                                                     & 0,444                                                                      & 0,99                                                           & 0,825                                                             & 0,019                                                             & 0,2                                                                  \\ \hline
+40\%                                                              & 0,031                                                                     & 0,333                                                                      & 0,99                                                           & 0,823                                                             & 0                                                                 & 0                                                                    \\ \hline
+50\%                                                              & 0,019                                                                     & 0,375                                                                      & 0,987                                                          & 0,83                                                              & 0                                                                 & 0                                                                    \\ \hline
+60\%                                                              & 0,033                                                                     & 0,444                                                                      & 0,989                                                          & 0,833                                                             & 0,011                                                             & 0,25                                                                 \\ \hline
+70\%                                                              & 0,028                                                                     & 0,429                                                                      & 0,991                                                          & 0,828                                                             & 0,017                                                             & 1                                                                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnej liczby sąsiadów}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział\\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\ uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  uk\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  canada\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  japan\end{tabular}} & \textbf{Precision japan} \\ \hline
+30\%                                                              & 0,272                                                        & 0,561                                                            & 0                                                                 & 0                                                                    & 0,075                                                            & 0,293                    \\ \hline
+40\%                                                              & 0,279                                                        & 0,515                                                            & 0                                                                 & 0                                                                    & 0,108                                                            & 0,544                    \\ \hline
+50\%                                                              & 0,329                                                        & 0,536                                                            & 0                                                                 & 0                                                                    & 0,102                                                            & 0,26                     \\ \hline
+60\%                                                              & 0,312                                                        & 0,558                                                            & 0                                                                 & 0                                                                    & 0,089                                                            & 0,34                     \\ \hline
+70\%                                                              & 0,282                                                        & 0,607                                                            & 0                                                                 & 0                                                                    & 0,159                                                            & 0,365                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Places)}
 
 \begin{table}[h]
@@ -555,6 +586,22 @@ Brak cechy 9                                                                    
 \centering
 \includegraphics[width=1\textwidth]{i12}
 \end{figure}
+
+\begin{table}[h]
+\begin{center}
+\caption{Wyniki klasyfikacji dla różnych podziałów na zbiór uczący i testowy dla różnych etykiet}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Podział \\ danych\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall \\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Precision\\  west-germany\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Recall\\  usa\end{tabular}} & \textbf{Precision usa} \\ \hline
+30,00\%                                                            & 0,018                                                                    & 0,444                                                                      & 0,99                                                           & 0,825                  \\ \hline
+40,00\%                                                            & 0,031                                                                    & 0,333                                                                      & 0,99                                                           & 0,823                  \\ \hline
+50,00\%                                                            & 0,019                                                                    & 0,375                                                                      & 0,987                                                          & 0,83                   \\ \hline
+60,00\%                                                            & 0,033                                                                    & 0,444                                                                      & 0,989                                                          & 0,833                  \\ \hline
+70,00\%                                                            & 0,028                                                                    & 0,429                                                                      & 0,991                                                          & 0,828                  \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
 
 \subsection{Wyniki klasyfikacji metodą k-NN dla 6 różnych metryk/miar (Topics)}
 
