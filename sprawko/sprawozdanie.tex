@@ -225,6 +225,8 @@ accuracy = \frac{correct\ predictions}{total\ predictions}
 \end{equation}
 
 W celu obliczenia kolejnych miar tworzymy macierz błędu, której uproszczoną formą jest poniższa tabela [2]:
+\newline
+\newline
 
 \begin{center}
 	\begin{tabular}{ |c|c|c|c| } 
@@ -238,7 +240,17 @@ W celu obliczenia kolejnych miar tworzymy macierz błędu, której uproszczoną 
 	\end{tabular}
 \end{center}
 
+\newpage
+W powyższej tabeli wyróżniamy cztery rodzaje klasyfikacji:
+\begin{enumerate}
+\item True Positive - prawdziwie pozytywna - wartość, która powinna zostać sklasyfikowana jako \emph{Positive}, została tak sklasyfikowana
+\item True Negative - prawdziwie negatywna - wartość, która powinna zostać sklasyfikowana jako \emph{Negative}, została tak sklasyfikowana
+\item False Positive - fałszywie pozytywna - wartość, która \textbf{nie} powinna zostać sklasyfikowana jako \emph{Positive}, została tak sklasyfikowana
+\item False Negative - fałszywie negatywna - wartość, która \textbf{nie} powinna zostać sklasyfikowana jako \emph{Negative}, została tak sklasyfikowana
+\newline
+\end{enumerate}
 W naszym przypadku musimy zakwalifikować 6, a nie 2 klasy, więc macierz błędu ma w rzeczywistości wymiary 6 x 6.
+
 
 \subsubsection{Precision - precyzja}
 Precyzja określa stosunek poprawnie zakwalifikowanych obiektów danej klasy do wszystkich prognoz, które wskazują na tę klasę (suma słusznie i niesłusznie zakwalifikowanych obiektów)
